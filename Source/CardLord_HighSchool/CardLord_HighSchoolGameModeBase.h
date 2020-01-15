@@ -15,5 +15,7 @@ class CARDLORD_HIGHSCHOOL_API ACardLord_HighSchoolGameModeBase : public AGameMod
 	GENERATED_BODY()
 
 		virtual void StartPlay() override;
+
+public: ACardLord_HighSchoolGameModeBase();
 	
 };

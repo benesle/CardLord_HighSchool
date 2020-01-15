@@ -6,10 +6,23 @@
 #include "GameFramework/Character.h"
 #include "MyCharacter.generated.h"
 
-UCLASS()
+UCLASS(config = Game)
 class CARDLORD_HIGHSCHOOL_API AMyCharacter : public ACharacter
 {
 	GENERATED_BODY()
+
+public:
+	/** Side view camera */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class UCameraComponent* SideViewCameraComponent;
+
+	/** Camera boom positioning the camera beside the character */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class USpringArmComponent* CameraBoom;
+
+	//Movement
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyCharacter rotation movement")
+		float CRotationRate = 540;
 
 public:
 	// Sets default values for this character's properties
@@ -19,12 +32,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	// Handles input for moving forward and backward.
 	UFUNCTION()
@@ -33,4 +46,9 @@ public:
 	// Handles input for moving right and left.
 	UFUNCTION()
 		void MoveRight(float Value);
+
+	/** Returns SideViewCameraComponent subobject **/
+	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
+	/** Returns CameraBoom subobject **/
+	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 };
