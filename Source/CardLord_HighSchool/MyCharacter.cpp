@@ -34,6 +34,20 @@ AMyCharacter::AMyCharacter()
 	SideViewCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	SideViewCameraComponent->bUsePawnControlRotation = false; // We don't want the controller rotating the camera
 
+	// Create another camera boom attached to the root (capsule)
+	CameraRotatedBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraRotatedBoom"));
+	CameraRotatedBoom->SetupAttachment(RootComponent);
+	CameraRotatedBoom->SetUsingAbsoluteRotation(true); // Rotation of the character should not affect rotation of boom
+	CameraRotatedBoom->bDoCollisionTest = false;
+	CameraRotatedBoom->TargetArmLength = 500.f;
+	CameraRotatedBoom->SocketOffset = FVector(0.f, 0.f, 75.f);
+	CameraRotatedBoom->SetRelativeRotation(FRotator(0.f, 180.f, 0.f));
+
+	// Create a camera and attach to boom
+	SideViewRotatedCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("SideViewRotatedCamera"));
+	SideViewRotatedCameraComponent->SetupAttachment(CameraRotatedBoom, USpringArmComponent::SocketName);
+	SideViewRotatedCameraComponent->bUsePawnControlRotation = false; // Again we don't want the controller rotating the camera
+
 	// Configure character movement
 	GetCharacterMovement()->bOrientRotationToMovement = true; // Face in the direction we are moving..
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, CRotationRate, 0.0f); // ...at this rotation rate
