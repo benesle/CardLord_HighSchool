@@ -7,6 +7,7 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/PlayerController.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -90,20 +91,102 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 void AMyCharacter::MoveForward(float Value)
 {
-	// Find out which way is "forward" and record that the player wants to move that way.
+	//Fire caser i forhold til rotasjonen på kameraet
+	if (CameraSwitch == 0)
+	{//0  //Da er CameraRotation = 90 -> Normal
+
+		// Find out which way is "forward" and record that the player wants to move that way.
+		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
+		// add movement in that direction
+		AddMovementInput(Direction, Value);
+		UE_LOG(LogTemp, Warning, TEXT("MoveForward 0"));
+	}
+	else if (CameraSwitch == 1)
+	{	//1 CameraRoation = 180 
+		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
+		AddMovementInput(Direction, -Value);
+		UE_LOG(LogTemp, Warning, TEXT("MoveForward 1"));
+
+	}
+	else if (CameraSwitch == 2)
+	{
+		//2 CameraRotation = 270
+
+	//	// Find out which way is "forward" and record that the player wants to move that way.
 	FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
 
 	// add movement in that direction
-	AddMovementInput(Direction, Value);
+	AddMovementInput(Direction, -Value);
+	}
+
+	//3 CameraRotation = 0
+
+	else if (CameraSwitch == 3)
+	{
+		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
+		AddMovementInput(Direction, Value);
+	}
+
+
+	//// Find out which way is "forward" and record that the player wants to move that way.
+	//FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
+
+	//// add movement in that direction
+	//AddMovementInput(Direction, Value);
 }
 
 void AMyCharacter::MoveRight(float Value)
 {
-	// Find out which way is "right" and record that the player wants to move that way.
-	FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
-	AddMovementInput(Direction, Value);
 
-	//AddMovementInput(FVector(0.f, -1.f, 0.f), Value);
+	//Fire caser i forhold til rotasjonen på kameraet
+	if (CameraSwitch == 0)
+	{//0  //Da er CameraRotation = 90 -> Normal
+
+		// Find out which way is "forward" and record that the player wants to move that way.
+		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
+		// add movement in that direction
+		AddMovementInput(Direction, Value);
+		UE_LOG(LogTemp, Warning, TEXT("MoveRight 0"));
+	}
+	else if (CameraSwitch == 1)
+	{	//1 CameraRoation = 180 
+		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
+		AddMovementInput(Direction, Value);
+		UE_LOG(LogTemp, Warning, TEXT("MoveRight 1"));
+
+	}
+	else if (CameraSwitch == 2)
+	{
+		//2 CameraRotation = 270
+
+	//	// Find out which way is "forward" and record that the player wants to move that way.
+		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
+
+		// add movement in that direction
+		AddMovementInput(Direction, -Value);
+	}
+
+	//3 CameraRotation = 0
+
+	else if (CameraSwitch == 3)
+	{
+		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
+		AddMovementInput(Direction, -Value);
+	}
+
+
+
+
+
+
+
+
+
+	//// Find out which way is "right" and record that the player wants to move that way.
+	//FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
+	//AddMovementInput(Direction, Value);
+
+	////AddMovementInput(FVector(0.f, -1.f, 0.f), Value);
 	
 }
 

@@ -32,6 +32,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyCharacter rotation movement")
 		float CRotationRate = 540;
 
+	int CameraSwitch = 0;
 public:
 	// Sets default values for this character's properties
 	AMyCharacter();
