@@ -30,6 +30,20 @@ void AMyTriggerBox::OnOverlapBegin(class AActor* OverlappedActor, class AActor* 
     // check if Actors do not equal nullptr and that 
     if (OtherActor && OtherActor != this)
     {
+
+		if (Cast<AMyCharacter>(OtherActor))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("OtherActor Overlap Character"));
+
+			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("OtherActor Overlap Character"));
+		}
+		if (Cast<AMyCharacter>(OverlappedActor))
+		{
+			
+			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Overlapped Overlap Character"));
+		}
+
+
         if (GEngine)
         {
             GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Overlap Begin"));

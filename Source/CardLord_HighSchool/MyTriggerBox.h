@@ -4,7 +4,6 @@
 #include "Engine/TriggerBox.h"
 #include "MyTriggerBox.generated.h"
 
-class AMyCharcter;
 UCLASS()
 class CARDLORD_HIGHSCHOOL_API AMyTriggerBox : public ATriggerBox
 {
