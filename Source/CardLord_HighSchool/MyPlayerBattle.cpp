@@ -2,6 +2,7 @@
 
 
 #include "MyPlayerBattle.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 AMyPlayerBattle::AMyPlayerBattle()
@@ -36,5 +37,14 @@ void AMyPlayerBattle::playerAttack()
 {
 	AttackSlots playerAttackSlots(hit, kick, brace, motivate);
 	
+}
+
+void AMyPlayerBattle::DamageCharacter(float Value)
+{
+	Health = Health - Value;
+	if (Health < 0)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, TEXT("Health is below 0"));
+	}
 }
 

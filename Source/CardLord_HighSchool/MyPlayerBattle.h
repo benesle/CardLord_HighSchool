@@ -27,6 +27,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION()
+		void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 	
 	void playerAttack();
 
@@ -93,6 +95,11 @@ public:
 		}
 
 	};
+
+	int Health = 100;
+	int Stamina = 100;
+
+	void DamageCharacter(float Value);
 };
 
 
