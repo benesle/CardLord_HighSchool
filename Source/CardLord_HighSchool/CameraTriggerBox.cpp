@@ -4,6 +4,7 @@
 #include "CameraTriggerBox.h"
 #include "Components/BoxComponent.h"
 #include "MyCharacter.h"
+#include <iostream>
 #include "GameFramework/SpringArmComponent.h"
 // Sets default values
 ACameraTriggerBox::ACameraTriggerBox()
@@ -50,6 +51,8 @@ void ACameraTriggerBox::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AAc
 		
 		bIsCharacterOverlapping = true;
 		UE_LOG(LogTemp, Warning, TEXT("Overlapping character,CameraSwitch %d"), temp->CameraSwitch);
+		WalkThrough = false;
+		
 	}
 }
 
@@ -59,15 +62,17 @@ void ACameraTriggerBox::OnOverlapEnd(UPrimitiveComponent * OverlappedComp, AActo
 	{
 		bIsCharacterOverlapping = false;
 		UE_LOG(LogTemp, Warning, TEXT("End Overlapping character"));
+		WalkThrough = true;
+
 	}
 		
-
 }
+
 
 void ACameraTriggerBox::SetCameraRotation()
 {
 
-	if (CameraSwitcher == 0)
+	if (CameraSwitcher == 0 )
 	{
 		CameraRotation = FRotator(0, 90, 0);
 	}
@@ -79,9 +84,13 @@ void ACameraTriggerBox::SetCameraRotation()
 	{
 		CameraRotation = FRotator(0, 270, 0);
 	}
-	else if (CameraSwitcher == 3) 
+	else if (CameraSwitcher == 3 ) 
 	{
 		CameraRotation = FRotator(0, 0, 0);
+
 	}
+	
 }
+
+ 
 
