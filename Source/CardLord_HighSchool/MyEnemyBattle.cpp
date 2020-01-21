@@ -92,9 +92,9 @@ void AMyEnemyBattle::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s Is A static class"), *OtherActor->GetName()));
 			
-			AMyPlayerBattle playerBattle;
+			//AMyPlayerBattle playerBattle;
 
-			playerBattle.DamageCharacter(power);
+			//playerBattle.DamageCharacter(power);
 
 		}
 	}

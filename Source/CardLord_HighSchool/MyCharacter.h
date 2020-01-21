@@ -56,10 +56,6 @@ public:
 	UFUNCTION()
 		void MoveRight(float Value);
 
-	UFUNCTION()
-		void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
-
-	int Health = 100;
 
 	/** Returns SideViewCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }

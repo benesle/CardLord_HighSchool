@@ -8,6 +8,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "GameFramework/Actor.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -61,6 +62,8 @@ AMyCharacter::AMyCharacter()
 
 		// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	   PrimaryActorTick.bCanEverTick = true;
+
+	  
 
 }
 
@@ -190,22 +193,3 @@ void AMyCharacter::MoveRight(float Value)
 
 }
 
-void AMyCharacter::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
-{
-	//AMyCharacter Character;
-	/*	FColor DisplayColor = FColor::Yellow;
-	const FString DebugMessage(OtherActor->GetName());
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, DisplayColor, DebugMessage); */
-
-	if (OtherActor)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s has been hit"), *OtherActor->GetName()));
-		if (OtherActor->IsA(AMyCharacter::StaticClass()))
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s Is A static class"), *OtherActor->GetName()));
-
-			Health = Health - 10;
-
-		}
-	}
-}
