@@ -90,12 +90,23 @@ void AMyEnemyBattle::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s has been hit"), *OtherActor->GetName()));
 		if (OtherActor->IsA(AMyCharacter::StaticClass()))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s Is A static class"), *OtherActor->GetName()));
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s Is A static class cube"), *OtherActor->GetName()));
 			
-			//AMyPlayerBattle playerBattle;
+			//AMyPlayerBattle *playerBattle;
 
 			//playerBattle.DamageCharacter(power);
 
 		}
+		/*if (Cast<AMyCharacter>(OtherActor))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("OtherActor Overlap Character"));
+
+			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("OtherActor hitting cube"));
+		}
+		if (Cast<AMyCharacter>(SelfActor))
+		{
+
+			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Overlapped Overlap Person"));
+		}*/
 	}
 }

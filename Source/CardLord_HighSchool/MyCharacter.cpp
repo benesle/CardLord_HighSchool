@@ -2,6 +2,7 @@
 
 
 #include "MyCharacter.h"
+#include "MyEnemyBattle.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -16,6 +17,8 @@ AMyCharacter::AMyCharacter()
 
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+
+	OnActorHit.AddDynamic(this, &AMyCharacter::OnHit);
 
 	// Don't rotate when the controller rotates.
 	bUseControllerRotationPitch = false;
@@ -63,7 +66,7 @@ AMyCharacter::AMyCharacter()
 		// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	   PrimaryActorTick.bCanEverTick = true;
 
-	  
+	   
 
 }
 
@@ -102,13 +105,13 @@ void AMyCharacter::MoveForward(float Value)
 		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
-		UE_LOG(LogTemp, Warning, TEXT("MoveForward 0"));
+		//UE_LOG(LogTemp, Warning, TEXT("MoveForward 0"));
 	}
 	else if (CameraSwitch == 1)
 	{	//1 CameraRoation = 180 
 		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
 		AddMovementInput(Direction, -Value);
-		UE_LOG(LogTemp, Warning, TEXT("MoveForward 1"));
+		//UE_LOG(LogTemp, Warning, TEXT("MoveForward 1"));
 
 	}
 	else if (CameraSwitch == 2)
@@ -149,13 +152,13 @@ void AMyCharacter::MoveRight(float Value)
 		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
-		UE_LOG(LogTemp, Warning, TEXT("MoveRight 0"));
+		//UE_LOG(LogTemp, Warning, TEXT("MoveRight 0"));
 	}
 	else if (CameraSwitch == 1)
 	{	//1 CameraRoation = 180 
 		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
 		AddMovementInput(Direction, Value);
-		UE_LOG(LogTemp, Warning, TEXT("MoveRight 1"));
+		//UE_LOG(LogTemp, Warning, TEXT("MoveRight 1"));
 
 	}
 	else if (CameraSwitch == 2)
@@ -191,5 +194,40 @@ void AMyCharacter::MoveRight(float Value)
 
 	////AddMovementInput(FVector(0.f, -1.f, 0.f), Value);
 
+
 }
 
+void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
+{
+	//AMyCharacter Character;
+	/*	FColor DisplayColor = FColor::Yellow;
+	const FString DebugMessage(OtherActor->GetName());
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, DisplayColor, DebugMessage); */
+
+	UE_LOG(LogTemp, Warning, TEXT("OnHited"));
+
+	if (OtherActor)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s BOXY BOX"), *OtherActor->GetName()));
+		/*if (OtherActor->IsA(AMyCharacter::StaticClass()))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("MoveForward 0"));
+
+			Health = Health - 10;
+
+			UE_LOG(LogTemp, Warning, TEXT("%f MoveForward 0"), Health);
+
+		}*/
+		if (Cast<AMyEnemyBattle>(OtherActor))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("OtherActor Overlap Character"));
+
+			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("OtherActor Overlap Character"));
+		}
+		if (Cast<AMyEnemyBattle>(SelfActor))
+		{
+
+			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Overlapped Overlap Character"));
+		}
+	}
+}

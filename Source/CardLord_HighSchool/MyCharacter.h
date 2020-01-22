@@ -55,7 +55,9 @@ public:
 	// Handles input for moving right and left.
 	UFUNCTION()
 		void MoveRight(float Value);
-
+	
+	UFUNCTION()
+		void OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit);
 
 	/** Returns SideViewCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
@@ -66,4 +68,8 @@ public:
 	FORCEINLINE class UCameraComponent* GetSideViewRotatedCameraComponent() const { return SideViewRotatedCameraComponent; }
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraRotatedBoom() const { return CameraRotatedBoom; }
+
+	
+
+	int Health = 100;
 };
