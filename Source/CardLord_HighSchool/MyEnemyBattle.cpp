@@ -110,3 +110,8 @@ void AMyEnemyBattle::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 		}*/
 	}
 }
+
+float AMyEnemyBattle::DamageCharacter(float damage)
+{
+	return damage;
+}

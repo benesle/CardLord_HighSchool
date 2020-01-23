@@ -71,5 +71,5 @@ public:
 
 	
 
-	int Health = 100;
+	float Health = 100;
 };

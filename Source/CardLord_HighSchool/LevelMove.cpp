@@ -30,6 +30,7 @@ void ALevelMove::OnOverlapBegin( AActor* OverlappedActor, AActor* OtherActor)
 			{
 				StartPosition = OtherActor->GetActorLocation();
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
+				// Battle position is -500,-200 no elevation
 				OtherActor->SetActorLocation({ -500,-200,118.150 });
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
 			}

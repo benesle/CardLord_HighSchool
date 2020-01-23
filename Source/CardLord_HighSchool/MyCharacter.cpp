@@ -204,11 +204,11 @@ void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector Normal
 	const FString DebugMessage(OtherActor->GetName());
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, DisplayColor, DebugMessage); */
 
-	UE_LOG(LogTemp, Warning, TEXT("OnHited"));
+	//UE_LOG(LogTemp, Warning, TEXT("OnHited"));
 
 	if (OtherActor)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s BOXY BOX"), *OtherActor->GetName()));
+		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s BOXY BOX"), *OtherActor->GetName()));
 		/*if (OtherActor->IsA(AMyCharacter::StaticClass()))
 		{
 			UE_LOG(LogTemp, Warning, TEXT("MoveForward 0"));
@@ -220,7 +220,10 @@ void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector Normal
 		}*/
 		if (Cast<AMyEnemyBattle>(OtherActor))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("OtherActor Overlap Character"));
+			AMyEnemyBattle* NewEnemy = Cast<AMyEnemyBattle>(OtherActor);
+			Health = Health - NewEnemy->DamageCharacter(10);
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%f BOXY BOX"), AMyCharacter::Health));
+			UE_LOG(LogTemp, Warning, TEXT("%f Overlap Character"), Health);
 
 			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("OtherActor Overlap Character"));
 		}

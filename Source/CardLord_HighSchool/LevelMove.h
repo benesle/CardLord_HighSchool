@@ -27,5 +27,6 @@ public:
 		void OnOverlapBegin( AActor* OverlappedActor, AActor* OtherActor);
 
 	FVector StartPosition = { 0,0,0 };
+	FVector CameraPosition = { 0,0,0 };
 
 };

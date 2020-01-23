@@ -70,6 +70,6 @@ public:
 	
 	float power = 90;
 
-	
+	float DamageCharacter(float damage);
 
 };
