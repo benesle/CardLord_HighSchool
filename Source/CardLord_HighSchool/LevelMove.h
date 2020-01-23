@@ -29,4 +29,6 @@ public:
 	FVector StartPosition = { 0,0,0 };
 	FVector CameraPosition = { 0,0,0 };
 
+	//bool InBattleMode = true;
+
 };

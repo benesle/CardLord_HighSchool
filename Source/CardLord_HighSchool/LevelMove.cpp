@@ -5,6 +5,8 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFrameWork/Actor.h"
 #include "MyCharacter.h"
+#include "Engine/EngineBaseTypes.h"
+
 
 ALevelMove::ALevelMove()
 {
@@ -26,20 +28,38 @@ void ALevelMove::OnOverlapBegin( AActor* OverlappedActor, AActor* OtherActor)
 
 		if (Cast<AMyCharacter>(OtherActor))
 		{
-			if (StartPosition == FVector{0, 0, 0})
+			AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
+			if (MyCharacter->InBattleMode == true)
 			{
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
 				StartPosition = OtherActor->GetActorLocation();
+				
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
 				// Battle position is -500,-200 no elevation
-				OtherActor->SetActorLocation({ -500,-200,118.150 });
+				//OtherActor->SetActorLocation({ -500,-200,118.150 });
+				GetWorld()->ServerTravel(FString("/Game/Maps/BattleMap"));
+				//GetWorld()->SetGameMode(FURL("/Game/Gameplay/Blueprint/BP_BattleGameModeBase"));
+				//UWorld* SetGame
+				
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
+				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
+
+
+				MyCharacter->InBattleMode = true;
 			}
-			else if (StartPosition != FVector{0, 0, 0})
+			else if (MyCharacter->InBattleMode == false)
 			{
-				OtherActor->SetActorLocation(StartPosition);
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
+				//OtherActor->SetActorLocation(StartPosition);
 				StartPosition = FVector{ 0,0,0 };
+				
+				GetWorld()->ServerTravel(FString("/Game/Maps/HighSchoolMap"));
+				//GetWorld()->SetGameMode();
+
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
+				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
+				MyCharacter->InBattleMode = false;
 				
 			}
 			else
