@@ -5,6 +5,7 @@
 #include <string>
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "CombatUI.h"
 #include "MyPlayerBattle.generated.h"
 
 UCLASS()
