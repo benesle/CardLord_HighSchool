@@ -43,7 +43,8 @@ void ALevelMove::OnOverlapBegin( AActor* OverlappedActor, AActor* OtherActor)
 				
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
 				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
-
+				
+				
 
 				MyCharacter->InBattleMode = true;
 			}
@@ -60,6 +61,14 @@ void ALevelMove::OnOverlapBegin( AActor* OverlappedActor, AActor* OtherActor)
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
 				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
 				MyCharacter->InBattleMode = false;
+
+				if (UTransferStats* LoadedGame = Cast<UTransferStats>(UGameplayStatics::LoadGameFromSlot("ExportToBattle", 0)))
+				{
+					// The operation was successful, so LoadedGame now contains the data we saved earlier.
+					UE_LOG(LogTemp, Warning, TEXT("LOADED: %s"), *LoadedGame->PlayerName);
+					MyCharacter->Health = LoadedGame->TransferHealth;
+					//UE_LOG(LogTemp, Warning, TEXT("LOADED: %f"), *MyCharacter->Health);
+				}
 				
 			}
 			else

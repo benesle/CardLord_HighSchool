@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Engine/TriggerBox.h"
+#include "TransferStats.h"
+#include "Kismet/GameplayStatics.h"
 #include "LevelMove.generated.h"
 
 /**
