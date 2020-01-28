@@ -2,6 +2,7 @@
 
 
 #include "MyPlayerBattle.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 AMyPlayerBattle::AMyPlayerBattle()
@@ -37,4 +38,7 @@ void AMyPlayerBattle::playerAttack()
 	AttackSlots playerAttackSlots(hit, kick, brace, motivate);
 	
 }
+
+
+
 

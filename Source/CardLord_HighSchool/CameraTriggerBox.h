@@ -29,7 +29,7 @@ public:
 	//Min 0, Max 3
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CameraSwitcher = 0;
-	bool WalkThrough = false;
+	bool WalkThrough = true;
 
 protected:
 	// Called when the game starts or when spawned

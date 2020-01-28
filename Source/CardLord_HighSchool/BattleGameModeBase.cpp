@@ -23,6 +23,7 @@ void ABattleGameModeBase::StartPlay()
 
 ABattleGameModeBase::ABattleGameModeBase()
 {
+Benedicte
 
 	static ConstructorHelpers::FClassFinder<UUserWidget> CombatUserInterface(TEXT("/Game/Character/Player/Blueprints/BP_MyCharacterBaseBattle"));
 	HUDWidgetClass = CombatUserInterface.Class;
@@ -97,6 +98,13 @@ void ABattleGameModeBase::HandleNewState(EGamePlayState NewState)
 		// do nothing
 	}
 	break;
+=======
+	// set default pawn class to our Blueprinted character
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Character/Player/Blueprints/BP_MyCharacter"));
+	if (PlayerPawnBPClass.Class != NULL)
+	{
+		DefaultPawnClass = PlayerPawnBPClass.Class;
+ master
 	}
 }
 

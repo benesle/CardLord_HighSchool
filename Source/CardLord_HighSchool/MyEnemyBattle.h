@@ -4,6 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include <string>
+#include "TransferStats.h"
+#include "Kismet/GameplayStatics.h"
+#include "DrawDebugHelpers.h"
 #include "MyEnemyBattle.generated.h"
 
 UCLASS()
@@ -39,6 +43,35 @@ public:
 	void Defensive();
 	void Agressive();
 
+	
+	UFUNCTION()
+		void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 
+	
+
+	//structs
+	
+	struct Attack {
+		std::string name;
+		int power;
+		int accuracy;
+	}; // Attack slots
+
+	struct Attack_Bash : public Attack 
+	{
+		Attack_Bash() {
+			name = "Bash";
+			power = 30;
+			accuracy = 100;
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Initialized function"));
+			}
+		}
+	}Bash;
+	
+	float power = 90;
+
+	float DamageCharacter(float damage);
 
 };

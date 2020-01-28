@@ -32,6 +32,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyCharacter rotation movement")
 		float CRotationRate = 540;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LevelSwitch")
+		bool InBattleMode = false;
+
 	int CameraSwitch = 0;
 public:
 	// Sets default values for this character's properties
@@ -55,6 +58,9 @@ public:
 	// Handles input for moving right and left.
 	UFUNCTION()
 		void MoveRight(float Value);
+	
+	UFUNCTION()
+		void OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit);
 
 	/** Returns SideViewCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
@@ -65,4 +71,8 @@ public:
 	FORCEINLINE class UCameraComponent* GetSideViewRotatedCameraComponent() const { return SideViewRotatedCameraComponent; }
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraRotatedBoom() const { return CameraRotatedBoom; }
+
+	
+	//bool InBattleMode = false;
+	float Health = 100;
 };

@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "BattleGameModeBase.generated.h"
 
+Benedicte
 class AMyCharacterBaseBattle;
 //enum to store the current state of gameplay
 UENUM()
@@ -16,6 +17,7 @@ enum class EGamePlayState
 	EGameOver
 	
 };
+
 /**
  * 
  */
@@ -53,5 +55,8 @@ private:
 
 	/**Handle any function calls that rely upon changing the playing state of our game */
 	void HandleNewState(EGamePlayState NewState);
+
+=======
+public: ABattleGameModeBase();
 
 };
