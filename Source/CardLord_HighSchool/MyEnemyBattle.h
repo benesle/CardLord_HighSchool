@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include <string>
+#include "TransferStats.h"
+#include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
 #include "MyEnemyBattle.generated.h"
 
@@ -70,6 +72,6 @@ public:
 	
 	float power = 90;
 
-	
+	float DamageCharacter(float damage);
 
 };
