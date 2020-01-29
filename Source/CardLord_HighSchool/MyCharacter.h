@@ -12,6 +12,34 @@ class CARDLORD_HIGHSCHOOL_API AMyCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
+
+	//Players current Health
+	UFUNCTION(BlueprintCallable, Category = "Character|Health")
+		void SetCurrentHealth(float NewHealth) { CurrentHealth = NewHealth; }
+
+	UFUNCTION(BlueprintPure, Category = "Character|Health")
+		float GetCurrentHealth() const { return CurrentHealth; }
+
+	UFUNCTION(BlueprintPure, Category = "Character|Health")
+		float GetMaxHealth() const { return MaxHealth; }
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Character|Death")
+		void OnDeath();
+
+	virtual void OnDeath_Implementation() PURE_VIRTUAL(AMyCharacter::OnDeath_Implementation, );
+
+	float CurrentHealth;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Character|Health")
+		float MaxHealth;
+
+
+
+public:
 	/** Side view camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* SideViewCameraComponent;

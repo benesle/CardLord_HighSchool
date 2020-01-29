@@ -4,32 +4,40 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
+#include "Blueprint/UserWidget.h"
 #include "CombatUserInterface.generated.h"
 
 // This class does not need to be modified.
-UINTERFACE(MinimalAPI)
-class UCombatUserInterface : public UInterface
-{
-	GENERATED_BODY()
-};
+//UINTERFACE(MinimalAPI)
+//class UCombatUserInterface : public UInterface
+//{
+//	GENERATED_BODY()
+//};
 
 /**
  * 
  */
-class CARDLORD_HIGHSCHOOL_API ICombatUserInterface
+UCLASS()
+class CARDLORD_HIGHSCHOOL_API UCombatUserInterface: public UUserWidget
 {
 	GENERATED_BODY()
 
+
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
-public:
+protected:
 
 	//Set up Interface functionality
 	virtual FString GetTestName();
 
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category= Interfaces)
-	bool ReactToPlayerExited();
+	//Players Health
+	UFUNCTION(BlueprintPure, Category = "Widget|Gameplay")
+		float GetCurrentHealth();
 
-	//Declares a function that has to be implemented in C++
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category= Interfaces)
-		bool ReactToPlayerEntered();
+	//Players Stamina/Motivation
+	UFUNCTION(BlueprintPure, Category = "Widget|Gameplay")
+		float GetCurrentStamina();
+
+	//Players Money balance
+	UFUNCTION(BlueprintPure, Category = "Widget|Gameplay")
+		int GetCurrentMoney();
 };

@@ -65,7 +65,8 @@ AMyCharacter::AMyCharacter()
 
 		// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	   PrimaryActorTick.bCanEverTick = true;
-
+	   MaxHealth = 100.f;
+	   CurrentHealth = MaxHealth;
 	   
 
 }
@@ -74,7 +75,11 @@ AMyCharacter::AMyCharacter()
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	//Check if Max health has changed
+	if (CurrentHealth != MaxHealth)
+	{
+		CurrentHealth = MaxHealth;
+	}
 }
 
 // Called every frame
