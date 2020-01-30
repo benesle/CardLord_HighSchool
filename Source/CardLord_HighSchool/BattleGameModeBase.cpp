@@ -3,8 +3,6 @@
 
 #include "BattleGameModeBase.h"
 #include "CardLord_HighSchool.h"
-#include "MyCharacterBaseBattle.h"
-#include "CombatUserInterface.h"
 
 
 ABattleGameModeBase::ABattleGameModeBase()
