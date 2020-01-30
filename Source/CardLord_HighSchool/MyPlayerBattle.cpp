@@ -33,11 +33,11 @@ void AMyPlayerBattle::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 }
 
-void AMyPlayerBattle::playerAttack()
-{
-	AttackSlots playerAttackSlots(hit, kick, brace, motivate);
-	
-}
+//void AMyPlayerBattle::playerAttack()
+//{
+//	AttackSlots playerAttackSlots(hit, kick, brace, motivate);
+//	
+//}
 
 
 

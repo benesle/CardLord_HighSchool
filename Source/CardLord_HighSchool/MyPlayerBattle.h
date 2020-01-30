@@ -5,10 +5,11 @@
 #include <string>
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "MyCharacter.h"
 #include "MyPlayerBattle.generated.h"
 
 UCLASS()
-class CARDLORD_HIGHSCHOOL_API AMyPlayerBattle : public APawn
+class CARDLORD_HIGHSCHOOL_API AMyPlayerBattle : /*public APawn*/ public AMyCharacter
 {
 	GENERATED_BODY()
 
@@ -27,72 +28,78 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	
-	void playerAttack();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Default")
+	float Health;
 
-	struct Attack
-	{
-		std::string name;
-		int power;
-		int accurancy;
-	};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mana|Default")
+	float Mana;
 
-	struct Attack_Hit : public Attack
-	{
-		Attack_Hit()
-		{
-			name = "Hit";
-			power = 30;
-			accurancy = 95;
-		}
-	} hit;
+	//
+	//void playerAttack();
 
-	struct Attack_Kick : public Attack
-	{
-		Attack_Kick()
-		{
-		name = "Kick";
-		power = 40;
-		accurancy = 85;
-		}
-	}kick;
+	//struct Attack
+	//{
+	//	std::string name;
+	//	int power;
+	//	int accurancy;
+	//};
 
-	struct Attack_Brace : public Attack
-	{
-		//Defencive move, takes less damage against enemy
-		//Implement Hit reaction;
-		Attack_Brace()
-		{
-			name = "Brace Yourself";
-			power = 0;
-			accurancy = 85;
-		}
-	} brace;
+	//struct Attack_Hit : public Attack
+	//{
+	//	Attack_Hit()
+	//	{
+	//		name = "Hit";
+	//		power = 30;
+	//		accurancy = 95;
+	//	}
+	//} hit;
 
-	struct Attack_Motivation : public Attack
-	{
-		//Defencive move 
-		//Increase motivation
-		Attack_Motivation()
-		{
-			name = "Motivational Speech";
-			power = 0;
-			accurancy = 90;
-		}
-	} motivate;
+	//struct Attack_Kick : public Attack
+	//{
+	//	Attack_Kick()
+	//	{
+	//	name = "Kick";
+	//	power = 40;
+	//	accurancy = 85;
+	//	}
+	//}kick;
 
-	
-	struct AttackSlots : public Attack
-	{
-		AttackSlots(Attack, Attack, Attack, Attack)
-		{
-			Attack hit;
-			Attack kick;
-			Attack brace;
-			Attack motivate;
-		}
+	//struct Attack_Brace : public Attack
+	//{
+	//	//Defencive move, takes less damage against enemy
+	//	//Implement Hit reaction;
+	//	Attack_Brace()
+	//	{
+	//		name = "Brace Yourself";
+	//		power = 0;
+	//		accurancy = 85;
+	//	}
+	//} brace;
 
-	};
+	//struct Attack_Motivation : public Attack
+	//{
+	//	//Defencive move 
+	//	//Increase motivation
+	//	Attack_Motivation()
+	//	{
+	//		name = "Motivational Speech";
+	//		power = 0;
+	//		accurancy = 90;
+	//	}
+	//} motivate;
+
+	//
+	//struct AttackSlots : public Attack
+	//{
+	//	AttackSlots(Attack, Attack, Attack, Attack)
+	//	{
+	//		Attack hit;
+	//		Attack kick;
+	//		Attack brace;
+	//		Attack motivate;
+	//	}
+
+	//};
 
 	
 };
