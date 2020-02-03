@@ -39,6 +39,15 @@ void AMyPlayerBattle::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 //	
 //}
 
+//Implementation of the react to player entered the battle event
+bool AMyPlayerBattle::ReactToBattleEntered_Implementation()
+{
+	Health = 1.0f;
+	GEngine->AddOnScreenDebugMessage(-2, 2, FColor::Green,
+		FString::Printf(TEXT("Player Entered Battle") ));
+	return true;
+}
+
 
 
 
