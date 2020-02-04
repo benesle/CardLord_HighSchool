@@ -2,6 +2,8 @@
 
 
 #include "BattleGameMode.h"
+#include "MyPlayerBattle.h"
+#include "MyPlayerController.h"
 
 
 
@@ -9,6 +11,9 @@ void ABattleGameMode::BeginPlay()
 {
     Super::BeginPlay();
 		ChangeMenu(StartingMenuClass);
+
+        DefaultPawnClass = AMyPlayerBattle::StaticClass();
+        PlayerControllerClass = AMyPlayerController::StaticClass();
 }
 
 void ABattleGameMode::ChangeMenu(TSubclassOf<UUserWidget> NewMenuClass)
@@ -27,3 +32,4 @@ void ABattleGameMode::ChangeMenu(TSubclassOf<UUserWidget> NewMenuClass)
         }
     }
 }
+

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "GameFramework/PlayerController.h"
 #include "Blueprint/UserWidget.h"
 #include "BattleGameMode.generated.h"
 
@@ -19,6 +20,7 @@ public:
 	//Create new Widget Menu
 	UFUNCTION(Blueprintcallable, Category = "BattleHUD")
 		void ChangeMenu(TSubclassOf<UUserWidget> NewMenuClass);
+
 
 protected:
 

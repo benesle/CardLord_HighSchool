@@ -6,10 +6,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "MyCharacter.h"
+#include "MyInterface.h"
 #include "MyPlayerBattle.generated.h"
 
 UCLASS()
-class CARDLORD_HIGHSCHOOL_API AMyPlayerBattle : /*public APawn*/ public AMyCharacter
+class CARDLORD_HIGHSCHOOL_API AMyPlayerBattle : public AMyCharacter, public IMyInterface
 {
 	GENERATED_BODY()
 
@@ -28,11 +29,24 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	//Player healthbar default value
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Default")
 	float Health;
 
+	//Player manabar default value
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mana|Default")
 	float Mana;
+
+	//Connect the UI to the player
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interface")
+	bool ReactToBattleEntered();
+	//To override the base funtionallity of the interface
+	virtual bool ReactToBattleEntered_Implementation() override;
+
+
+	//UPROPERTY()
+		//class A*/
+
 
 	//
 	//void playerAttack();
