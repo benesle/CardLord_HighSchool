@@ -48,6 +48,7 @@ bool AMyPlayerBattle::ReactToBattleEntered_Implementation()
 	GEngine->AddOnScreenDebugMessage(-2, 2, FColor::Green,
 		FString::Printf(TEXT("Player Entered Battle") ));
 	return true;
+	//Test
 }
 
 
