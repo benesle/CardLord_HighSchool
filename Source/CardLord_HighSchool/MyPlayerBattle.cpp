@@ -25,6 +25,7 @@ void AMyPlayerBattle::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	ReactToBattleEntered();
+	
 }
 
 // Called to bind functionality to input
