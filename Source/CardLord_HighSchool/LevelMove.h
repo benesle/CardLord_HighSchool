@@ -19,6 +19,8 @@ class CARDLORD_HIGHSCHOOL_API ALevelMove : public ATriggerBox
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	//Notification event for when Player and enemy collide 
+	 void NotifyPlayerOverlap(AActor* otherActor);
 
 public:
 	// constructor sets default values for this actor's properties
@@ -35,8 +37,7 @@ public:
 	DECLARE_EVENT(ALevelMove, FBattleStart)
 	FBattleStart OnBattleLevelEntered;
 
-	//Notification event for when Player and enemy collide 
-	 void NotifyPlayerOverlap(AActor* otherActor);
+
 	//bool InBattleMode = true;
 
 };
