@@ -95,3 +95,13 @@ void ALevelMove::OnOverlapBegin( AActor* OverlappedActor, AActor* OtherActor)
 		}
 	}
 }
+
+void ALevelMove::NotifyPlayerOverlap(AActor* otherActor)
+{
+	AMyCharacter* isDetected = Cast<AMyCharacter>(otherActor);
+	 
+	if (isDetected)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("Battle mode activated!")));
+	}
+}
