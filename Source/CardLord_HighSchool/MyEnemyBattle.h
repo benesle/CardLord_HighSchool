@@ -74,4 +74,8 @@ public:
 
 	float DamageCharacter(float damage);
 
+	float ShieldDamage(float damage);
+
+
+
 };

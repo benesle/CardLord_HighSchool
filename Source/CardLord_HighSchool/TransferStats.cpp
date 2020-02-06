@@ -8,5 +8,7 @@ UTransferStats::UTransferStats()
 	SaveSlotName = TEXT("TestSaveSlot");
 
 	userIndex = 0;
+
+	TransferHealth = 0;
 }
 
