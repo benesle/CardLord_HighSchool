@@ -25,7 +25,7 @@ public:
 	uint32 userIndex;
 
 	UPROPERTY(VisibleAnywhere, Category = Basic)
-	uint32 TransferHealth;
+	float TransferHealth;
 
 	UPROPERTY(VisibleAnywhere, Category = Basic)
 		uint32 TransferMana;

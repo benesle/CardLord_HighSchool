@@ -9,6 +9,6 @@ UTransferStats::UTransferStats()
 
 	userIndex = 0;
 
-	TransferHealth = 0;
+	TransferHealth = 10.0f;
 }
 

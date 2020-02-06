@@ -14,7 +14,7 @@ AMyEnemyBattle::AMyEnemyBattle()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-		OnActorHit.AddDynamic(this, &AMyEnemyBattle::OnHit);
+	OnActorHit.AddDynamic(this, &AMyEnemyBattle::OnHit);
 		
 		
 
@@ -91,7 +91,7 @@ void AMyEnemyBattle::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 		if (OtherActor->IsA(AMyCharacter::StaticClass()))
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s Is A static class cube"), *OtherActor->GetName()));
-			/*AMyCharacter* Player = Cast<AMyCharacter>(OtherActor);
+			AMyCharacter* Player = Cast<AMyCharacter>(OtherActor);
 
 			if (UTransferStats* SaveGameInstance = Cast<UTransferStats>(UGameplayStatics::CreateSaveGameObject(UTransferStats::StaticClass())))
 			{
@@ -113,7 +113,7 @@ void AMyEnemyBattle::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 				UE_LOG(LogTemp, Warning, TEXT("LOADED: %s"), *LoadedGame->PlayerName);
 				//Player->Health = LoadedGame->TransferHealth;
 				//UE_LOG(LogTemp, Warning, TEXT("LOADED: %f"), *MyCharacter->Health);
-			}*/
+			}
 			
 			//AMyPlayerBattle *playerBattle;
 
