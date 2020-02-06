@@ -4,17 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Engine/World.h"
 #include "BattleGameModeBase.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class CARDLORD_HIGHSCHOOL_API ABattleGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
-		virtual void StartPlay() override;
 
-public: ABattleGameModeBase();
+public: 
+	
+	ABattleGameModeBase();
+
+	void GetRenderedActors(TArray<AActor*>& CurrentlyRenderedActors, float MinRecentTime);
+
+private:
+
+
 };

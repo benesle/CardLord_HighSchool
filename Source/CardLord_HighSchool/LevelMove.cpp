@@ -62,13 +62,13 @@ void ALevelMove::OnOverlapBegin( AActor* OverlappedActor, AActor* OtherActor)
 				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
 				MyCharacter->InBattleMode = false;
 
-				if (UTransferStats* LoadedGame = Cast<UTransferStats>(UGameplayStatics::LoadGameFromSlot("ExportToBattle", 0)))
+				/*if (UTransferStats* LoadedGame = Cast<UTransferStats>(UGameplayStatics::LoadGameFromSlot("ExportToBattle", 0)))
 				{
 					// The operation was successful, so LoadedGame now contains the data we saved earlier.
 					UE_LOG(LogTemp, Warning, TEXT("LOADED: %s"), *LoadedGame->PlayerName);
 					MyCharacter->Health = LoadedGame->TransferHealth;
 					//UE_LOG(LogTemp, Warning, TEXT("LOADED: %f"), *MyCharacter->Health);
-				}
+				}*/
 				
 			}
 			else
@@ -93,5 +93,15 @@ void ALevelMove::OnOverlapBegin( AActor* OverlappedActor, AActor* OtherActor)
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("Overlapped Actor = %s"), *OverlappedActor->GetName()));
 
 		}
+	}
+}
+
+void ALevelMove::NotifyPlayerOverlap(AActor* otherActor)
+{
+	AMyCharacter* isDetected = Cast<AMyCharacter>(otherActor);
+	 
+	if (isDetected)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("Battle mode activated!")));
 	}
 }

@@ -10,6 +10,7 @@ AMyPlayerBattle::AMyPlayerBattle()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+
 }
 
 // Called when the game starts or when spawned
@@ -23,7 +24,8 @@ void AMyPlayerBattle::BeginPlay()
 void AMyPlayerBattle::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	ReactToBattleEntered();
+	
 }
 
 // Called to bind functionality to input
@@ -33,10 +35,20 @@ void AMyPlayerBattle::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 }
 
-void AMyPlayerBattle::playerAttack()
+//void AMyPlayerBattle::playerAttack()
+//{
+//	AttackSlots playerAttackSlots(hit, kick, brace, motivate);
+//	
+//}
+
+//Implementation of the react to player entered the battle event
+bool AMyPlayerBattle::ReactToBattleEntered_Implementation()
 {
-	AttackSlots playerAttackSlots(hit, kick, brace, motivate);
-	
+	Health = 1.0f;
+	GEngine->AddOnScreenDebugMessage(-2, 2, FColor::Green,
+		FString::Printf(TEXT("Player Entered Battle") ));
+	return true;
+	//Test
 }
 
 
