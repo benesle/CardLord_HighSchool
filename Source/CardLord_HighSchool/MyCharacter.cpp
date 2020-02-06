@@ -218,7 +218,7 @@ void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector Normal
 			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Overlapped Overlap Character"));
 		}
 		
-		/*if (Cast<AMyEnemy>(OtherActor) )
+		if (Cast<AMyEnemy>(OtherActor) )
 		{
 			AMyCharacter* MyCharacter = Cast<AMyCharacter>(SelfActor);
 			if (MyCharacter->InBattleMode == true)
@@ -236,6 +236,6 @@ void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector Normal
 			{
 				UE_LOG(LogTemp, Warning, TEXT("CONFUSED!!!!!!!!!!"));
 			}
-		}*/
+		}
 	}
 }

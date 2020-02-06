@@ -33,6 +33,8 @@ public:
 
 	void Update();
 	void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+	void OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor);
+
 
 	FVector StartPosition = { 0,0,0 };
 	FVector CameraPosition = { 0,0,0 };

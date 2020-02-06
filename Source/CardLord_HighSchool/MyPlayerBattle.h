@@ -43,6 +43,8 @@ public:
 	//To override the base funtionallity of the interface
 	virtual bool ReactToBattleEntered_Implementation() override;
 
+
+
 	//UPROPERTY()
 		//class A*/
 
