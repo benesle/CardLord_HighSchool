@@ -2,6 +2,8 @@
 
 
 #include "MyPlayerBattle.h"
+#include "Widget.h"
+#include "BattleGameMode.h"
 #include "DrawDebugHelpers.h"
 
 // Sets default values

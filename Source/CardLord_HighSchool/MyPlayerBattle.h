@@ -10,7 +10,7 @@
 #include "MyPlayerBattle.generated.h"
 
 UCLASS()
-class CARDLORD_HIGHSCHOOL_API AMyPlayerBattle : public AMyCharacter, public IMyInterface
+class CARDLORD_HIGHSCHOOL_API AMyPlayerBattle : public AMyCharacter
 {
 	GENERATED_BODY()
 
