@@ -29,6 +29,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	
+
 	//Player healthbar default value
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Default")
 	float Health;
@@ -40,11 +42,13 @@ public:
 	//Connect the UI to the player
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interface")
 	bool ReactToBattleEntered();
+	
+	
+	//bool ReactToBattleEntered_Implementation(UInputComponent* PlayerInputComponent);
 	//To override the base funtionallity of the interface
 	virtual bool ReactToBattleEntered_Implementation() override;
 
-
-
+	void StopPlayerMovement(UInputComponent* PlayerInputComponent);
 	//UPROPERTY()
 		//class A*/
 
