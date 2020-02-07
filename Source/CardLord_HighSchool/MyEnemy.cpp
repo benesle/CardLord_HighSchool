@@ -12,7 +12,7 @@ AMyEnemy::AMyEnemy()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	OnActorHit.AddDynamic(this, &AMyEnemy::OnHit);
+	//OnActorHit.AddDynamic(this, &AMyEnemy::OnHit);
 	OnActorBeginOverlap.AddDynamic(this, &AMyEnemy::OnOverlapBegin);
 
 }
@@ -70,7 +70,7 @@ void AMyEnemy::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpuls
 					UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
 					// Battle position is -500,-200 no elevation
 					//OtherActor->SetActorLocation({ -500,-200,118.150 });
-					GetWorld()->ServerTravel(FString("/Game/Maps/BattleMap"));
+					GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
 
 				
 					//GetWorld()->SetGameMode(FURL("/Game/Gameplay/Blueprint/BP_BattleGameModeBase"));
@@ -143,20 +143,8 @@ void AMyEnemy::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
 			if (MyCharacter->InBattleMode == true)
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
 				StartPosition = OtherActor->GetActorLocation();
-
-				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
-				// Battle position is -500,-200 no elevation
-				//OtherActor->SetActorLocation({ -500,-200,118.150 });
 				GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
-				//GetWorld()->SetGameMode(FURL("/Game/Gameplay/Blueprint/BP_BattleGameModeBase"));
-				//UWorld* SetGame
-
-				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
-				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
-
-
 
 				MyCharacter->InBattleMode = true;
 			}
@@ -167,21 +155,11 @@ void AMyEnemy::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				StartPosition = FVector{ 0,0,0 };
 
 				GetWorld()->ServerTravel(FString("/Game/Maps/HighSchoolMap"));
-				//GetWorld()->SetGameMode();
 
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
 				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
 				MyCharacter->InBattleMode = false;
-
-				/*if (UTransferStats* LoadedGame = Cast<UTransferStats>(UGameplayStatics::LoadGameFromSlot("ExportToBattle", 0)))
-				{
-					// The operation was successful, so LoadedGame now contains the data we saved earlier.
-					UE_LOG(LogTemp, Warning, TEXT("LOADED: %s"), *LoadedGame->PlayerName);
-					MyCharacter->Health = LoadedGame->TransferHealth;
-					//UE_LOG(LogTemp, Warning, TEXT("LOADED: %f"), *MyCharacter->Health);
-				}*/
-
 			}
 			else
 			{

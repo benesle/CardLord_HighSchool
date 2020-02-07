@@ -84,7 +84,7 @@ void AMyEnemyBattle::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 /*	FColor DisplayColor = FColor::Yellow;
 	const FString DebugMessage(OtherActor->GetName());
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, DisplayColor, DebugMessage); */
-
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("REgister hit")));
 	if (OtherActor)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s has been hit"), *OtherActor->GetName()));
@@ -131,6 +131,61 @@ void AMyEnemyBattle::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 
 			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Overlapped Overlap Person"));
 		}*/
+	}
+}
+
+void AMyEnemyBattle::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Overlapped begin"));
+	// check if Actors do not equal nullptr and that 
+	if (OtherActor && OtherActor != this)
+	{
+
+		if (Cast<AMyPlayerBattle>(OtherActor))
+		{
+			AMyPlayerBattle* MyCharacter = Cast<AMyPlayerBattle>(OtherActor);
+			if (MyCharacter->InBattleMode == true)
+			{
+				//StartPosition = OtherActor->GetActorLocation();
+				GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
+
+				MyCharacter->InBattleMode = true;
+			}
+			else if (MyCharacter->InBattleMode == false)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
+				//OtherActor->SetActorLocation(StartPosition);
+				//StartPosition = FVector{ 0,0,0 };
+
+				GetWorld()->ServerTravel(FString("/Game/Maps/HighSchoolMap"));
+
+				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
+				//UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
+				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
+				MyCharacter->InBattleMode = false;
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("CONFUSED!!!!!!!!!!"));
+			}
+
+
+			//GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, FString::Printf((TEXT("%s Overlap Character"), *OtherActor)));
+
+		}
+		if (Cast<AMyCharacter>(OverlappedActor))
+		{
+
+			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Overlapped Overlap Character"));
+		}
+
+
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Overlap Begin"));
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("Overlapped Actor = %s"), *OverlappedActor->GetName()));
+
+		}
 	}
 }
 
