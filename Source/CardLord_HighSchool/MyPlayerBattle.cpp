@@ -36,8 +36,6 @@ void AMyPlayerBattle::Tick(float DeltaTime)
 void AMyPlayerBattle::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {	
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	UInputComponent* temp = PlayerInputComponent;
-	StopPlayerMovement(PlayerInputComponent);
 
 }
 
@@ -56,6 +54,8 @@ void AMyPlayerBattle::StopPlayerMovement(UInputComponent* PlayerInputComponent)
 //Implementation of the react to player entered the battle event
 bool AMyPlayerBattle::ReactToBattleEntered_Implementation()
 {
+	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+	this->DisableInput(PlayerController);
 	Health = 1.0f;
 	GEngine->AddOnScreenDebugMessage(-2, 2, FColor::Green,
 		FString::Printf(TEXT("Player Entered Battle") ));

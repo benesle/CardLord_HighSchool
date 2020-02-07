@@ -88,7 +88,7 @@ void AMyEnemyBattle::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 	if (OtherActor)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s has been hit"), *OtherActor->GetName()));
-		if (OtherActor->IsA(AMyCharacter::StaticClass()))
+		if (OtherActor->IsA(AMyPlayerBattle::StaticClass()))
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%s Is A static class cube"), *OtherActor->GetName()));
 			AMyCharacter* Player = Cast<AMyCharacter>(OtherActor);
