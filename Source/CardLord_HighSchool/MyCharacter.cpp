@@ -239,3 +239,11 @@ void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector Normal
 		}
 	}
 }
+
+//ReactToBattlemode activated 
+bool AMyCharacter::ReactToBattleEntered_Implementation()
+{
+	GEngine->AddOnScreenDebugMessage(-2, 2, FColor::Green,
+	FString::Printf(TEXT("BattleMode activated")));
+	return true;
+}

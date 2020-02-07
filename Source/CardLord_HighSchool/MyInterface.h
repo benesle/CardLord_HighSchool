@@ -20,7 +20,6 @@ class CARDLORD_HIGHSCHOOL_API IMyInterface
 {
 	GENERATED_IINTERFACE_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	//Decleration of a function for reaction to player entered battle, that must be implementated in C++
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = Interface)

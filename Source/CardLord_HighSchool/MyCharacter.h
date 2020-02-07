@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "MyInterface.h"
 #include "MyCharacter.generated.h"
 
 UCLASS(config = Game)
-class CARDLORD_HIGHSCHOOL_API AMyCharacter : public ACharacter
+class CARDLORD_HIGHSCHOOL_API AMyCharacter : public ACharacter, public IMyInterface
 {
 	GENERATED_BODY()
 
@@ -36,6 +37,7 @@ public:
 		bool InBattleMode = false;
 
 	int CameraSwitch = 0;
+
 public:
 	// Sets default values for this character's properties
 	AMyCharacter();
@@ -73,6 +75,8 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraRotatedBoom() const { return CameraRotatedBoom; }
 
 	
-	//bool InBattleMode = false;
-	float Health = 100;
+	// bool InBattleMode = false ;
+	float Health = 1.0f;
+	bool ReactToBattleEntered();
+	virtual bool ReactToBattleEntered_Implementation() override;
 };

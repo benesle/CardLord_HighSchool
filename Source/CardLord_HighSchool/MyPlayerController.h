@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Widgets/Views/SListView.h"
+#include <Runtime\Slate\Public\Widgets\Views\SListView.h>
 #include "MyPlayerController.generated.h"
+
 
 /**
  * 
@@ -16,5 +19,6 @@ class CARDLORD_HIGHSCHOOL_API AMyPlayerController : public APlayerController
 
 public:
 	virtual void BeginPlay() override;
+	
 	
 };
