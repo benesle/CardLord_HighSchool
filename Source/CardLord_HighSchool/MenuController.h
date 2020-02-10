@@ -16,7 +16,7 @@ class CARDLORD_HIGHSCHOOL_API AMenuController : public APlayerController
 
 public:
 
-	AMenuController();
+	/*AMenuController();*/
 	virtual void BeginPlay() override;
 
 	
