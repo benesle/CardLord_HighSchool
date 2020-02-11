@@ -37,7 +37,7 @@ void ALevelMove::OnOverlapBegin( AActor* OverlappedActor, AActor* OtherActor)
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
 				// Battle position is -500,-200 no elevation
 				//OtherActor->SetActorLocation({ -500,-200,118.150 });
-				GetWorld()->ServerTravel(FString("/Game/Maps/BattleMap"));
+				GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
 				//GetWorld()->SetGameMode(FURL("/Game/Gameplay/Blueprint/BP_BattleGameModeBase"));
 				//UWorld* SetGame
 				

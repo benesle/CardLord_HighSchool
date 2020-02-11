@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Kismet/GameplayStatics.h"
 #include "MyEnemy.generated.h"
 
 UCLASS()
@@ -31,4 +32,14 @@ public:
 	bool attack = false;
 
 	void Update();
+
+	UFUNCTION()
+	void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+
+	UFUNCTION()
+	void OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor);
+
+
+	FVector StartPosition = { 0,0,0 };
+	FVector CameraPosition = { 0,0,0 };
 };

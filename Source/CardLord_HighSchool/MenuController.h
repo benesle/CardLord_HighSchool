@@ -4,21 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "Widgets/Views/SListView.h"
-#include <Runtime\Slate\Public\Widgets\Views\SListView.h>
-#include "MyPlayerController.generated.h"
-
+#include "MenuController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class CARDLORD_HIGHSCHOOL_API AMyPlayerController : public APlayerController
+class CARDLORD_HIGHSCHOOL_API AMenuController : public APlayerController
 {
 	GENERATED_BODY()
 
 public:
+
+	/*AMenuController();*/
 	virtual void BeginPlay() override;
-	
+
 	
 };

@@ -3,6 +3,7 @@
 
 #include "MyCharacter.h"
 #include "MyEnemyBattle.h"
+#include "MyEnemy.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -197,7 +198,8 @@ void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector Normal
 	{
 		if (Cast<AMyEnemyBattle>(OtherActor))
 		{
-			if (Health > 0) {
+			if (Health > 0) 
+			{
 				AMyEnemyBattle* NewEnemy = Cast<AMyEnemyBattle>(OtherActor);
 				Health = Health - NewEnemy->DamageCharacter(10);
 				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%f BOXY BOX"), AMyCharacter::Health));
@@ -215,5 +217,35 @@ void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector Normal
 
 			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Overlapped Overlap Character"));
 		}
+		
+		/*if (Cast<AMyEnemy>(OtherActor) )
+		{
+			AMyCharacter* MyCharacter = Cast<AMyCharacter>(SelfActor);
+			if (MyCharacter->InBattleMode == true)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
+				GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
+
+				MyCharacter->InBattleMode = true;
+			}
+			else if (MyCharacter->InBattleMode == false)
+			{
+				GetWorld()->ServerTravel(FString("/Game/Maps/HighSchoolMap"));
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("CONFUSED!!!!!!!!!!"));
+			}
+			
+			
+		}*/
 	}
+}
+
+//ReactToBattlemode activated 
+bool AMyCharacter::ReactToBattleEntered_Implementation()
+{
+	GEngine->AddOnScreenDebugMessage(-2, 2, FColor::Green,
+	FString::Printf(TEXT("BattleMode activated")));
+	return true;
 }
