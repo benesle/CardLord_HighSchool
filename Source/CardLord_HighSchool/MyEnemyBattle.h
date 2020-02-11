@@ -50,6 +50,13 @@ public:
 	UFUNCTION()
 	void OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor);
 	
+	//Player healthbar default value
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Default")
+		float EnemyHealth;
+
+	//Player manabar default value
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mana|Default")
+		float EnemyMana;
 
 	//structs
 	
