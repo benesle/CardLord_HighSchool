@@ -1,0 +1,2 @@
+increase the width of the character, it should have some sort of angle to show the character when it turns to different sides.
+Add a control manual or menu to show how to play and control the game. 
