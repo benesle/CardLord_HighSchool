@@ -1,2 +1,8 @@
 increase the width of the character, it should have some sort of angle to show the character when it turns to different sides.
 Add a control manual or menu to show how to play and control the game. 
+
+
+Make the enemy attack after the player ended their turn
+Save HP and Mana after battle
+The abillity to arget an enemy in battle.
+
