@@ -4,6 +4,7 @@
 #include "MyPlayerBattle.h"
 #include "Widget.h"
 #include "BattleGameMode.h"
+#include "MyEnemyBattle.h"
 #include "MyPlayerController.h"
 #include "DrawDebugHelpers.h"
 
@@ -20,6 +21,7 @@ AMyPlayerBattle::AMyPlayerBattle()
 void AMyPlayerBattle::BeginPlay()
 {
 	Super::BeginPlay();
+	ReactToBattleEntered();
 	
 }
 
@@ -27,7 +29,7 @@ void AMyPlayerBattle::BeginPlay()
 void AMyPlayerBattle::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	ReactToBattleEntered();
+	
 
 	
 }
@@ -65,8 +67,53 @@ bool AMyPlayerBattle::ReactToBattleEntered_Implementation()
 	//Test
 }
 
+void AMyPlayerBattle::PlayerHit(AActor* OtherActor, float DamageDone, float ManaCost, float DamageTaken)
+{
+	//Health = 1.0f;
+	if(OtherActor)
+	{
+		if (Cast<AMyEnemyBattle>(OtherActor))
+		{
+			if (Mana < 0)
+			{
+				Mana = 0;
+			}
+			if (Mana >= ManaCost)
+			{
+				AMyEnemyBattle* Target = Cast<AMyEnemyBattle>(OtherActor);
+				Target->EnemyHealth -= DamageDone;
+				Health -= Target->DamageCharacter(DamageTaken);
+				Mana -= ManaCost;
+			}
+			
+		}
+	}
+}
 
+void AMyPlayerBattle::PlayerHeal(AActor* OtherActor, float DamageHealed, float ManaCost, float DamageTaken)
+{
+	//Health = 1.0f;
+	if (OtherActor)
+	{
+		if (Cast<AMyEnemyBattle>(OtherActor))
+		{
+			if (Mana < 0)
+			{
+				Mana = 0;
+			}
+			if (Mana >= ManaCost)
+			{
+				AMyEnemyBattle* Target = Cast<AMyEnemyBattle>(OtherActor);
+				Health += DamageHealed;
+				if (Health > 1.0f) 
+				{
+					Health = 1.0f;
+				}
+				Health -= Target->DamageCharacter(DamageTaken);
+				Mana -= ManaCost;
+			}
 
-
-
+		}
+	}
+}
 
