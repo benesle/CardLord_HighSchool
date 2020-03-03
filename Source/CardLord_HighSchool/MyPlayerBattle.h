@@ -42,11 +42,19 @@ public:
 	//Connect the UI to the player
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interface")
 	bool ReactToBattleEntered();
+
+	UFUNCTION(BlueprintCallable)
+	void PlayerHit(AActor* OtherActor, float DamageDone, float ManaCost, float DamageTaken);
+
+	UFUNCTION(BlueprintCallable)
+		void PlayerHeal(AActor* OtherActor, float DamageHealed, float ManaCost, float DamageTaken);
 	
 	
 	//bool ReactToBattleEntered_Implementation(UInputComponent* PlayerInputComponent);
 	//To override the base funtionallity of the interface
 	virtual bool ReactToBattleEntered_Implementation() override;
+
+	
 
 	void StopPlayerMovement(UInputComponent* PlayerInputComponent);
 	//UPROPERTY()
