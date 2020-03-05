@@ -39,6 +39,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mana|Default")
 	float Mana;
 
+	//Player Level
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Levels|Level")
+		float CharacterLevel;
+
+	//Player Exp to next Level
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Levels|Exp")
+		float ExpToNextLevel;
+
+	//EXP gained at current level
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Levels|Exp")
+		float EXPGained;
+
 	//Connect the UI to the player
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interface")
 	bool ReactToBattleEntered();
@@ -48,6 +60,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void PlayerHeal(AActor* OtherActor, float DamageHealed, float ManaCost, float DamageTaken);
+
+	void levelup(float toNext, float gained);
 	
 	
 	//bool ReactToBattleEntered_Implementation(UInputComponent* PlayerInputComponent);

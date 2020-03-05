@@ -84,7 +84,22 @@ void AMyPlayerBattle::PlayerHit(AActor* OtherActor, float DamageDone, float Mana
 				Target->EnemyHealth -= DamageDone;
 				Health -= Target->DamageCharacter(DamageTaken);
 				Mana -= ManaCost;
+
+				if (Target->EnemyHealth < 0)
+				{
+					EXPGained = 701;
+					if (EXPGained > ExpToNextLevel)
+					{
+						levelup(ExpToNextLevel, EXPGained);
+					}
+					else {
+						EXPGained -= ExpToNextLevel;
+					}
+					//UE_LOG(LogTemp, Warning, TEXT("%f EXP to next level"), ExpToNextLevel);
+				}
 			}
+
+			
 			
 		}
 	}
@@ -117,3 +132,16 @@ void AMyPlayerBattle::PlayerHeal(AActor* OtherActor, float DamageHealed, float M
 	}
 }
 
+void AMyPlayerBattle::levelup(float toNext, float gained)
+{
+	do
+	{
+		float OriginalExpToNextLevel = toNext;
+		CharacterLevel++;
+		gained -= toNext;
+		toNext = OriginalExpToNextLevel * 2;
+		UE_LOG(LogTemp, Warning, TEXT("%f EXP to next level"), toNext);
+		UE_LOG(LogTemp, Warning, TEXT("%f EXP to next level"), gained);
+	} while (gained > toNext);
+	UE_LOG(LogTemp, Warning, TEXT("%f Current Level"), CharacterLevel);
+}
