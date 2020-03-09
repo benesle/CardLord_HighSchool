@@ -4,6 +4,7 @@
 #include "MyCharacter.h"
 #include "MyEnemyBattle.h"
 #include "MyEnemy.h"
+#include "DT_CharacterActionTypeData.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -64,18 +65,21 @@ AMyCharacter::AMyCharacter()
 	GetCharacterMovement()->MaxWalkSpeed = 600.f;
 	GetCharacterMovement()->MaxFlySpeed = 600.f;
 
-		// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	   PrimaryActorTick.bCanEverTick = true;
-
-	   
-
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 // Called when the game starts or when spawned
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (DataTable != NULL)
+	{
+		FCharacterActionTypeData* row = DataTable->FindRow<FCharacterActionTypeData>(TEXT("Attack_Hit"), TEXT(" LookupCharacterActionType"));
+		FString ActionType = row->ActionType;
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *ActionType);
+	}
 }
 
 // Called every frame

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "MyInterface.h"
+#include "Engine/DataTable.h"
 #include "MyCharacter.generated.h"
 
 UCLASS(config = Game)
@@ -13,6 +14,10 @@ class CARDLORD_HIGHSCHOOL_API AMyCharacter : public ACharacter, public IMyInterf
 	GENERATED_BODY()
 
 public:
+
+	//Data Table
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character stats")
+		UDataTable* DataTable;
 	/** Side view camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* SideViewCameraComponent;
