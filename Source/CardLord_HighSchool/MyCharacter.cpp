@@ -74,12 +74,12 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	/*if (DataTable != NULL)
+	if (DataTable != NULL)
 	{
-		FDT_CharacterActionTypeData* row = DataTable->FindRow<FDT_CharacterActionTypeData>(TEXT("Attack_Hit"), TEXT(" LookupCharacterActionType"));
+		FCharacterActionTypeData* row = DataTable->FindRow<FCharacterActionTypeData>(TEXT("Attack_Hit"), TEXT(" LookupCharacterActionType"));
 		FString ActionType = row->ActionType;
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *someString);
-	}*/
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *ActionType);
+	}
 }
 
 // Called every frame
