@@ -3,6 +3,7 @@
 
 #include "MyEnemy.h"
 #include "GameFramework/Actor.h"
+#include "TransferStats.h"
 #include "Engine/World.h"
 #include "MyCharacter.h"
 
@@ -133,7 +134,7 @@ void AMyEnemy::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpuls
 
 void AMyEnemy::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Overlapped begin"));
+	//UE_LOG(LogTemp, Warning, TEXT("Overlapped begin"));
 	// check if Actors do not equal nullptr and that 
 	if (OtherActor && OtherActor != this)
 	{
@@ -143,6 +144,19 @@ void AMyEnemy::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
 			if (MyCharacter->InBattleMode == true)
 			{
+				if (UTransferStats* SaveGameInstance = Cast<UTransferStats>(UGameplayStatics::CreateSaveGameObject(UTransferStats::StaticClass())))
+				{
+					// Set up the (optional) delegate.
+					FAsyncSaveGameToSlotDelegate SavedDelegate;
+					// USomeUObjectClass::SaveGameDelegateFunction is a void function that takes the following parameters: const FString& SlotName, const int32 UserIndex, bool bSuccess
+					//SavedDelegate.BindUObject(SomeUObjectPointer, &USomeUObjectClass::SaveGameDelegateFunction);
+
+					// Set data on the savegame object.
+					SaveGameInstance->PlayerName = TEXT("PlayerOne");
+
+					// Start async save process.
+					//UGameplayStatics::AsyncSaveGameToSlot(SaveGameInstance, "OverWorld", 0, SavedDelegate);
+				}
 				StartPosition = OtherActor->GetActorLocation();
 				GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
 
