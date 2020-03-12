@@ -28,7 +28,10 @@ public:
 	float TransferHealth;
 
 	UPROPERTY(VisibleAnywhere, Category = Basic)
-		uint32 TransferMana;
+		float TransferMana;
+
+	UPROPERTY(VisibleAnywhere, Category = Basic)
+		FVector ReturnPosition;
 
 	UTransferStats();
 
