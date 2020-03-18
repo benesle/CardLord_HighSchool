@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "CardLord_HighSchool.h"
 #include "CardLordGameInstance.h"
+#include "CardLord_HighSchool.h"
+
 
 
 
