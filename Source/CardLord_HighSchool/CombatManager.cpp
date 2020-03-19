@@ -6,98 +6,8 @@
 
 bool CombatManager::Tick(float DeltaSeconds)
 {
-	switch (gameState)
-	{
-		case CombatState::CSTATE_Decision:
-		{
-			//Ask character to make a decision
-			if (!this->waintingForCharacter)
-			{
-				this->currentTickTarget->BeginDecision();
-				this->waintingForCharacter = true;
-			}
-
-			//Ask if decision is made
-			bool decisionMade = this->currentTickTarget->Makedecision(DeltaSeconds);
-			
-			if (decisionMade)
-			{
-				SelectNextCharacter();
-
-				//If no next character then switch state
-				if (this->tickTargetIndex == -1)
-				{
-					UE_LOG(LogTemp, Warning, TEXT("ChangeState"));
-					this->SetState(CombatState::CSTATE_Action);
-				}
-			}
-		}
-			break;
-
-		case CombatState::CSTATE_Action:
-		{
-			//Ask character to execute their decision
-			if (!this->waintingForCharacter)
-			{
-				this->currentTickTarget->BeginAction();
-				this->waintingForCharacter = true;
-			}
-			//When action is executed
-			bool actionDone = this->currentTickTarget->DoAction(DeltaSeconds);
-
-			if (actionDone)
-			{
-				SelectNextCharacter();
-
-				//If no next character then switch back to decision state
-				if (this->tickTargetIndex == -1)
-				{
-					this->SetState(CombatState::CSTATE_Decision);
-				}
-			}
-		}
-			break;
-
-			//If character die or win return true
-		case CombatState::CSTATE_GameOver:
-			return true;
-			break;
-		case CombatState::CSTATE_Win:
-			return true;
-			break;
-	}
-	//Check if any of the Characters have died
-	int deathCount = 0;
-
-	for (int i = 0; i < this->playerGroup.Num(); i++)
-	{
-		if (this->playerGroup[i]->HP <= 0) deathCount++;
-	}
-
-	//If all of the players have died, switch to gameOverState
-	if (deathCount == this->playerGroup.Num())
-	{
-		this->SetState(CombatState::CSTATE_GameOver);
-		return false;
-	}
-
-	//Check if player win
-	deathCount = 0;
-
-	for (int i = 0; i < this->enemyGroup.Num(); i++)
-	{
-		if (this->enemyGroup[i]->HP <= 0) deathCount++;
-	}
-
-	//If all enemis have died, switch to victory state
-	if (deathCount == this->enemyGroup.Num())
-	{
-		this->SetState(CombatState::CSTATE_Win);
-		return false;
-	}
-
-	//Combat not finnished and returns false
-	return false;
+	//Change Tick to this one
+	return UpdateState(DeltaSeconds);
 }
 
 void CombatManager::SetState(CombatState gameState)
@@ -141,6 +51,102 @@ void CombatManager::SelectNextCharacter()
 	}
 	this->tickTargetIndex = -1;
 	this->currentTickTarget = nullptr;
+}
+
+bool CombatManager::UpdateState(float DeltaSeconds)
+{
+	switch (gameState)
+	{
+	case CombatState::CSTATE_Decision:
+	{
+		//Ask character to make a decision
+		if (!this->waintingForCharacter)
+		{
+			this->currentTickTarget->BeginDecision();
+			this->waintingForCharacter = true;
+		}
+
+		//Ask if decision is made
+		bool decisionMade = this->currentTickTarget->Makedecision(DeltaSeconds);
+
+		if (decisionMade)
+		{
+			SelectNextCharacter();
+
+			//If no next character then switch state
+			if (this->tickTargetIndex == -1)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("ChangeState"));
+				this->SetState(CombatState::CSTATE_Action);
+			}
+		}
+	}
+	break;
+
+	case CombatState::CSTATE_Action:
+	{
+		//Ask character to execute their decision
+		if (!this->waintingForCharacter)
+		{
+			this->currentTickTarget->BeginAction();
+			this->waintingForCharacter = true;
+		}
+		//When action is executed
+		bool actionDone = this->currentTickTarget->DoAction(DeltaSeconds);
+
+		if (actionDone)
+		{
+			SelectNextCharacter();
+
+			//If no next character then switch back to decision state
+			if (this->tickTargetIndex == -1)
+			{
+				this->SetState(CombatState::CSTATE_Decision);
+			}
+		}
+	}
+	break;
+
+	//If character die or win return true
+	case CombatState::CSTATE_GameOver:
+		return true;
+		break;
+	case CombatState::CSTATE_Win:
+		return true;
+		break;
+	}
+	//Check if any of the Characters have died
+	int deathCount = 0;
+
+	for (int i = 0; i < this->playerGroup.Num(); i++)
+	{
+		if (this->playerGroup[i]->HP <= 0) deathCount++;
+	}
+
+	//If all of the players have died, switch to gameOverState
+	if (deathCount == this->playerGroup.Num())
+	{
+		this->SetState(CombatState::CSTATE_GameOver);
+		return false;
+	}
+
+	//Check if player win
+	deathCount = 0;
+
+	for (int i = 0; i < this->enemyGroup.Num(); i++)
+	{
+		if (this->enemyGroup[i]->HP <= 0) deathCount++;
+	}
+
+	//If all enemis have died, switch to victory state
+	if (deathCount == this->enemyGroup.Num())
+	{
+		this->SetState(CombatState::CSTATE_Win);
+		return false;
+	}
+
+	//Combat not finnished and returns false
+	return false;
 }
 
 CombatManager::CombatManager(TArray<UGameCharacter*> playerGroup, TArray<UGameCharacter*> enemyGroup)
