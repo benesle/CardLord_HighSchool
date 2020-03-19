@@ -46,6 +46,18 @@ void ABattleGameMode::TestCombat()
 	this->currentCombatInstance = new CombatManager(gameInstance->GroupMembers, this->enemyGroup);
 
 	UE_LOG(LogTemp, Log, TEXT("Combat started"));
+
+	this->CombatUIInstance = CreateWidget<UCombatUI>(GetGameInstance(), this->CombatUIClass);
+	this->CombatUIInstance->AddToViewport();
+
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+
+	for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
+		this->CombatUIInstance->AddPlayerCharacterWid(gameInstance->GroupMembers[i]);
+
+	for (int i = 0; i <this->enemyGroup.Num(); i++)
+		this->CombatUIInstance->AddEnemyCharacterWid(this->enemyGroup[i]);
+
 }
 
 ABattleGameMode::ABattleGameMode(const class FObjectInitializer& ObjectInitializer)
@@ -56,11 +68,15 @@ ABattleGameMode::ABattleGameMode(const class FObjectInitializer& ObjectInitializ
 
 void ABattleGameMode::BeginPlay()
 {
-        Super::BeginPlay();
-		ChangeMenu(StartingMenuClass);
 
-        DefaultPawnClass = AMyPlayerBattle::StaticClass();
-        PlayerControllerClass = AMyPlayerController::StaticClass();
+	Cast<UCardLordGameInstance>(GetGameInstance())->Init();
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+
+  //      Super::BeginPlay();
+		///*ChangeMenu(StartingMenuClass);*/
+
+  //      DefaultPawnClass = AMyPlayerBattle::StaticClass();
+  //      PlayerControllerClass = AMyPlayerController::StaticClass();
 }
 
 void ABattleGameMode::Tick(float DeltaTime)
@@ -77,10 +93,13 @@ void ABattleGameMode::Tick(float DeltaTime)
 			else if (this->currentCombatInstance->gameState == CombatState::CSTATE_Win)
 			{
 				UE_LOG(LogTemp, Log, TEXT("Player wins combat"));
-
 			}
+			UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = false;
 			//Player actor enable
 			UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetActorTickEnabled(true);
+
+			this->CombatUIInstance->RemoveFromViewport();
+			this->CombatUIInstance = nullptr;
 
 			delete(this->currentCombatInstance);
 			this->currentCombatInstance = nullptr;
@@ -89,20 +108,20 @@ void ABattleGameMode::Tick(float DeltaTime)
 	}
 }
 
-void ABattleGameMode::ChangeMenu(TSubclassOf<UUserWidget> NewMenuClass)
-{
-    if (CurrentMenu != nullptr)
-    {
-        CurrentMenu->RemoveFromViewport();
-        CurrentMenu = nullptr;
-    }
-    if (NewMenuClass != nullptr)
-    {
-        CurrentMenu = CreateWidget<UUserWidget>(GetWorld(), NewMenuClass);
-        if (CurrentMenu != nullptr)
-        {
-            CurrentMenu->AddToViewport();
-        }
-    }
-}
+//void ABattleGameMode::ChangeMenu(TSubclassOf<UUserWidget> NewMenuClass)
+//{
+//    if (CurrentMenu != nullptr)
+//    {
+//        CurrentMenu->RemoveFromViewport();
+//        CurrentMenu = nullptr;
+//    }
+//    if (NewMenuClass != nullptr)
+//    {
+//        CurrentMenu = CreateWidget<UUserWidget>(GetWorld(), NewMenuClass);
+//        if (CurrentMenu != nullptr)
+//        {
+//            CurrentMenu->AddToViewport();
+//        }
+//    }
+//}
 
