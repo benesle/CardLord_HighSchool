@@ -39,7 +39,12 @@ void ABattleGameMode::TestCombat()
 
 	// add character to enemy party
 	UGameCharacter* enemy = UGameCharacter::CreateGameCharacter(row, this);
-	this->enemyGroup.Add(enemy);
+	if (enemy)
+	{
+		this->enemyGroup.Add(enemy);
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("NO enemy"));
 
 	UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
 
@@ -76,10 +81,14 @@ ABattleGameMode::ABattleGameMode(const class FObjectInitializer& ObjectInitializ
 
 void ABattleGameMode::BeginPlay()
 {
-
-	Cast<UCardLordGameInstance>(GetGameInstance())->Init();
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
-	TestCombat();
+	if (Cast<UCardLordGameInstance>(GetGameInstance()))
+	{
+		Cast<UCardLordGameInstance>(GetGameInstance())->Init();
+		UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+		TestCombat();
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("No Game Instance in begin play BattleGameMode"));
 
 
 
@@ -104,6 +113,7 @@ void ABattleGameMode::Tick(float DeltaTime)
 				Cast<UCardLordGameInstance>(GetGameInstance())->PrepareReset();
 
 				UUserWidget* GameOverInstance = CreateWidget<UUserWidget>(GetGameInstance(), this->GameOverClass);
+				if(GameOverInstance)
 				GameOverInstance->AddToViewport();
 			}
 
@@ -122,6 +132,7 @@ void ABattleGameMode::Tick(float DeltaTime)
 			//Player actor enable
 			UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetActorTickEnabled(true);
 
+			if(CombatUIInstance)
 			this->CombatUIInstance->RemoveFromViewport();
 			this->CombatUIInstance = nullptr;
 

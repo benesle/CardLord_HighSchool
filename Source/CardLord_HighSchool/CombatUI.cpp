@@ -40,10 +40,19 @@ void UCombatUI::AttackTarget(UGameCharacter* target)
 
 void UCombatUI::BeginDecision(UGameCharacter* target)
 {
+	if (target)
+	{
 	this->currentTarget = target;
 	this->madeDecision = false;
-
 	ShowActionPanel(target);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No Target in Begin Decision CombstUI.cpp"));
+	}
+
+
+	
 }
 
 bool UCombatUI::Makedecision(float DeltaSeconds)

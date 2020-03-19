@@ -43,18 +43,23 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterDat
 UGameCharacter* UGameCharacter::CreateGameCharacter(FEnemyData* enemyData, UObject* outer)
 {
 	UGameCharacter* character = NewObject<UGameCharacter>(outer);
+	
+	if (enemyData)
+	{
+		character->CharacterName = enemyData->EnemyName;
+		character->ClassData = nullptr;
 
-	character->CharacterName = enemyData->EnemyName;
-	character->ClassData = nullptr;
+		character->Health = enemyData->Health;
+		character->Stamina = 0;
+		character->HP = enemyData->Health;
+		character->MP = 0;
 
-	character->Health = enemyData->Health;
-	character->Stamina = 0;
-	character->HP = enemyData->Health;
-	character->MP = 0;
-
-	character->ATK = enemyData->ATK;
-	character->DEF = enemyData->DEF;
-	character->Crit = enemyData->Crit;
+		character->ATK = enemyData->ATK;
+		character->DEF = enemyData->DEF;
+		character->Crit = enemyData->Crit;
+	}
+	else
+		UE_LOG(LogTemp, Log, TEXT("No enemyData"));
 
 	//Dont Remove this
 	character->decisionMaker = new TestDecisionMaker();
@@ -82,7 +87,7 @@ UGameCharacter * UGameCharacter::SelectTarget()
 			break;
 		}
 	}
-
+	if(target)
 	if (target->HP <= 0)
 	{
 		return nullptr;
@@ -129,7 +134,6 @@ void UGameCharacter::BeginAction()
 {
 	if (combatAction)
 	{
-
 		UE_LOG(LogTemp, Log, TEXT("Character %s executing action"), *this->CharacterName);
 		this->combatAction->BeginAction(this);
 	}
