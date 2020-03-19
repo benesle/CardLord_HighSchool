@@ -6,17 +6,20 @@
 #include "GameFramework/GameModeBase.h"
 #include "CardLord_HighSchoolGameModeBase.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class CARDLORD_HIGHSCHOOL_API ACardLord_HighSchoolGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 
+		ACardLord_HighSchoolGameModeBase(const class FObjectInitializer& ObjectInitializer);
+
+public:
 		virtual void StartPlay() override;
 
-public: 
-	ACardLord_HighSchoolGameModeBase(const class FObjectInitializer& ObjectInitializer);
+
+
+
+	
 	
 };
