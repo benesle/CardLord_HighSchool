@@ -31,8 +31,6 @@ bool CombatManager::Tick(float DeltaSeconds)
 					this->SetState(CombatState::CSTATE_Action);
 				}
 			}
-			else
-				UE_LOG(LogTemp, Warning, TEXT("Decision dont exist"));
 		}
 			break;
 
@@ -62,6 +60,8 @@ bool CombatManager::Tick(float DeltaSeconds)
 
 			//If character die or win return true
 		case CombatState::CSTATE_GameOver:
+			return true;
+			break;
 		case CombatState::CSTATE_Win:
 			return true;
 			break;
@@ -120,6 +120,7 @@ void CombatManager::SetState(CombatState gameState)
 
 	case CombatState::CSTATE_GameOver:
 		//Handle GameOver
+
 		break;
 	}
 }
