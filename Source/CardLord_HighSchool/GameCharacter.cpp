@@ -56,7 +56,9 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FEnemyData* enemyData, UObje
 	character->DEF = enemyData->DEF;
 	character->Crit = enemyData->Crit;
 
+	//Dont Remove this
 	character->decisionMaker = new TestDecisionMaker();
+
 	character->isPlayer = false;
 	return character;
 }
@@ -91,28 +93,48 @@ UGameCharacter * UGameCharacter::SelectTarget()
 
 void UGameCharacter::BeginDestroy()
 {
+	//The decision maker will be the UI for the player 
 	Super::BeginDestroy();
-	delete(this->decisionMaker);
-
+	if (!this->isPlayer)
+	{
+		delete(this->decisionMaker);
+	}
 }
 
 void UGameCharacter::BeginDecision()
 {
 	UE_LOG(LogTemp, Log, TEXT("Character %s making decision"), *this->CharacterName);
-	this->decisionMaker->BeginDecision(this);
-	//this->combatAction = new TestCombatAction();
+	if (decisionMaker)
+	{
+		this->decisionMaker->BeginDecision(this);
+		//this->combatAction = new TestCombatAction();
+	}
+	else
+		UE_LOG(LogTemp, Log, TEXT("stuck on begin decision"), *this->CharacterName)
 }
 
 bool UGameCharacter::Makedecision(float DeltaSeconds)
 {
 	//return true;
-	return this->decisionMaker->Makedecision(DeltaSeconds);
+	if (decisionMaker)
+	{
+		return this->decisionMaker->Makedecision(DeltaSeconds);
+	}
+	else
+		UE_LOG(LogTemp, Log, TEXT("DecisionMaker is nullptr"), *this->CharacterName)
+		return false;
 }
 
 void UGameCharacter::BeginAction()
 {
-	UE_LOG(LogTemp, Log, TEXT("Character %s executing action"), *this->CharacterName);
-	this->combatAction->BeginAction(this);
+	if (combatAction)
+	{
+
+		UE_LOG(LogTemp, Log, TEXT("Character %s executing action"), *this->CharacterName);
+		this->combatAction->BeginAction(this);
+	}
+	else
+		UE_LOG(LogTemp, Log, TEXT("stuck on begin action"), *this->CharacterName);
 }
 
 bool UGameCharacter::DoAction(float DeltaSeconds)
@@ -125,6 +147,8 @@ bool UGameCharacter::DoAction(float DeltaSeconds)
 		delete(this->combatAction);
 		return true;
 	}
+	else
+		UE_LOG(LogTemp, Log, TEXT("stuck on Do action"), *this->CharacterName);
 
 	return false;
 }

@@ -24,6 +24,8 @@ class CARDLORD_HIGHSCHOOL_API ABattleGameMode : public AGameMode
    ABattleGameMode(const class FObjectInitializer& ObjectInitializer);
 
 public: 
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
+        TSubclassOf<class UUserWidget> GameOverClass;
 
 	UPROPERTY()
 		UCombatUI* CombatUIInstance;

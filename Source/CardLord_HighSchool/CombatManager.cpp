@@ -19,7 +19,7 @@ bool CombatManager::Tick(float DeltaSeconds)
 
 			//Ask if decision is made
 			bool decisionMade = this->currentTickTarget->Makedecision(DeltaSeconds);
-
+			
 			if (decisionMade)
 			{
 				SelectNextCharacter();
@@ -27,9 +27,12 @@ bool CombatManager::Tick(float DeltaSeconds)
 				//If no next character then switch state
 				if (this->tickTargetIndex == -1)
 				{
+					UE_LOG(LogTemp, Warning, TEXT("ChangeState"));
 					this->SetState(CombatState::CSTATE_Action);
 				}
 			}
+			else
+				UE_LOG(LogTemp, Warning, TEXT("Decision dont exist"));
 		}
 			break;
 
