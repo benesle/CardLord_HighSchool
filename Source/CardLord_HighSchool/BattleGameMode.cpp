@@ -64,7 +64,6 @@ void ABattleGameMode::TestCombat()
 	for (int i = 0; i < this->enemyGroup.Num(); i++)
 	{
 		this->CombatUIInstance->AddEnemyCharacterWid(this->enemyGroup[i]);
-		UE_LOG(LogTemp, Log, TEXT("Can U C this"));
 	}
 
 }
@@ -80,6 +79,7 @@ void ABattleGameMode::BeginPlay()
 
 	Cast<UCardLordGameInstance>(GetGameInstance())->Init();
 	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+	TestCombat();
 
 
 
