@@ -19,6 +19,7 @@ class CARDLORD_HIGHSCHOOL_API UCardLordGameInstance : public UGameInstance
 
 public:
 	TArray<UGameCharacter*> GroupMembers;
+	void PrepareReset();
 	void Init();
 
 protected: 

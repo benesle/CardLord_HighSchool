@@ -39,3 +39,9 @@ void UCardLordGameInstance::Init()
 	//Add Character to the group
 	this->GroupMembers.Add(UGameCharacter::CreateGameCharacter(row, this));
 }
+
+void UCardLordGameInstance::PrepareReset()
+{
+	this->isInit = false;
+	this->GroupMembers.Empty();
+}
