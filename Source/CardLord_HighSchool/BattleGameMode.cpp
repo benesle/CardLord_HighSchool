@@ -15,7 +15,7 @@ void ABattleGameMode::TestCombat()
 	//Find enemyData
 	UDataTable* enemyTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("DataTable'/Game/DataTable/Enemy.Enemy'")));
 
-	if (enemyTable == nullptr)
+	if (enemyTable == NULL)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Enemies data table not found!"));
 		return;
@@ -24,7 +24,7 @@ void ABattleGameMode::TestCombat()
 	//Find enemis
 	FEnemyData* row = enemyTable->FindRow<FEnemyData>(TEXT("P1"), TEXT("LookupEnemyData"));
 
-	if (row == nullptr)
+	if (row == NULL)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Enemy ID 'P1' not found!"));
 		return;
@@ -52,11 +52,19 @@ void ABattleGameMode::TestCombat()
 
 	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
 
+	//Player
 	for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
-		this->CombatUIInstance->AddPlayerCharacterWid(gameInstance->GroupMembers[i]);
 
-	for (int i = 0; i <this->enemyGroup.Num(); i++)
+	{
+		this->CombatUIInstance->AddPlayerCharacterWid(gameInstance->GroupMembers[i]);
+		gameInstance->GroupMembers[i]->decisionMaker = this->CombatUIInstance;
+	}
+
+	//Enemy
+	for (int i = 0; i < this->enemyGroup.Num(); i++)
+	{
 		this->CombatUIInstance->AddEnemyCharacterWid(this->enemyGroup[i]);
+	}
 
 }
 
@@ -71,6 +79,9 @@ void ABattleGameMode::BeginPlay()
 
 	Cast<UCardLordGameInstance>(GetGameInstance())->Init();
 	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+	TestCombat();
+
+
 
   //      Super::BeginPlay();
 		///*ChangeMenu(StartingMenuClass);*/
@@ -84,17 +95,30 @@ void ABattleGameMode::Tick(float DeltaTime)
 	if (this->currentCombatInstance != nullptr)
 	{
 		bool combatOver = this->currentCombatInstance->Tick(DeltaTime);
+
 		if (combatOver)
 		{
 			if (this->currentCombatInstance->gameState == CombatState::CSTATE_GameOver)
 			{
 				UE_LOG(LogTemp, Log, TEXT("Player loses combat, game over"));
+				Cast<UCardLordGameInstance>(GetGameInstance())->PrepareReset();
+
+				UUserWidget* GameOverInstance = CreateWidget<UUserWidget>(GetGameInstance(), this->GameOverClass);
+				GameOverInstance->AddToViewport();
 			}
+
 			else if (this->currentCombatInstance->gameState == CombatState::CSTATE_Win)
 			{
 				UE_LOG(LogTemp, Log, TEXT("Player wins combat"));
 			}
+
+			for (int i = 0; i < currentCombatInstance->playerGroup.Num(); i++)
+			{
+				this->currentCombatInstance->playerGroup[i]->decisionMaker = nullptr;
+			}
+
 			UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = false;
+
 			//Player actor enable
 			UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetActorTickEnabled(true);
 

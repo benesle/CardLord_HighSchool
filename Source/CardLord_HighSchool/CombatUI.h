@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class CARDLORD_HIGHSCHOOL_API UCombatUI : public UUserWidget
+class CARDLORD_HIGHSCHOOL_API UCombatUI : public UUserWidget, public IDecisionMaker
 {
 	GENERATED_BODY()
 
@@ -21,5 +21,28 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Combat UI")
 		void AddEnemyCharacterWid(UGameCharacter* target);
+
+	UFUNCTION(Blueprintcallable, Category = "Combat UI")
+		TArray<UGameCharacter*> GetCharacterTarget();
+
+	UFUNCTION(BlueprintCallable, Category = "Combat UI")
+		void AttackTarget(UGameCharacter* target);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Combat UI")
+		void ShowActionPanel(UGameCharacter* target);
+
+
+
+protected:
+
+	UGameCharacter* currentTarget;
+	bool madeDecision;
+
+public:
+ 
+	void BeginDecision(UGameCharacter* target);
+	bool Makedecision(float DeltaSeconds);
+
+	
 	
 };

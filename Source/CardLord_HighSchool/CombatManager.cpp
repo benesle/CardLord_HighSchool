@@ -6,62 +6,114 @@
 
 bool CombatManager::Tick(float DeltaSeconds)
 {
+	//Change Tick to this one
+	return UpdateState(DeltaSeconds);
+}
+
+void CombatManager::SetState(CombatState gameState)
+{
+	this->gameState = gameState;
+
 	switch (gameState)
 	{
-		case CombatState::CSTATE_Decision:
+	case CombatState::CSTATE_Action:
+	case CombatState::CSTATE_Decision:
+
+		//Set the target to the character that is first in the combat order 
+		this->tickTargetIndex = 0;
+		this->SelectNextCharacter();
+		break;
+
+	case CombatState::CSTATE_Win:
+		//Handle Win
+		break;
+
+	case CombatState::CSTATE_GameOver:
+		//Handle GameOver
+
+		break;
+	}
+}
+//Select the nect character in combat turn order
+void CombatManager::SelectNextCharacter()
+{
+	this->waintingForCharacter = false;
+	for (int i = this->tickTargetIndex; i < this->combatTurn.Num(); i++)
+	{
+		UGameCharacter* character = this->combatTurn[i];
+
+		if (character->HP > 0)
 		{
-			//Ask character to make a decision
-			if (!this->waintingForCharacter)
+			this->tickTargetIndex = i + 1;
+			this->currentTickTarget = character;
+			return;
+		}
+	}
+	this->tickTargetIndex = -1;
+	this->currentTickTarget = nullptr;
+}
+
+bool CombatManager::UpdateState(float DeltaSeconds)
+{
+	switch (gameState)
+	{
+	case CombatState::CSTATE_Decision:
+	{
+		//Ask character to make a decision
+		if (!this->waintingForCharacter)
+		{
+			this->currentTickTarget->BeginDecision();
+			this->waintingForCharacter = true;
+		}
+
+		//Ask if decision is made
+		bool decisionMade = this->currentTickTarget->Makedecision(DeltaSeconds);
+
+		if (decisionMade)
+		{
+			SelectNextCharacter();
+
+			//If no next character then switch state
+			if (this->tickTargetIndex == -1)
 			{
-				this->currentTickTarget->BeginDecision();
-				this->waintingForCharacter = true;
-			}
-
-			//Ask if decision is made
-			bool decisionMade = this->currentTickTarget->Makedecision(DeltaSeconds);
-
-			if (decisionMade)
-			{
-				SelectNextCharacter();
-
-				//If no next character then switch state
-				if (this->tickTargetIndex == -1)
-				{
-					this->SetState(CombatState::CSTATE_Action);
-				}
+				UE_LOG(LogTemp, Warning, TEXT("ChangeState"));
+				this->SetState(CombatState::CSTATE_Action);
 			}
 		}
-			break;
+	}
+	break;
 
-		case CombatState::CSTATE_Action:
+	case CombatState::CSTATE_Action:
+	{
+		//Ask character to execute their decision
+		if (!this->waintingForCharacter)
 		{
-			//Ask character to execute their decision
-			if (!this->waintingForCharacter)
-			{
-				this->currentTickTarget->BeginAction();
-				this->waintingForCharacter = true;
-			}
-			//When action is executed
-			bool actionDone = this->currentTickTarget->DoAction(DeltaSeconds);
+			this->currentTickTarget->BeginAction();
+			this->waintingForCharacter = true;
+		}
+		//When action is executed
+		bool actionDone = this->currentTickTarget->DoAction(DeltaSeconds);
 
-			if (actionDone)
-			{
-				SelectNextCharacter();
+		if (actionDone)
+		{
+			SelectNextCharacter();
 
-				//If no next character then switch back to decision state
-				if (this->tickTargetIndex == -1)
-				{
-					this->SetState(CombatState::CSTATE_Decision);
-				}
+			//If no next character then switch back to decision state
+			if (this->tickTargetIndex == -1)
+			{
+				this->SetState(CombatState::CSTATE_Decision);
 			}
 		}
-			break;
+	}
+	break;
 
-			//If character die or win return true
-		case CombatState::CSTATE_GameOver:
-		case CombatState::CSTATE_Win:
-			return true;
-			break;
+	//If character die or win return true
+	case CombatState::CSTATE_GameOver:
+		return true;
+		break;
+	case CombatState::CSTATE_Win:
+		return true;
+		break;
 	}
 	//Check if any of the Characters have died
 	int deathCount = 0;
@@ -95,48 +147,6 @@ bool CombatManager::Tick(float DeltaSeconds)
 
 	//Combat not finnished and returns false
 	return false;
-}
-
-void CombatManager::SetState(CombatState gameState)
-{
-	this->gameState = gameState;
-
-	switch (gameState)
-	{
-	case CombatState::CSTATE_Action:
-	case CombatState::CSTATE_Decision:
-
-		//Set the target to the character that is first in the combat order 
-		this->tickTargetIndex = 0;
-		this->SelectNextCharacter();
-		break;
-
-	case CombatState::CSTATE_Win:
-		//Handle Win
-		break;
-
-	case CombatState::CSTATE_GameOver:
-		//Handle GameOver
-		break;
-	}
-}
-//Select the nect character in combat turn order
-void CombatManager::SelectNextCharacter()
-{
-	this->waintingForCharacter = false;
-	for (int i = this->tickTargetIndex; i < this->combatTurn.Num(); i++)
-	{
-		UGameCharacter* character = this->combatTurn[i];
-
-		if (character->HP > 0)
-		{
-			this->tickTargetIndex = i + 1;
-			this->currentTickTarget = character;
-			return;
-		}
-	}
-	this->tickTargetIndex = -1;
-	this->currentTickTarget = nullptr;
 }
 
 CombatManager::CombatManager(TArray<UGameCharacter*> playerGroup, TArray<UGameCharacter*> enemyGroup)

@@ -36,5 +36,6 @@ protected:
 
 	void SetState(CombatState gameState);
 	void SelectNextCharacter();
+	bool UpdateState(float DeltaSeconds);
 
 };
