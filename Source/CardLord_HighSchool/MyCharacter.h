@@ -20,11 +20,11 @@ public:
 		UDataTable* DataTable;
 	/** Side view camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* SideViewCameraComponent;
+		class UCameraComponent* SideViewCameraComponent;
 
 	/** Camera boom positioning the camera beside the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+		class USpringArmComponent* CameraBoom;
 
 	/** Side view camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -40,6 +40,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LevelSwitch")
 		bool InBattleMode = false;
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LevelSwitch")
+		int Inventory[50];
+		FString InventoryDescription[50];
+		int InventoryItems;
 
 	int CameraSwitch = 0;
 
