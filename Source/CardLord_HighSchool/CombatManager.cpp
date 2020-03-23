@@ -53,6 +53,7 @@ void CombatManager::SelectNextCharacter()
 	this->currentTickTarget = nullptr;
 }
 
+//This is where Tick should rather be
 bool CombatManager::UpdateState(float DeltaSeconds)
 {
 	switch (gameState)

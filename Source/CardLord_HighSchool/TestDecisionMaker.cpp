@@ -10,8 +10,14 @@ void TestDecisionMaker::BeginDecision(UGameCharacter * character)
 {
 	//character->combatAction = new TestCombatAction();
 	//Choose Target
-	UGameCharacter* target = character->SelectTarget();
-	character->combatAction = new TestCombatAction(target);
+	if (character)
+	{
+		UGameCharacter* target = character->SelectTarget();
+		character->combatAction = new TestCombatAction(target);
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("No character in TestDecitionMaker.cpp"));
+
 
 }
 
