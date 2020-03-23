@@ -6,11 +6,26 @@
 #include "CombatManager.h"
 #include "TestCombatAction.h"
 
+//Begin the decision making prosess
+void UCombatUI::BeginDecision(UGameCharacter* target)
+{
+	if (target)
+	{
+		this->currentTarget = target;
+		this->madeDecision = false;
+		ShowActionPanel(target);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("There is no Target in BeginDecision"));
+	}
+}
 
-
-//void UCombatUI::AddEnemyCharacterWid(UGameCharacter* target)
-//{
-//}
+//To check if decission is made and then return the decision
+bool UCombatUI::Makedecision(float DeltaSeconds)
+{
+	return this->madeDecision;
+}
 
 TArray<UGameCharacter*> UCombatUI::GetCharacterTarget()
 {
@@ -26,6 +41,7 @@ TArray<UGameCharacter*> UCombatUI::GetCharacterTarget()
 	}
 }
 
+//To execute the decision to execute the AttackTarget action 
 void UCombatUI::AttackTarget(UGameCharacter* target)
 {
 	TestCombatAction* action = new TestCombatAction(target);
@@ -34,28 +50,5 @@ void UCombatUI::AttackTarget(UGameCharacter* target)
 	this->madeDecision = true;
 }
 
-//void UCombatUI::ShowActionPanel(UGameCharacter* target)
-//{
-//}
-
-void UCombatUI::BeginDecision(UGameCharacter* target)
-{
-	if (target)
-	{
-	this->currentTarget = target;
-	this->madeDecision = false;
-	ShowActionPanel(target);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("No Target in Begin Decision CombstUI.cpp"));
-	}
 
 
-	
-}
-
-bool UCombatUI::Makedecision(float DeltaSeconds)
-{
-	return this->madeDecision;
-}
