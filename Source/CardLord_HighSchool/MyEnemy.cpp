@@ -152,6 +152,7 @@ void AMyEnemy::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 					//SavedDelegate.BindUObject(SomeUObjectPointer, &USomeUObjectClass::SaveGameDelegateFunction);
 
 					// Set data on the savegame object.
+			
 					SaveGameInstance->PlayerName = TEXT("PlayerOne");
 
 					// Start async save process.
@@ -167,8 +168,8 @@ void AMyEnemy::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
 				//OtherActor->SetActorLocation(StartPosition);
 				StartPosition = FVector{ 0,0,0 };
-
-				GetWorld()->ServerTravel(FString("/Game/Maps/HighSchoolMap"));
+				//Need to check if map exists!
+				//GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1.Floor_1"));
 
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
