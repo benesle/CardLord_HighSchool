@@ -121,6 +121,7 @@ void ABattleGameMode::Tick(float DeltaTime)
 			else if (this->currentCombatInstance->gameState == CombatState::CSTATE_Win)
 			{
 				UE_LOG(LogTemp, Log, TEXT("Player wins combat"));
+				GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
 			}
 
 			for (int i = 0; i < currentCombatInstance->playerGroup.Num(); i++)

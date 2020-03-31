@@ -8,78 +8,81 @@
 #include "Engine/EngineBaseTypes.h"
 
 
-//ALevelMove::ALevelMove()
-//{
-//	OnActorBeginOverlap.AddDynamic(this, &ALevelMove::OnOverlapBegin);
-//}
-//
-//void ALevelMove::BeginPlay()
-//{
-//	Super::BeginPlay();
-//
-//	
-//}
+ALevelMove::ALevelMove()
+{
+	OnActorBeginOverlap.AddDynamic(this, &ALevelMove::OnOverlapBegin);
+}
 
-//void ALevelMove::OnOverlapBegin( AActor* OverlappedActor, AActor* OtherActor)
-//{
-//	// check if Actors do not equal nullptr and that 
-//	if (OtherActor && OtherActor != this)
-//	{
-//
-//		if (Cast<AMyCharacter>(OtherActor))
-		//{/*
-			//AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
-			//if (MyCharacter->InBattleMode == true)
-			//{
-			//	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
-			//	StartPosition = OtherActor->GetActorLocation();
-			//	
-			//	UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
-			//	// Battle position is -500,-200 no elevation
-			//	//OtherActor->SetActorLocation({ -500,-200,118.150 });
-			//	GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
+void ALevelMove::BeginPlay()
+{
+	Super::BeginPlay();
+
+	
+}
+
+void ALevelMove::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
+{
+	// check if Actors do not equal nullptr and that 
+	if (OtherActor && OtherActor != this)
+	{
+
+		if (Cast<AMyCharacter>(OtherActor))
+		{
+			AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
+			if (MyCharacter->InBattleMode == true)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
+				StartPosition = OtherActor->GetActorLocation();
+
+				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
+				// Battle position is -500,-200 no elevation
+				//OtherActor->SetActorLocation({ -500,-200,118.150 });
+				GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
 				//GetWorld()->SetGameMode(FURL("/Game/Gameplay/Blueprint/BP_BattleGameModeBase"));
 				//UWorld* SetGame
-				
-			//	UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
-			//	UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
-			//	
-			//	
 
-			//	MyCharacter->InBattleMode = true;
-			//}
-			//else if (MyCharacter->InBattleMode == false)
-			//{
-			//	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
-			//	//OtherActor->SetActorLocation(StartPosition);
-			//	StartPosition = FVector{ 0,0,0 };
-			//	
-			//	GetWorld()->ServerTravel(FString("/Game/Maps/HighSchoolMap"));
-			//	//GetWorld()->SetGameMode();
+				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
+				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
 
-			//	UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
-			//	UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
-			//	UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
-			//	MyCharacter->InBattleMode = false;
-
-				/*if (UTransferStats* LoadedGame = Cast<UTransferStats>(UGameplayStatics::LoadGameFromSlot("ExportToBattle", 0)))
-				{
-					// The operation was successful, so LoadedGame now contains the data we saved earlier.
-					UE_LOG(LogTemp, Warning, TEXT("LOADED: %s"), *LoadedGame->PlayerName);
-					MyCharacter->Health = LoadedGame->TransferHealth;
-					//UE_LOG(LogTemp, Warning, TEXT("LOADED: %f"), *MyCharacter->Health);
-				}
-				
+				MyCharacter->InBattleMode = true;
 			}
-			else
+
+			if (MyCharacter->InBattleMode == false)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("CONFUSED!!!!!!!!!!"));
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
+				//OtherActor->SetActorLocation(StartPosition);
+				StartPosition = FVector{ 0,0,0 };
+
+				GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
+				//GetWorld()->SetGameMode();
+
+				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
+				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
+				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
+				MyCharacter->InBattleMode = false;
 			}
-
-
-			//GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, FString::Printf((TEXT("%s Overlap Character"), *OtherActor)));
-			*/
-
+		}
+	}
+}
+//
+//				if (UTransferStats* LoadedGame = Cast<UTransferStats>(UGameplayStatics::LoadGameFromSlot("ExportToBattle", 0)))
+//				{
+//					 The operation was successful, so LoadedGame now contains the data we saved earlier.
+//					UE_LOG(LogTemp, Warning, TEXT("LOADED: %s"), *LoadedGame->PlayerName);
+//					MyCharacter->Health = LoadedGame->TransferHealth;
+//					UE_LOG(LogTemp, Warning, TEXT("LOADED: %f"), *MyCharacter->Health);
+//				}
+//				
+//			}
+//			else
+//			{
+//				UE_LOG(LogTemp, Warning, TEXT("CONFUSED!!!!!!!!!!"));
+//			}
+//
+//
+//			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, FString::Printf((TEXT("%s Overlap Character"), *OtherActor)));
+//			
+//
 //			AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
 //			if (MyCharacter->InventoryItems == 5)
 //			{
@@ -116,7 +119,7 @@
 //		}
 //	}
 //}
-
+//
 //void ALevelMove::NotifyPlayerOverlap(AActor* otherActor)
 //{
 //	AMyCharacter* isDetected = Cast<AMyCharacter>(otherActor);
