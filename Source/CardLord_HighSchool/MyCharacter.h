@@ -85,8 +85,8 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraRotatedBoom() const { return CameraRotatedBoom; }
 
 	
-	// bool InBattleMode = false ;
-	float Health = 1.0f;
-	bool ReactToBattleEntered();
-	virtual bool ReactToBattleEntered_Implementation() override;
+	//// bool InBattleMode = false ;
+	//float Health = 1.0f;
+	//bool ReactToBattleEntered();
+	//virtual bool ReactToBattleEntered_Implementation() override;
 };

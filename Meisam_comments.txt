@@ -6,3 +6,8 @@ Make the enemy attack after the player ended their turn
 Save HP and Mana after battle
 The abillity to arget an enemy in battle.
 
+
+Tasks to do : 
+
+That would be great if you could add a mini-Map to the game.
+That would be nice if you could fix the camera when the player goes behind a wall, the walls bock the view of the player view.
