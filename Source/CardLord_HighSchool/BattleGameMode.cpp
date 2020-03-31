@@ -71,6 +71,7 @@ void ABattleGameMode::TestCombat()
 		this->CombatUIInstance->AddEnemyCharacterWid(this->enemyGroup[i]);
 	}
 
+
 }
 
 ABattleGameMode::ABattleGameMode(const class FObjectInitializer& ObjectInitializer)
@@ -142,6 +143,8 @@ void ABattleGameMode::Tick(float DeltaTime)
 		}
 	}
 }
+
+
 
 //void ABattleGameMode::ChangeMenu(TSubclassOf<UUserWidget> NewMenuClass)
 //{

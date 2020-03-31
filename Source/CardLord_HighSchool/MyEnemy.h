@@ -29,15 +29,15 @@ public:
 
 	float distancePlayer;
 	bool nearPlayer = false;
-	bool attack = false;
+	//bool attack = false;
 
-	void Update();
+	//void Update();
 
-	UFUNCTION()
-	void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+	//UFUNCTION()
+	//void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 
-	UFUNCTION()
-	void OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor);
+	//UFUNCTION()
+	//void OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor);
 
 
 	FVector StartPosition = { 0,0,0 };

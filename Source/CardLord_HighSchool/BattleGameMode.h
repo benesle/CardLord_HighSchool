@@ -18,23 +18,17 @@ class CARDLORD_HIGHSCHOOL_API ABattleGameMode : public AGameMode
 {
 	GENERATED_BODY()
 
-   //Overrided tick function
-   virtual void Tick(float DeltaTime) override;
+
    //virtual void StartPlay() override;
    ABattleGameMode(const class FObjectInitializer& ObjectInitializer);
 
+   virtual void BeginPlay() override;
+
+   //Overrided tick function
+   virtual void Tick(float DeltaTime) override;
+   //virtual bool UpdateState(float Deltatime) override;
+
 public: 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
-        TSubclassOf<class UUserWidget> GameOverClass;
-
-	UPROPERTY()
-		UCombatUI* CombatUIInstance;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
-		TSubclassOf<class UCombatUI> CombatUIClass;
-
-	//////Create new Widget Menu
-	//UFUNCTION(Blueprintcallable, Category = "CombatUI")
-	//void ChangeMenu(TSubclassOf<UUserWidget> NewMenuClass);
 
     //Combat manager instance
     CombatManager* currentCombatInstance;
@@ -42,15 +36,31 @@ public:
     //Keep track of all the enemy characters
     TArray<UGameCharacter*> enemyGroup;
 
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
+        TSubclassOf<class UUserWidget> GameOverClass;
+
+	UPROPERTY()
+		UCombatUI* CombatUIInstance;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
+		TSubclassOf<class UCombatUI> CombatUIClass;
+
+	//////Create new Widget Menu
+	//UFUNCTION(Blueprintcallable, Category = "CombatUI")
+	//void ChangeMenu(TSubclassOf<UUserWidget> NewMenuClass);
+
+
+
     //To test the combat system
     UFUNCTION(exec)
         void TestCombat();
 
 
-protected:
+//protected:
 
  //   /** Called when the game starts. */
-    virtual void BeginPlay() override;
+
 
  ////   /** The widget class we will use as our menu when the game starts. */
 	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CombatUI")

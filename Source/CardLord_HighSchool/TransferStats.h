@@ -4,36 +4,36 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
-#include "TransferStats.generated.h"
+//#include "TransferStats.generated.h"
 
 /**
  * 
  */
-UCLASS()
-class CARDLORD_HIGHSCHOOL_API UTransferStats : public USaveGame
-{
-	GENERATED_BODY()
-
-public:
-	UPROPERTY(VisibleAnywhere, Category = Basic)
-		FString PlayerName;
-
-	UPROPERTY(VisibleAnywhere, Category = Basic)
-	FString SaveSlotName;
-
-	UPROPERTY(VisibleAnywhere, Category = Basic)
-	uint32 userIndex;
-
-	UPROPERTY(VisibleAnywhere, Category = Basic)
-	float TransferHealth;
-
-	UPROPERTY(VisibleAnywhere, Category = Basic)
-		float TransferMana;
-
-	UPROPERTY(VisibleAnywhere, Category = Basic)
-		FVector ReturnPosition;
-
-	UTransferStats();
-
-
-};
+//UCLASS()
+//class CARDLORD_HIGHSCHOOL_API UTransferStats : public USaveGame
+//{
+//	GENERATED_BODY()
+//
+//public:
+//	UPROPERTY(VisibleAnywhere, Category = Basic)
+//		FString PlayerName;
+//
+//	UPROPERTY(VisibleAnywhere, Category = Basic)
+//	FString SaveSlotName;
+//
+//	UPROPERTY(VisibleAnywhere, Category = Basic)
+//	uint32 userIndex;
+//
+//	UPROPERTY(VisibleAnywhere, Category = Basic)
+//	float TransferHealth;
+//
+//	UPROPERTY(VisibleAnywhere, Category = Basic)
+//		float TransferMana;
+//
+//	UPROPERTY(VisibleAnywhere, Category = Basic)
+//		FVector ReturnPosition;
+//
+//	UTransferStats();
+//
+//
+//};

@@ -70,9 +70,9 @@ public:
 	// Handles input for moving right and left.
 	UFUNCTION()
 		void MoveRight(float Value);
-	
+	/*
 	UFUNCTION()
-		void OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit);
+		void OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit);*/
 
 	/** Returns SideViewCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
@@ -85,8 +85,8 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraRotatedBoom() const { return CameraRotatedBoom; }
 
 	
-	// bool InBattleMode = false ;
-	float Health = 1.0f;
-	bool ReactToBattleEntered();
-	virtual bool ReactToBattleEntered_Implementation() override;
+	//// bool InBattleMode = false ;
+	//float Health = 1.0f;
+	//bool ReactToBattleEntered();
+	//virtual bool ReactToBattleEntered_Implementation() override;
 };

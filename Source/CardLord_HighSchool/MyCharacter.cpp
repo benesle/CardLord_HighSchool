@@ -20,7 +20,7 @@ AMyCharacter::AMyCharacter()
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
-	OnActorHit.AddDynamic(this, &AMyCharacter::OnHit);
+	//OnActorHit.AddDynamic(this, &AMyCharacter::OnHit);
 
 	// Don't rotate when the controller rotates.
 	bUseControllerRotationPitch = false;
@@ -195,32 +195,32 @@ void AMyCharacter::MoveRight(float Value)
 
 }
 
-void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
-{
-	
-	if (OtherActor)
-	{
-		if (Cast<AMyEnemyBattle>(OtherActor))
-		{
-			if (Health > 0) 
-			{
-				AMyEnemyBattle* NewEnemy = Cast<AMyEnemyBattle>(OtherActor);
-				Health = Health - NewEnemy->DamageCharacter(10);
-				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%f BOXY BOX"), AMyCharacter::Health));
-				UE_LOG(LogTemp, Warning, TEXT("%f Overlap Character"), Health);
-
-				GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("OtherActor Overlap Character"));
-			}
-			else
-			{
-				return;
-			}
-		}
-		if (Cast<AMyEnemyBattle>(SelfActor))
-		{
-
-			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Overlapped Overlap Character"));
-		}
+//void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
+//{
+//	
+//	if (OtherActor)
+//	{
+//		if (Cast<AMyEnemyBattle>(OtherActor))
+//		{
+//			if (Health > 0) 
+//			{
+//				AMyEnemyBattle* NewEnemy = Cast<AMyEnemyBattle>(OtherActor);
+//				Health = Health - NewEnemy->DamageCharacter(10);
+//				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("%f BOXY BOX"), AMyCharacter::Health));
+//				UE_LOG(LogTemp, Warning, TEXT("%f Overlap Character"), Health);
+//
+//				GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("OtherActor Overlap Character"));
+//			}
+//			else
+//			{
+//				return;
+//			}
+//		}
+//		if (Cast<AMyEnemyBattle>(SelfActor))
+//		{
+//
+//			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Overlapped Overlap Character"));
+//		}
 		
 		/*if (Cast<AMyEnemy>(OtherActor) )
 		{
@@ -243,13 +243,13 @@ void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector Normal
 			
 			
 		}*/
-	}
-}
+	//}
+//}
 
 //ReactToBattlemode activated 
-bool AMyCharacter::ReactToBattleEntered_Implementation()
-{
-	GEngine->AddOnScreenDebugMessage(-2, 2, FColor::Green,
-	FString::Printf(TEXT("BattleMode activated")));
-	return true;
-}
+//bool AMyCharacter::ReactToBattleEntered_Implementation()
+//{
+//	GEngine->AddOnScreenDebugMessage(-2, 2, FColor::Green,
+//	FString::Printf(TEXT("BattleMode activated")));
+//	return true;
+//}
