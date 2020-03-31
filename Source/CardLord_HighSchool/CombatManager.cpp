@@ -30,7 +30,6 @@ void CombatManager::SetState(CombatState gameState)
 
 	case CombatState::CSTATE_GameOver:
 		//Handle GameOver
-
 		break;
 	}
 }

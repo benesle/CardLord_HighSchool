@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include <string>
-#include "TransferStats.h"
 #include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
 #include "MyEnemyBattle.generated.h"
@@ -30,60 +29,60 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	int Health = 100;
-	int Stamina = 100;
-	bool stateAgressive;
-	bool stateDefensive;
+	//int Health = 100;
+	//int Stamina = 100;
+	//bool stateAgressive;
+	//bool stateDefensive;
 
-	//Initialisation
-	void RoundStart();
-	void Update();
+	////Initialisation
+	//void RoundStart();
+	//void Update();
 
-	//States
-	void Defensive();
-	void Agressive();
+	////States
+	//void Defensive();
+	//void Agressive();
 
+	//
+	//UFUNCTION()
+	//void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+
+	//UFUNCTION()
+	//void OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor);
 	
-	UFUNCTION()
-	void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+	////Player healthbar default value
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Default")
+	//	float EnemyHealth;
 
-	UFUNCTION()
-	void OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor);
-	
-	//Player healthbar default value
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Default")
-		float EnemyHealth;
-
-	//Player manabar default value
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mana|Default")
-		float EnemyMana;
+	////Player manabar default value
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mana|Default")
+	//	float EnemyMana;
 
 	//structs
 	
-	struct Attack {
-		std::string name;
-		int power;
-		int accuracy;
-	}; // Attack slots
+	//struct Attack {
+	//	std::string name;
+	//	int power;
+	//	int accuracy;
+	//}; // Attack slots
 
-	struct Attack_Bash : public Attack 
-	{
-		Attack_Bash() {
-			name = "Bash";
-			power = 30;
-			accuracy = 100;
-			if (GEngine)
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Initialized function"));
-			}
-		}
-	}Bash;
-	
-	float power = 90;
+	//struct Attack_Bash : public Attack 
+	//{
+	//	Attack_Bash() {
+	//		name = "Bash";
+	//		power = 30;
+	//		accuracy = 100;
+	//		if (GEngine)
+	//		{
+	//			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, TEXT("Initialized function"));
+	//		}
+	//	}
+	//}Bash;
+	//
+	//float power = 90;
 
-	float DamageCharacter(float damage);
+	//float DamageCharacter(float damage);
 
-	float ShieldDamage(float damage);
+	//float ShieldDamage(float damage);
 
 
 
