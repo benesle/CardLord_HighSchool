@@ -57,9 +57,15 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FEnemyData* enemyData, UObje
 		character->ATK = enemyData->ATK;
 		character->DEF = enemyData->DEF;
 		character->Crit = enemyData->Crit;
+
+		//Dont Remove this
+		character->decisionMaker = new TestDecisionMaker();
+		character->isPlayer = false;
+		return character;
 	}
 	else
-		UE_LOG(LogTemp, Log, TEXT("No enemyData"));
+
+	UE_LOG(LogTemp, Log, TEXT("No enemyData"));
 
 	//Dont Remove this
 	character->decisionMaker = new TestDecisionMaker();
@@ -87,6 +93,7 @@ UGameCharacter * UGameCharacter::SelectTarget()
 			break;
 		}
 	}
+
 	if(target)
 	if (target->HP <= 0)
 	{
@@ -109,6 +116,7 @@ void UGameCharacter::BeginDestroy()
 void UGameCharacter::BeginDecision()
 {
 	UE_LOG(LogTemp, Log, TEXT("Character %s making decision"), *this->CharacterName);
+
 	if (decisionMaker)
 	{
 		this->decisionMaker->BeginDecision(this);

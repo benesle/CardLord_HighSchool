@@ -3,8 +3,9 @@
 
 #include "MyEnemy.h"
 #include "GameFramework/Actor.h"
-#include "TransferStats.h"
 #include "Engine/World.h"
+#include "CardLordGameInstance.h"
+#include "FEnemyData.h"
 #include "MyCharacter.h"
 
 // Sets default values
@@ -13,7 +14,7 @@ AMyEnemy::AMyEnemy()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//OnActorHit.AddDynamic(this, &AMyEnemy::OnHit);
+	OnActorHit.AddDynamic(this, &AMyEnemy::OnHit);
 	OnActorBeginOverlap.AddDynamic(this, &AMyEnemy::OnOverlapBegin);
 
 }
@@ -66,11 +67,11 @@ void AMyEnemy::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpuls
 				if (MyCharacter->InBattleMode == true)
 				{
 					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
-					StartPosition = OtherActor->GetActorLocation();
+					//StartPosition = OtherActor->GetActorLocation();
 
 					UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
 					// Battle position is -500,-200 no elevation
-					//OtherActor->SetActorLocation({ -500,-200,118.150 });
+					OtherActor->SetActorLocation({ -500,-200,118.150 });
 					GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
 
 				
@@ -90,7 +91,7 @@ void AMyEnemy::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpuls
 					//OtherActor->SetActorLocation(StartPosition);
 					//StartPosition = FVector{ 0,0,0 };
 
-					GetWorld()->ServerTravel(FString("/Game/Maps/HighSchoolMap"));
+					GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
 					//GetWorld()->SetGameMode();
 
 					UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
@@ -134,8 +135,8 @@ void AMyEnemy::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpuls
 
 void AMyEnemy::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Overlapped begin"));
-	// check if Actors do not equal nullptr and that 
+	UE_LOG(LogTemp, Warning, TEXT("Overlapped begin"));
+	 //check if Actors do not equal nullptr and that 
 	if (OtherActor && OtherActor != this)
 	{
 
@@ -144,20 +145,24 @@ void AMyEnemy::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
 			if (MyCharacter->InBattleMode == true)
 			{
-				if (UTransferStats* SaveGameInstance = Cast<UTransferStats>(UGameplayStatics::CreateSaveGameObject(UTransferStats::StaticClass())))
-				{
+				//if (UTransferStats* SaveGameInstance = Cast<UTransferStats>(UGameplayStatics::CreateSaveGameObject(UTransferStats::StaticClass())))
+				//if(UGameInstance* gameInstance = Cast<UCardLordGameInstance>(UGameplayStatics::CreateSaveGameObject(UCardLordGameInstance::StaticClass())))
+				//{
 					// Set up the (optional) delegate.
-					FAsyncSaveGameToSlotDelegate SavedDelegate;
+					//FAsyncSaveGameToSlotDelegate SavedDelegate;
 					// USomeUObjectClass::SaveGameDelegateFunction is a void function that takes the following parameters: const FString& SlotName, const int32 UserIndex, bool bSuccess
 					//SavedDelegate.BindUObject(SomeUObjectPointer, &USomeUObjectClass::SaveGameDelegateFunction);
 
 					// Set data on the savegame object.
 			
-					SaveGameInstance->PlayerName = TEXT("PlayerOne");
+					//SaveGameInstance->PlayerName = TEXT("PlayerOne");
+					
 
 					// Start async save process.
 					//UGameplayStatics::AsyncSaveGameToSlot(SaveGameInstance, "OverWorld", 0, SavedDelegate);
-				}
+					//UGameplayStatics::
+
+				//}
 				StartPosition = OtherActor->GetActorLocation();
 				GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
 
@@ -166,10 +171,10 @@ void AMyEnemy::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			else if (MyCharacter->InBattleMode == false)
 			{
 				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
-				//OtherActor->SetActorLocation(StartPosition);
+				OtherActor->SetActorLocation(StartPosition);
 				StartPosition = FVector{ 0,0,0 };
 				//Need to check if map exists!
-				//GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1.Floor_1"));
+				GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1.Floor_1"));
 
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
@@ -182,7 +187,7 @@ void AMyEnemy::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			}
 
 
-			//GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, FString::Printf((TEXT("%s Overlap Character"), *OtherActor)));
+		//GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, FString::Printf((TEXT("%s Overlap Character"), *OtherActor)));
 
 		}
 		if (Cast<AMyCharacter>(OverlappedActor))

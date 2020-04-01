@@ -51,22 +51,22 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Levels|Exp")
 		float EXPGained;
 
-	//Connect the UI to the player
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interface")
-	bool ReactToBattleEntered();
+	////Connect the UI to the player
+	//UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interface")
+	//bool ReactToBattleEntered();
 
-	UFUNCTION(BlueprintCallable)
-	void PlayerHit(AActor* OtherActor, float DamageDone, float ManaCost, float DamageTaken);
+	//UFUNCTION(BlueprintCallable)
+	//void PlayerHit(AActor* OtherActor, float DamageDone, float ManaCost, float DamageTaken);
 
-	UFUNCTION(BlueprintCallable)
-		void PlayerHeal(AActor* OtherActor, float DamageHealed, float ManaCost, float DamageTaken);
+	//UFUNCTION(BlueprintCallable)
+	//	void PlayerHeal(AActor* OtherActor, float DamageHealed, float ManaCost, float DamageTaken);
 
-	void levelup(float toNext, float gained);
+	//void levelup(float toNext, float gained);
 	
 	
-	//bool ReactToBattleEntered_Implementation(UInputComponent* PlayerInputComponent);
-	//To override the base funtionallity of the interface
-	virtual bool ReactToBattleEntered_Implementation() override;
+	////bool ReactToBattleEntered_Implementation(UInputComponent* PlayerInputComponent);
+	////To override the base funtionallity of the interface
+	//virtual bool ReactToBattleEntered_Implementation() override;
 
 	
 

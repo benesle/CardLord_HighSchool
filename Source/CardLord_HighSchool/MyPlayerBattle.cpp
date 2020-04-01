@@ -21,7 +21,7 @@ AMyPlayerBattle::AMyPlayerBattle()
 void AMyPlayerBattle::BeginPlay()
 {
 	Super::BeginPlay();
-	ReactToBattleEntered();
+	//ReactToBattleEntered();
 	
 }
 
@@ -54,85 +54,85 @@ void AMyPlayerBattle::StopPlayerMovement(UInputComponent* PlayerInputComponent)
 }
 
 //Implementation of the react to player entered the battle event
-bool AMyPlayerBattle::ReactToBattleEntered_Implementation()
-{
-	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
-	this->DisableInput(PlayerController);
-	Health = 1.0f;
-	GEngine->AddOnScreenDebugMessage(-2, 2, FColor::Green,
-		FString::Printf(TEXT("Player Entered Battle") ));
-	SetActorLocation(FVector(40.0, 50.0f, 100.0f));
-	//GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_None);
-	return true;
-	//Test
-}
+//bool AMyPlayerBattle::ReactToBattleEntered_Implementation()
+//{
+//	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+//	this->DisableInput(PlayerController);
+//	Health = 1.0f;
+//	GEngine->AddOnScreenDebugMessage(-2, 2, FColor::Green,
+//		FString::Printf(TEXT("Player Entered Battle") ));
+//	SetActorLocation(FVector(40.0, 50.0f, 100.0f));
+//	//GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_None);
+//	return true;
+//	//Test
+//}
 
-void AMyPlayerBattle::PlayerHit(AActor* OtherActor, float DamageDone, float ManaCost, float DamageTaken)
-{
-	//Health = 1.0f;
-	if(OtherActor)
-	{
-		if (Cast<AMyEnemyBattle>(OtherActor))
-		{
-			if (Mana < 0)
-			{
-				Mana = 0;
-			}
-			if (Mana >= ManaCost)
-			{
-				AMyEnemyBattle* Target = Cast<AMyEnemyBattle>(OtherActor);
-				Target->EnemyHealth -= DamageDone;
-				Health -= Target->DamageCharacter(DamageTaken);
-				Mana -= ManaCost;
+//void AMyPlayerBattle::PlayerHit(AActor* OtherActor, float DamageDone, float ManaCost, float DamageTaken)
+//{
+//	//Health = 1.0f;
+//	if(OtherActor)
+//	{
+//		if (Cast<AMyEnemyBattle>(OtherActor))
+//		{
+//			if (Mana < 0)
+//			{
+//				Mana = 0;
+//			}
+//			if (Mana >= ManaCost)
+//			{
+//				AMyEnemyBattle* Target = Cast<AMyEnemyBattle>(OtherActor);
+//				Target->EnemyHealth -= DamageDone;
+//				Health -= Target->DamageCharacter(DamageTaken);
+//				Mana -= ManaCost;
+//
+//				if (Target->EnemyHealth < 0)
+//				{
+//					EXPGained = 701;
+//					if (EXPGained > ExpToNextLevel)
+//					{
+//						levelup(ExpToNextLevel, EXPGained);
+//					}
+//					else {
+//						EXPGained -= ExpToNextLevel;
+//					}
+//					//UE_LOG(LogTemp, Warning, TEXT("%f EXP to next level"), ExpToNextLevel);
+//				}
+//			}
+//
+//			
+//			
+//		}
+//	}
+//}
 
-				if (Target->EnemyHealth < 0)
-				{
-					EXPGained = 701;
-					if (EXPGained > ExpToNextLevel)
-					{
-						levelup(ExpToNextLevel, EXPGained);
-					}
-					else {
-						EXPGained -= ExpToNextLevel;
-					}
-					//UE_LOG(LogTemp, Warning, TEXT("%f EXP to next level"), ExpToNextLevel);
-				}
-			}
+//void AMyPlayerBattle::PlayerHeal(AActor* OtherActor, float DamageHealed, float ManaCost, float DamageTaken)
+//{
+//	//Health = 1.0f;
+//	if (OtherActor)
+//	{
+//		if (Cast<AMyEnemyBattle>(OtherActor))
+//		{
+//			if (Mana < 0)
+//			{
+//				Mana = 0;
+//			}
+//			if (Mana >= ManaCost)
+//			{
+//				AMyEnemyBattle* Target = Cast<AMyEnemyBattle>(OtherActor);
+//				Health += DamageHealed;
+//				if (Health > 1.0f) 
+//				{
+//					Health = 1.0f;
+//				}
+//				Health -= Target->DamageCharacter(DamageTaken);
+//				Mana -= ManaCost;
+//			}
+//
+//		}
+//	}
+//}
 
-			
-			
-		}
-	}
-}
-
-void AMyPlayerBattle::PlayerHeal(AActor* OtherActor, float DamageHealed, float ManaCost, float DamageTaken)
-{
-	//Health = 1.0f;
-	if (OtherActor)
-	{
-		if (Cast<AMyEnemyBattle>(OtherActor))
-		{
-			if (Mana < 0)
-			{
-				Mana = 0;
-			}
-			if (Mana >= ManaCost)
-			{
-				AMyEnemyBattle* Target = Cast<AMyEnemyBattle>(OtherActor);
-				Health += DamageHealed;
-				if (Health > 1.0f) 
-				{
-					Health = 1.0f;
-				}
-				Health -= Target->DamageCharacter(DamageTaken);
-				Mana -= ManaCost;
-			}
-
-		}
-	}
-}
-
-void AMyPlayerBattle::levelup(float toNext, float gained)
+/*void AMyPlayerBattle::levelup(float toNext, float gained)
 {
 	do
 	{
@@ -144,4 +144,4 @@ void AMyPlayerBattle::levelup(float toNext, float gained)
 		UE_LOG(LogTemp, Warning, TEXT("%f EXP to next level"), gained);
 	} while (gained > toNext);
 	UE_LOG(LogTemp, Warning, TEXT("%f Current Level"), CharacterLevel);
-}
+}*/
