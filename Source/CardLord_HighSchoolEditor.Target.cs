@@ -9,6 +9,6 @@ public class CardLord_HighSchoolEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 
-		ExtraModuleNames.AddRange( new string[] { "CardLord_HighSchool" } );
+        ExtraModuleNames.AddRange( new string[] { "CardLord_HighSchool" } );
 	}
 }

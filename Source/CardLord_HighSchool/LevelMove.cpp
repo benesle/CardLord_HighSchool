@@ -29,6 +29,26 @@ void ALevelMove::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 		if (Cast<AMyCharacter>(OtherActor))
 		{
 			AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
+			if (MyCharacter->InventoryItems == 5)
+			{
+				MyCharacter->Inventory[MyCharacter->InventoryItems] = 1;
+
+				MyCharacter->InventoryDescription[MyCharacter->InventoryItems] = "You have 6 items";
+				UE_LOG(LogTemp, Warning, TEXT("Description is %s"), *MyCharacter->InventoryDescription[MyCharacter->InventoryItems]);
+				MyCharacter->InventoryItems++;
+
+			}
+			if (MyCharacter->InventoryItems < 50)
+			{
+				MyCharacter->Inventory[MyCharacter->InventoryItems] = 1;
+
+				MyCharacter->InventoryDescription[MyCharacter->InventoryItems] = "This is a test. You're not supposed to see this message";
+				UE_LOG(LogTemp, Warning, TEXT("Description is %s"), *MyCharacter->InventoryDescription[MyCharacter->InventoryItems]);
+				MyCharacter->InventoryItems++;
+
+
+			}
+			/*AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
 			if (MyCharacter->InBattleMode == true)
 			{
 				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("OtherActor is %s"), *OtherActor->GetName()));
@@ -60,7 +80,7 @@ void ALevelMove::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
 				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
 				MyCharacter->InBattleMode = false;
-			}
+			}*/
 		}
 	}
 }
@@ -83,26 +103,7 @@ void ALevelMove::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 //			GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green, FString::Printf((TEXT("%s Overlap Character"), *OtherActor)));
 //			
 //
-//			AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
-//			if (MyCharacter->InventoryItems == 5)
-//			{
-//				MyCharacter->Inventory[MyCharacter->InventoryItems] = 1;
-//
-//				MyCharacter->InventoryDescription[MyCharacter->InventoryItems] = "You have 6 items";
-//				UE_LOG(LogTemp, Warning, TEXT("Description is %s"), *MyCharacter->InventoryDescription[MyCharacter->InventoryItems]);
-//				MyCharacter->InventoryItems++;
-//
-//			}
-//			if (MyCharacter->InventoryItems < 50)
-//			{
-//				MyCharacter->Inventory[MyCharacter->InventoryItems] = 1;
-//				
-//				MyCharacter->InventoryDescription[MyCharacter->InventoryItems] = "This is a test. You're not supposed to see this message";
-//				UE_LOG(LogTemp, Warning, TEXT("Description is %s"), *MyCharacter->InventoryDescription[MyCharacter->InventoryItems]);
-//				MyCharacter->InventoryItems++;
-//
-//
-//			}
+
 //		}
 //		if (Cast<AMyCharacter>(OverlappedActor))
 //		{
