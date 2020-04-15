@@ -28,6 +28,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Combat UI")
 		void AttackTarget(UGameCharacter* target);
 
+	UFUNCTION(BlueprintCallable, Category = "Combat UI")
+		void HealTarget(UGameCharacter* target);
+
 	UFUNCTION(BlueprintImplementableEvent, Category = "Combat UI")
 		void ShowActionPanel(UGameCharacter* target);
 
