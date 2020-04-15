@@ -160,7 +160,7 @@ bool UGameCharacter::DoAction(float DeltaSeconds)
 		return true;
 	}
 	else
-		UE_LOG(LogTemp, Log, TEXT("stuck on Do action"), *this->CharacterName);
+		UE_LOG(LogTemp, Log, TEXT("Wainting"), *this->CharacterName);
 
 	return false;
 }

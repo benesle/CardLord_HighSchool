@@ -23,6 +23,7 @@ void ABattleGameMode::TestCombat()
 
 	//Find enemis
 	FEnemyData* row = enemyTable->FindRow<FEnemyData>(TEXT("P1"), TEXT("LookupEnemyData"));
+	enemyTable->FindRow<FEnemyData>(TEXT("P1"), TEXT("LookupEnemyData"));
 
 	if (row == NULL)
 	{
@@ -34,9 +35,6 @@ void ABattleGameMode::TestCombat()
 		UE_LOG(LogTemp, Warning, TEXT("Enemy Found"));
 	}
 
-	// disable player actor
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetActorTickEnabled(false);
-
 	// add character to enemy party
 	UGameCharacter* enemy = UGameCharacter::CreateGameCharacter(row, this);
 	if (enemy)
@@ -45,6 +43,56 @@ void ABattleGameMode::TestCombat()
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("NO enemy"));
+
+	///////////////////////////////////////////////////
+
+	//Find enemyData
+	/*UDataTable* enemyTable =*/ //Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("DataTable'/Game/DataTable/Enemy.Enemy'")));
+	//Find enemis
+	FEnemyData* row1 = enemyTable->FindRow<FEnemyData>(TEXT("P2"), TEXT("LookupEnemyData"));
+
+	if (row1 == NULL)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Enemy ID 'P2' not found!"));
+		return;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Enemy Found"));
+	}
+	///////////////////////////////////////////////////////////////
+
+		// add character to enemy party
+UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
+	if (enemy1)
+	{
+		this->enemyGroup.Add(enemy1);
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("NO enemy"));
+
+
+	
+
+	// disable player actor
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetActorTickEnabled(false);
+
+	// add character to enemy party
+	///*UGameCharacter* */enemy = UGameCharacter::CreateGameCharacter(row, this);
+	//if (enemy)
+	//{
+	//	this->enemyGroup.Add(enemy);
+	//}
+	//else
+	//	UE_LOG(LogTemp, Warning, TEXT("NO enemy"));
+
+
+
+	if (enemyTable == NULL)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Enemies data table not found!"));
+		return;
+	}
 
 	UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
 
