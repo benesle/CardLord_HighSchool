@@ -49,6 +49,7 @@ void ABattleGameMode::TestCombat()
 	//Find enemyData
 	/*UDataTable* enemyTable =*/ //Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("DataTable'/Game/DataTable/Enemy.Enemy'")));
 	//Find enemis
+
 	FEnemyData* row1 = enemyTable->FindRow<FEnemyData>(TEXT("P2"), TEXT("LookupEnemyData"));
 
 	if (row1 == NULL)
@@ -71,9 +72,6 @@ UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
 	else
 		UE_LOG(LogTemp, Warning, TEXT("NO enemy"));
 
-
-	
-
 	// disable player actor
 	UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetActorTickEnabled(false);
 
@@ -85,8 +83,6 @@ UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
 	//}
 	//else
 	//	UE_LOG(LogTemp, Warning, TEXT("NO enemy"));
-
-
 
 	if (enemyTable == NULL)
 	{

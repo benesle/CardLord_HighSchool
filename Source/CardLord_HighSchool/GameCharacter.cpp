@@ -20,6 +20,7 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterDat
 	}
 	else
 	{
+
 		character->CharacterName = characterData->Character_Name;
 		FCharacterClassData* row = characterClass->FindRow<FCharacterClassData>(*(characterData->Class_ID), TEXT("LookupCharacterClass"));
 		character->ClassData = row;
@@ -35,9 +36,34 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterDat
 
 		character->decisionMaker = new TestDecisionMaker();
 	}
-	
+
+	/*if (characterClass == NULL)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Character classes datatable not found!"));
+	}*/
+
+	/*else
+	{
+		character->CharacterName = characterData->Character_Name;
+		FCharacterClassData* row1 = characterClass->FindRow<FCharacterClassData>(*(characterData->Class_ID), TEXT("LookupCharacterClass"));
+		character->ClassData = row1;
+
+
+		character->Health = character->ClassData->MinHealth;
+		character->Stamina = character->ClassData->MinStamina;
+		character->HP = character->Health;
+		character->MP = character->Stamina;
+
+		character->ATK = character->ClassData->MinATK;
+		character->DEF = character->ClassData->MinDEF;
+		character->Crit = character->ClassData->MinCrit;
+
+		character->decisionMaker = new TestDecisionMaker();
+	}*/
+
 	character->isPlayer = true;
 	return character;
+
 }
 
 UGameCharacter* UGameCharacter::CreateGameCharacter(FEnemyData* enemyData, UObject* outer)
@@ -66,6 +92,7 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FEnemyData* enemyData, UObje
 	else
 
 	UE_LOG(LogTemp, Log, TEXT("No enemyData"));
+
 
 	//Dont Remove this
 	character->decisionMaker = new TestDecisionMaker();
