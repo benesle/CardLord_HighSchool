@@ -24,9 +24,11 @@
 		{
 			return;
 		}
-		UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
-		target->HP -= 10* (character->ATK/5) - (target->DEF/10); 
-		this->delayTimer = 1.0f;
+
+			//Attack option
+			UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
+			target->HP -= 10 * (character->ATK / 5) - (target->DEF / 10);
+			this->delayTimer = 1.0f;
 	}
 
 	bool TestCombatAction::DoAction(float DeltaSeconds)
@@ -39,3 +41,4 @@
 	{
 		this->target = target;
 	}
+
