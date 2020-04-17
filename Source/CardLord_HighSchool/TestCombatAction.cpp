@@ -7,7 +7,7 @@
 
 	void TestCombatAction::BeginAction(UGameCharacter* character)
 	{
-		//UE_LOG(LogTemp, Log, TEXT("%s this does nothing"), *character->CharacterName);
+		UE_LOG(LogTemp, Log, TEXT("%s this does nothing"), *character->CharacterName);
 		//this->delayTimer = 1.0f;
 
 		this->character = character;

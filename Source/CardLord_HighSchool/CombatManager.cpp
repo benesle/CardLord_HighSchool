@@ -8,6 +8,7 @@ bool CombatManager::Tick(float DeltaSeconds)
 {
 	//Change Tick to this one
 	return UpdateState(DeltaSeconds);
+
 }
 
 void CombatManager::SetState(CombatState gameState)
@@ -121,6 +122,7 @@ bool CombatManager::UpdateState(float DeltaSeconds)
 	for (int i = 0; i < this->playerGroup.Num(); i++)
 	{
 		if (this->playerGroup[i]->HP <= 0) deathCount++;
+		
 	}
 
 	//If all of the players have died, switch to gameOverState
@@ -135,7 +137,12 @@ bool CombatManager::UpdateState(float DeltaSeconds)
 
 	for (int i = 0; i < this->enemyGroup.Num(); i++)
 	{
-		if (this->enemyGroup[i]->HP <= 0) deathCount++;
+		if (this->enemyGroup[i]->HP <= 0)
+		{
+			this->enemyGroup[i]->HP = 0;
+			deathCount++;
+		}
+		
 	}
 
 	//If all enemis have died, switch to victory state
