@@ -52,11 +52,17 @@ void UCombatUI::AttackTarget(UGameCharacter* target)
 
 void UCombatUI::HealTarget(UGameCharacter * target)
 {
-	TestCombatAction* action = new TestCombatAction(target);
-	this->currentTarget->combatAction = action;
+	TestCombatAction* heal = new TestCombatAction(target);
+	this->currentTarget->combatAction = heal;
 
 	this->madeDecision = true;
 }
 
+void UCombatUI::FleeTarget(UGameCharacter * target)
+{
+	TestCombatAction* flee = new TestCombatAction(target);
+	this->currentTarget->combatAction = flee;
 
+	this->madeDecision = true;
+}
 

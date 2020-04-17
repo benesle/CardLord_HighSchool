@@ -109,9 +109,6 @@ void UCardLordGameInstance::Init()
 	////////////////////////////////////////////
 
 	////Add Character to the group
-	
-
-
 
 }
 
