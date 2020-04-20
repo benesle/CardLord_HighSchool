@@ -50,5 +50,19 @@ void UCombatUI::AttackTarget(UGameCharacter* target)
 	this->madeDecision = true;
 }
 
+void UCombatUI::HealTarget(UGameCharacter * target)
+{
+	TestCombatAction* heal = new TestCombatAction(target);
+	this->currentTarget->combatAction = heal;
 
+	this->madeDecision = true;
+}
+
+void UCombatUI::FleeTarget(UGameCharacter * target)
+{
+	TestCombatAction* flee = new TestCombatAction(target);
+	this->currentTarget->combatAction = flee;
+
+	this->madeDecision = true;
+}
 

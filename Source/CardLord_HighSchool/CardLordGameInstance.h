@@ -20,6 +20,7 @@ class CARDLORD_HIGHSCHOOL_API UCardLordGameInstance : public UGameInstance
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Game Data")
 	TArray<UGameCharacter*> GroupMembers;
+	//TArray<UGameCharacter*> playerGroup;
 
 	void PrepareReset();
 	void Init();
