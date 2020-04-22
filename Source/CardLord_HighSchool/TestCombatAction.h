@@ -20,4 +20,5 @@ public:
 	virtual bool DoAction(float DeltaSeconds) override;
 	TestCombatAction(UGameCharacter* target);
 
+
 };

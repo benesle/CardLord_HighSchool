@@ -34,7 +34,6 @@ TArray<UGameCharacter*> UCombatUI::GetCharacterTarget()
 		return this->currentTarget->combatInstance->enemyGroup;
 	}
 	else
-
 	{
 		return this->currentTarget->combatInstance->playerGroup;
 		//return TArray<UGameCharacter*>();
@@ -50,19 +49,19 @@ void UCombatUI::AttackTarget(UGameCharacter* target)
 	this->madeDecision = true;
 }
 
-void UCombatUI::HealTarget(UGameCharacter * target)
-{
-	TestCombatAction* heal = new TestCombatAction(target);
-	this->currentTarget->combatAction = heal;
+//void UCombatUI::HealTarget(UGameCharacter * character)
+//{
+//	TestHealingAction* action = new TestHealingAction(character);
+//	this->currentTarget->combatAction = action;
+//
+//	this->madeDecision = true;
+//}
 
-	this->madeDecision = true;
-}
+//void UCombatUI::FleeTarget(UGameCharacter * target)
+//{
+	/*TestCombatAction* action = new TestCombatAction(target);
+	this->currentTarget->combatAction = action;
 
-void UCombatUI::FleeTarget(UGameCharacter * target)
-{
-	TestCombatAction* flee = new TestCombatAction(target);
-	this->currentTarget->combatAction = flee;
-
-	this->madeDecision = true;
-}
+	this->madeDecision = true;*/
+//}
 

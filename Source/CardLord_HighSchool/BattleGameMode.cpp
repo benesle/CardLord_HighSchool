@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+e// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "BattleGameMode.h"
@@ -99,7 +99,7 @@ UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
 	this->CombatUIInstance = CreateWidget<UCombatUI>(GetGameInstance(), this->CombatUIClass);
 	this->CombatUIInstance->AddToViewport();
 
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+	/*UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;*/
 
 	//Player
 	for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
@@ -117,6 +117,30 @@ UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
 
 
 }
+
+void ABattleGameMode::PlayerCombat()
+{
+	UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
+	
+	UE_LOG(LogTemp, Log, TEXT("Combat started"));
+
+	this->CombatUIInstance = CreateWidget<UCombatUI>(GetGameInstance(), this->CombatUIClass);
+	this->CombatUIInstance->AddToViewport();
+
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+
+
+	//Player
+	for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
+
+	{
+		this->CombatUIInstance->AddPlayerCharacterWid(gameInstance->GroupMembers[i]);
+		gameInstance->GroupMembers[i]->decisionMaker = this->CombatUIInstance;
+	}
+
+}
+
+
 
 ABattleGameMode::ABattleGameMode(const class FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)

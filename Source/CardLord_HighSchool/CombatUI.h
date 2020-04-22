@@ -31,12 +31,6 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Combat UI")
 		void ShowActionPanel(UGameCharacter* target);
 
-	UFUNCTION(BlueprintCallable, Category = "Combat UI")
-		void HealTarget(UGameCharacter* target);
-
-	UFUNCTION(BlueprintCallable, Category = "Combat UI")
-		void FleeTarget(UGameCharacter* target);
-
 protected:
 
 	UGameCharacter* currentTarget;

@@ -11,4 +11,5 @@ class IDecisionMaker
 public:
 	virtual void BeginDecision(UGameCharacter* character) = 0;
 	virtual bool Makedecision(float DeltaSeconds) = 0;
+	
 };
