@@ -83,6 +83,7 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FEnemyData* enemyData, UObje
 		character->ATK = enemyData->ATK;
 		character->DEF = enemyData->DEF;
 		character->Crit = enemyData->Crit;
+		character->Gold = enemyData->Gold;
 
 		//Dont Remove this
 		character->decisionMaker = new TestDecisionMaker();

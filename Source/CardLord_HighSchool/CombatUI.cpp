@@ -5,6 +5,7 @@
 #include "CardLord_HighSchool.h"
 #include "CombatManager.h"
 #include "TestCombatAction.h"
+#include "TestHealingAction.h"
 
 //Begin the decision making prosess
 void UCombatUI::BeginDecision(UGameCharacter* target)
@@ -34,7 +35,6 @@ TArray<UGameCharacter*> UCombatUI::GetCharacterTarget()
 		return this->currentTarget->combatInstance->enemyGroup;
 	}
 	else
-
 	{
 		return this->currentTarget->combatInstance->playerGroup;
 		//return TArray<UGameCharacter*>();
@@ -50,19 +50,19 @@ void UCombatUI::AttackTarget(UGameCharacter* target)
 	this->madeDecision = true;
 }
 
-void UCombatUI::HealTarget(UGameCharacter * target)
+void UCombatUI::HealTarget(UGameCharacter * character)
 {
-	TestCombatAction* heal = new TestCombatAction(target);
-	this->currentTarget->combatAction = heal;
+	TestHealingAction* action = new TestHealingAction(character);
+	this->currentTarget->combatAction = action;
 
 	this->madeDecision = true;
 }
 
-void UCombatUI::FleeTarget(UGameCharacter * target)
-{
-	TestCombatAction* flee = new TestCombatAction(target);
-	this->currentTarget->combatAction = flee;
+//void UCombatUI::FleeTarget(UGameCharacter * target)
+//{
+	/*TestCombatAction* action = new TestCombatAction(target);
+	this->currentTarget->combatAction = action;
 
-	this->madeDecision = true;
-}
+	this->madeDecision = true;*/
+//}
 

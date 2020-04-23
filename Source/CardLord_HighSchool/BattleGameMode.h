@@ -56,6 +56,10 @@ public:
     UFUNCTION(exec)
         void TestCombat();
 
+    //Player actions in combat
+    UFUNCTION(exec)
+        void PlayerCombat();
+
 
 //protected:
 

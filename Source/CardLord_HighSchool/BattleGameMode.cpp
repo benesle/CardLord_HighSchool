@@ -99,7 +99,7 @@ UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
 	this->CombatUIInstance = CreateWidget<UCombatUI>(GetGameInstance(), this->CombatUIClass);
 	this->CombatUIInstance->AddToViewport();
 
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+	/*UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;*/
 
 	//Player
 	for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
@@ -117,6 +117,30 @@ UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
 
 
 }
+
+void ABattleGameMode::PlayerCombat()
+{
+	UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
+	
+	UE_LOG(LogTemp, Log, TEXT("Combat started"));
+
+	this->CombatUIInstance = CreateWidget<UCombatUI>(GetGameInstance(), this->CombatUIClass);
+	this->CombatUIInstance->AddToViewport();
+
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+
+
+	//Player
+	for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
+
+	{
+		this->CombatUIInstance->AddPlayerCharacterWid(gameInstance->GroupMembers[i]);
+		gameInstance->GroupMembers[i]->decisionMaker = this->CombatUIInstance;
+	}
+
+}
+
+
 
 ABattleGameMode::ABattleGameMode(const class FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -165,6 +189,8 @@ void ABattleGameMode::Tick(float DeltaTime)
 			else if (this->currentCombatInstance->gameState == CombatState::CSTATE_Win)
 			{
 				UE_LOG(LogTemp, Log, TEXT("Player wins combat"));
+				UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
+				gameInstance->GameGold += this->currentCombatInstance->TotalGold;
 				GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
 			}
 
