@@ -27,12 +27,14 @@ public:
 	CombatState gameState;
 
 	bool Tick(float DeltaSeconds);
+	int32 TotalGold;
 
 protected:
 
 	UGameCharacter* currentTickTarget;
 	bool waintingForCharacter;
 	int tickTargetIndex;
+
 
 	void SetState(CombatState gameState);
 	void SelectNextCharacter();

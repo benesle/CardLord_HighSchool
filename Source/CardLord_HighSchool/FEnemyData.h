@@ -30,4 +30,7 @@ struct FEnemyData : public FTableRowBase
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "EnemyData")
 		TArray<FString> Abilities;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "EnemyData")
+		int32 Gold;
 };

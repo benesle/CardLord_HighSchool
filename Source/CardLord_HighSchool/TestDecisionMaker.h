@@ -10,5 +10,7 @@ public:
 
 	virtual void BeginDecision(UGameCharacter* character) override;
 	virtual bool Makedecision(float DeltaSeconds) override;
-
+	void AttackChoice(UGameCharacter* character);
+	void HealingChoice(UGameCharacter* character);
+	void Heal(UGameCharacter* character);
 };

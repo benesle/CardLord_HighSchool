@@ -1,4 +1,4 @@
-e// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "BattleGameMode.h"
@@ -189,6 +189,8 @@ void ABattleGameMode::Tick(float DeltaTime)
 			else if (this->currentCombatInstance->gameState == CombatState::CSTATE_Win)
 			{
 				UE_LOG(LogTemp, Log, TEXT("Player wins combat"));
+				UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
+				gameInstance->GameGold += this->currentCombatInstance->TotalGold;
 				GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
 			}
 
