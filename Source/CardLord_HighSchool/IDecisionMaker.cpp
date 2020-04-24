@@ -3,3 +3,4 @@
 
 #include "IDecisionMaker.h"
 #include "CardLord_HighSchool.h"
+#include "CombatUI.h"

@@ -16,7 +16,6 @@
 		if (this->target->HP <= 0)
 		{
 			this->target = this->character->SelectTarget();
-
 		}
 
 		//No target available
@@ -24,10 +23,22 @@
 		{
 			return;
 		}
-
 			//Attack option
+		if (target->HP <= 50)
+		{
+			UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
+			target->HP -= 10 * (character->ATK / 5) - (target->DEF / 5);
+			this->delayTimer = 1.0f;
+		}
+		else
 			UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
 			target->HP -= 10 * (character->ATK / 5) - (target->DEF / 10);
+
+			target->ATK;
+			int32 TotalDamage = 10 * (character->ATK / 5) - (target->DEF / 10);
+			target->HP -= TotalDamage;
+			FString AttackLog = FString::Printf(TEXT("%02d"), TotalDamage);             
+			UE_LOG(LogTemp, Error, TEXT("%s atk %s"), *character->CharacterName, *AttackLog);
 			this->delayTimer = 1.0f;
 	}
 
@@ -41,4 +52,5 @@
 	{
 		this->target = target;
 	}
+
 

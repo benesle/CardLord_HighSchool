@@ -22,6 +22,9 @@ public:
 	TArray<UGameCharacter*> GroupMembers;
 	//TArray<UGameCharacter*> playerGroup;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game Data")
+		int32 GameGold;
+
 	void PrepareReset();
 	void Init();
 
