@@ -54,4 +54,14 @@ struct FCharacterClassData : public FTableRowBase
 
 		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ClassData")
 			TArray<int32> LearnedAbilityLevels;
+
+		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ClassData")   
+			int32 XP;
+
+		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ClassData")   
+			int32 MaxXP;
+
+		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ClassData")   
+			int32 Lvl;
+
 	};

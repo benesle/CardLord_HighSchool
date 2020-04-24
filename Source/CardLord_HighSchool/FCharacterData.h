@@ -21,5 +21,6 @@ struct FCharacterData : public FTableRowBase
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "CharacterData")
 	FString Class_ID;
+
 	
 };

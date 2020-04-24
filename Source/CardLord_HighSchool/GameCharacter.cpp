@@ -33,7 +33,12 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterDat
 		character->ATK = character->ClassData->MinATK;
 		character->DEF = character->ClassData->MinDEF;
 		character->Crit = character->ClassData->MinCrit;
+		character->LearnedAbilities = character->ClassData->LearnedAbilities;
+		character->XP = character->ClassData->XP;
+		character->MaxXP = character->ClassData->MaxXP;
+		character->Lvl = character->ClassData->Lvl;
 
+		//Her can we make an own decision maker for the player 
 		character->decisionMaker = new TestDecisionMaker();
 	}
 
