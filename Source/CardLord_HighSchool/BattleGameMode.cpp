@@ -192,6 +192,25 @@ void ABattleGameMode::Tick(float DeltaTime)
 				UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
 				gameInstance->GameGold += this->currentCombatInstance->TotalGold;
 				GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
+
+				for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
+				{
+					gameInstance->GroupMembers[i]->XP += this->currentCombatInstance->XPTotal;
+
+					if (gameInstance->GroupMembers[i]->XP >= gameInstance->GroupMembers[i]->MaxXP)
+					{
+						gameInstance->GroupMembers[i]->Lvl++;
+						gameInstance->GroupMembers[i]->Health++;
+						gameInstance->GroupMembers[i]->Stamina++;
+						gameInstance->GroupMembers[i]->ATK++;
+						gameInstance->GroupMembers[i]->DEF++;
+						gameInstance->GroupMembers[i]->Crit++;
+
+						gameInstance->GroupMembers[i]->MaxXP += gameInstance->GroupMembers[i]->MaxXP;
+					}
+				}
+
+				UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetActorTickEnabled(true);
 			}
 
 			for (int i = 0; i < currentCombatInstance->playerGroup.Num(); i++)

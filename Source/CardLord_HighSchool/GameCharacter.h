@@ -54,6 +54,19 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = CharacterData)
         int32 Gold;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterData)
+        TArray<FString> LearnedAbilities;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterData)
+        int32 XP;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterData)
+        int32 MaxXP;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterData)
+        int32 Lvl;
+
+
 public:
     
     static UGameCharacter* CreateGameCharacter(FCharacterData* characterData, UObject* outer);

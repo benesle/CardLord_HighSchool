@@ -135,6 +135,7 @@ bool CombatManager::UpdateState(float DeltaSeconds)
 	//Check if player win
 	deathCount = 0;
 	int32 Gold = 0;
+	int32 XP = 0;
 
 	for (int i = 0; i < this->enemyGroup.Num(); i++)
 	{
@@ -143,6 +144,7 @@ bool CombatManager::UpdateState(float DeltaSeconds)
 			this->enemyGroup[i]->HP = 0;
 			deathCount++;
 			Gold += this->enemyGroup[i]->Gold;
+			XP += this->enemyGroup[i]->XP;
 		}
 		
 	}
@@ -152,6 +154,7 @@ bool CombatManager::UpdateState(float DeltaSeconds)
 	{
 		this->SetState(CombatState::CSTATE_Win);
 		TotalGold = Gold;
+		XPTotal = XP;
 		return false;
 	}
 

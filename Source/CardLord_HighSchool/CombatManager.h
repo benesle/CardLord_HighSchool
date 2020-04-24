@@ -28,6 +28,7 @@ public:
 
 	bool Tick(float DeltaSeconds);
 	int32 TotalGold;
+	int32 XPTotal;
 
 protected:
 

@@ -3,6 +3,7 @@
 
 #include "TestCombatAction.h"
 #include "CardLord_HighSchool.h"
+#include "GameCharacter.h"
 
 
 	void TestCombatAction::BeginAction(UGameCharacter* character)
@@ -23,16 +24,17 @@
 		{
 			return;
 		}
+
 			//Attack option
 		if (target->HP <= 50)
 		{
 			UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
-			target->HP -= 10 * (character->ATK / 5) - (target->DEF / 5);
+			target->HP -= 10 * (character->ATK / 5) - (target->DEF / 5) >= 0 ? (character->ATK - target->DEF): 0;
 			this->delayTimer = 1.0f;
 		}
 		else
 			UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
-			target->HP -= 10 * (character->ATK / 5) - (target->DEF / 10);
+			target->HP -= 10 * (character->ATK / 5) - (target->DEF / 10) >= 0 ? (character->ATK - target->DEF): 0;
 
 			target->ATK;
 			int32 TotalDamage = 10 * (character->ATK / 5) - (target->DEF / 10);
