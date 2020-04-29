@@ -25,6 +25,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game Data")
 		int32 GameGold;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Game Data")
+		bool TalkShop;
+
 	void PrepareReset();
 	void Init();
 

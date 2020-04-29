@@ -9,18 +9,29 @@
 
 void TestDecisionMaker::BeginDecision(UGameCharacter * character)
 {
-	AttackChoice(character);
-	
-	/*if (character)
+	UE_LOG(LogTemp, Log, TEXT("%s What to do?"), *character->CharacterName);
+
+	if (character)
 	{
-
-		UGameCharacter* target = character->SelectTarget();
-		character->combatAction = new TestCombatAction(target);
-
-
+		AttackChoice(character);
+		
 	}
-	else
-		UE_LOG(LogTemp, Warning, TEXT("No character in TestDecitionMaker.cpp"));*/
+	
+	////AttackChoice(character);
+	//if (character)
+	//{
+	//	UGameCharacter* target = character
+	//}
+	//if (character)
+	//{
+
+	//	UGameCharacter* target = character->SelectTarget();
+	//	character->combatAction = new TestCombatAction(target);
+
+
+	//}
+	//else
+	//	UE_LOG(LogTemp, Warning, TEXT("No character in TestDecitionMaker.cpp"));
 
 }
 
@@ -49,17 +60,9 @@ void TestDecisionMaker::HealingChoice(UGameCharacter* character)
 {
 
 		UGameCharacter* target = character->SelectTarget();
-		character->combatAction = new TestHealingAction(character);
+		character->combatAction = new TestCombatAction(target);
 
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("No Healing"));
 }
-
-//	void TestDecisionMaker::Heal(UGameCharacter* character)
-//{
-//	if (HealingChoice)
-//	{
-//		HealingChoice;
-//	}
-//}

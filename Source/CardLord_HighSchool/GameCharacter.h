@@ -5,6 +5,7 @@
 #include "FCharacterData.h"
 #include "FCharacterClassData.h"
 #include "FEnemyData.h"
+#include "FItemData.h"
 #include "ICombatAction.h"
 #include "IDecisionMaker.h"
 #include "GameCharacter.generated.h"
@@ -12,6 +13,7 @@
 class CombatManager;
 class ICombatAction;
 class IDecisionMaker;
+class DT_CharacterActionTypeData;
 
 UCLASS(BlueprintType)
 
@@ -23,6 +25,7 @@ public:
 
 	IDecisionMaker* decisionMaker;
 	ICombatAction* combatAction;
+    FItemData* itemData;
     FCharacterClassData* ClassData;
 	CombatManager* combatInstance;
 	
@@ -71,8 +74,11 @@ public:
     
     static UGameCharacter* CreateGameCharacter(FCharacterData* characterData, UObject* outer);
     static UGameCharacter* CreateGameCharacter(FEnemyData* enemyData, UObject* outer);
+    static UGameCharacter* CreateInventory(FItemData* itemData, UObject* outer);
+
 
 	UGameCharacter* SelectTarget();
+    UGameCharacter* SelectAction();
 
 public:
     void BeginDestroy() override;

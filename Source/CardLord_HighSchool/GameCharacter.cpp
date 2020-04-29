@@ -5,8 +5,9 @@
 #include "CombatManager.h"
 #include "TestCombatAction.h"
 #include "TestDecisionMaker.h"
+#include "DT_CharacterActionTypeData.h"
 
-
+//Creates the player character and gives it stats based on FCharacterData
 UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterData, UObject* outer)
 {
 	UGameCharacter* character = NewObject<UGameCharacter>(outer);
@@ -38,7 +39,7 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterDat
 		character->MaxXP = character->ClassData->MaxXP;
 		character->Lvl = character->ClassData->Lvl;
 
-		//Her can we make an own decision maker for the player 
+		//Here can we make an own decision maker for the player ?
 		character->decisionMaker = new TestDecisionMaker();
 	}
 
@@ -71,6 +72,7 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterDat
 
 }
 
+//Creates the enemy and gets data from FEnemyData(DataTable)
 UGameCharacter* UGameCharacter::CreateGameCharacter(FEnemyData* enemyData, UObject* outer)
 {
 	UGameCharacter* character = NewObject<UGameCharacter>(outer);
@@ -107,6 +109,30 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FEnemyData* enemyData, UObje
 	return character;
 }
 
+//Tried to Create an Inventory
+//UGameCharacter* UGameCharacter::CreateInventory(FItemData* itemData, UObject* outer)
+//{
+//	UGameCharacter* item = NewObject<UGameCharacter>(outer);
+//
+//	if (itemData)
+//	{
+//		item->HP;
+//		item->MP;
+//
+//		item->decisionMaker = new TestDecisionMaker();
+//		item->isPlayer = true;
+//		return item;
+//	}
+//	else
+//		UE_LOG(LogTemp, Log, TEXT("No ItemData"));
+//
+//	item->decisionMaker = new TestDecisionMaker();
+//	item->isPlayer = true;
+//	return item;
+
+//}
+
+//Selecter Target from enemyGroup if HP is above 0
 UGameCharacter * UGameCharacter::SelectTarget()
 {
 	UGameCharacter* target = nullptr;
@@ -136,6 +162,37 @@ UGameCharacter * UGameCharacter::SelectTarget()
 	return target;
 }
 
+//Tried to add the functionallity to make the player choose between actions 
+UGameCharacter* UGameCharacter::SelectAction()
+{
+	UGameCharacter* actions = nullptr;
+
+	TArray<UGameCharacter*> actionList = this->combatInstance->inventory;
+
+	if (this->isPlayer)
+	{
+		actionList = this->combatInstance->inventory;
+	}
+
+	for (int i = 0; i < actionList.Num(); i++)
+	{
+		if (actionList[i]->HP > 0)
+		{
+			actions = actionList[i];
+			break;
+		}
+	}
+
+	if(actions)
+		if (actions->HP <= 0)
+		{
+			return nullptr;
+		}
+
+	return actions;
+}
+
+
 void UGameCharacter::BeginDestroy()
 {
 	//The decision maker will be the UI for the player 
@@ -146,6 +203,7 @@ void UGameCharacter::BeginDestroy()
 	}
 }
 
+//Begin the decisionMaking
 void UGameCharacter::BeginDecision()
 {
 	UE_LOG(LogTemp, Log, TEXT("Character %s making decision"), *this->CharacterName);
@@ -159,6 +217,7 @@ void UGameCharacter::BeginDecision()
 		UE_LOG(LogTemp, Log, TEXT("stuck on begin decision"), *this->CharacterName)
 }
 
+//Check decision is available 
 bool UGameCharacter::Makedecision(float DeltaSeconds)
 {
 	//return true;
@@ -171,6 +230,7 @@ bool UGameCharacter::Makedecision(float DeltaSeconds)
 		return false;
 }
 
+//Begin doing the action
 void UGameCharacter::BeginAction()
 {
 	if (combatAction)
@@ -182,6 +242,7 @@ void UGameCharacter::BeginAction()
 		UE_LOG(LogTemp, Log, TEXT("stuck on begin action"), *this->CharacterName);
 }
 
+//Check if action is available 
 bool UGameCharacter::DoAction(float DeltaSeconds)
 {
 	bool actionDone = this->combatAction->DoAction(DeltaSeconds);
