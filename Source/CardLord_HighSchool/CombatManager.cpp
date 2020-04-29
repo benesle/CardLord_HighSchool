@@ -72,6 +72,18 @@ bool CombatManager::UpdateState(float DeltaSeconds)
 
 		if (decisionMade)
 		{
+			////Check if player have stuff in inventory
+			//int32 itemNumb;
+			//ItemIndex = itemNumb;
+
+			//for (int i = 0; i < this->inventory.Num(); i++)
+			//{
+			//	if (this->ItemIndex == -1)
+			//	{
+			//		UE_LOG(LogTemp, Warning, TEXT("No Item"));
+			//		this->SetState(CombatState::CSTATE_Decision);
+			//	}
+			//}
 			SelectNextCharacter();
 
 			//If no next character then switch state
@@ -161,6 +173,9 @@ bool CombatManager::UpdateState(float DeltaSeconds)
 	//Combat not finnished and returns false
 	return false;
 }
+
+
+
 
 CombatManager::CombatManager(TArray<UGameCharacter*> playerGroup, TArray<UGameCharacter*> enemyGroup)
 {

@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "CardLord_HighSchool.h"
 #include "UObject/NoExportTypes.h"
 #include "Engine/DataTable.h"
 #include "FItemData.generated.h"
@@ -18,4 +18,18 @@ struct FItemData : public FTableRowBase
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ItemData")
 		int32 MP;
+
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ItemData")
+		int32 ATK;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ItemData")
+		int32 DEF;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ItemData")
+		int32 Crit;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ItemData")
+		int32 Gold;
+
 };

@@ -190,6 +190,7 @@ void ABattleGameMode::Tick(float DeltaTime)
 			{
 				UE_LOG(LogTemp, Log, TEXT("Player wins combat"));
 				UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
+
 				gameInstance->GameGold += this->currentCombatInstance->TotalGold;
 				GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
 
