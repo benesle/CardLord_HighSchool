@@ -19,7 +19,6 @@ struct FItemData : public FTableRowBase
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ItemData")
 		int32 MP;
 
-
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ItemData")
 		int32 ATK;
 

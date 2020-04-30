@@ -3,13 +3,33 @@
 
 #include "BattleGameMode.h"
 #include "MyPlayerBattle.h"
+//#include "MyCharacter.h"
 #include "CardLordGameInstance.h"
 #include "MyPlayerController.h"
 #include "CardLord_HighSchool.h"
 #include "UObject/ConstructorHelpers.h"
 
 
+//The Combat gameMode  constructor 
+ABattleGameMode::ABattleGameMode(const class FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
+{
+	DefaultPawnClass = AMyCharacter::StaticClass();
+}
 
+void ABattleGameMode::BeginPlay()
+{
+	if (Cast<UCardLordGameInstance>(GetGameInstance()))
+	{
+		Cast<UCardLordGameInstance>(GetGameInstance())->Init();
+		UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+		TestCombat();
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("No Game Instance in begin play BattleGameMode"));
+}
+
+//Here is where the combat are happening 
 void ABattleGameMode::TestCombat()
 {
 	//Find enemyData
@@ -35,7 +55,7 @@ void ABattleGameMode::TestCombat()
 		UE_LOG(LogTemp, Warning, TEXT("Enemy Found"));
 	}
 
-	// add character to enemy party
+	// add enemy to enemy group
 	UGameCharacter* enemy = UGameCharacter::CreateGameCharacter(row, this);
 	if (enemy)
 	{
@@ -64,7 +84,7 @@ void ABattleGameMode::TestCombat()
 	///////////////////////////////////////////////////////////////
 
 		// add character to enemy party
-UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
+	UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
 	if (enemy1)
 	{
 		this->enemyGroup.Add(enemy1);
@@ -90,6 +110,7 @@ UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
 		return;
 	}
 
+	//Prepearing the combat
 	UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
 
 	this->currentCombatInstance = new CombatManager(gameInstance->GroupMembers, this->enemyGroup);
@@ -99,7 +120,8 @@ UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
 	this->CombatUIInstance = CreateWidget<UCombatUI>(GetGameInstance(), this->CombatUIClass);
 	this->CombatUIInstance->AddToViewport();
 
-	/*UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;*/
+	//Have commented out this for some reason
+	//UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
 
 	//Player
 	for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
@@ -118,55 +140,28 @@ UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
 
 }
 
-void ABattleGameMode::PlayerCombat()
-{
-	UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
-	
-	UE_LOG(LogTemp, Log, TEXT("Combat started"));
+//void ABattleGameMode::PlayerCombat()
+//{
+//	UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
+//	
+//	UE_LOG(LogTemp, Log, TEXT("Combat started"));
+//
+//	this->CombatUIInstance = CreateWidget<UCombatUI>(GetGameInstance(), this->CombatUIClass);
+//	this->CombatUIInstance->AddToViewport();
+//
+//	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+//
+//
+//	//Player
+//	for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
+//
+//	{
+//		this->CombatUIInstance->AddPlayerCharacterWid(gameInstance->GroupMembers[i]);
+//		gameInstance->GroupMembers[i]->decisionMaker = this->CombatUIInstance;
+//	}
+//
+//}
 
-	this->CombatUIInstance = CreateWidget<UCombatUI>(GetGameInstance(), this->CombatUIClass);
-	this->CombatUIInstance->AddToViewport();
-
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
-
-
-	//Player
-	for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
-
-	{
-		this->CombatUIInstance->AddPlayerCharacterWid(gameInstance->GroupMembers[i]);
-		gameInstance->GroupMembers[i]->decisionMaker = this->CombatUIInstance;
-	}
-
-}
-
-
-
-ABattleGameMode::ABattleGameMode(const class FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
-{
-	DefaultPawnClass = AMyCharacter::StaticClass();
-}
-
-void ABattleGameMode::BeginPlay()
-{
-	if (Cast<UCardLordGameInstance>(GetGameInstance()))
-	{
-		Cast<UCardLordGameInstance>(GetGameInstance())->Init();
-		UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
-		TestCombat();
-	}
-	else
-		UE_LOG(LogTemp, Warning, TEXT("No Game Instance in begin play BattleGameMode"));
-
-
-
-  //      Super::BeginPlay();
-		///*ChangeMenu(StartingMenuClass);*/
-
-  //      DefaultPawnClass = AMyPlayerBattle::StaticClass();
-  //      PlayerControllerClass = AMyPlayerController::StaticClass();
-}
 
 void ABattleGameMode::Tick(float DeltaTime)
 {
@@ -174,11 +169,12 @@ void ABattleGameMode::Tick(float DeltaTime)
 	{
 		bool combatOver = this->currentCombatInstance->Tick(DeltaTime);
 
+		//If GameOver, reset and show GameOver screen
 		if (combatOver)
 		{
 			if (this->currentCombatInstance->gameState == CombatState::CSTATE_GameOver)
 			{
-				UE_LOG(LogTemp, Log, TEXT("Player loses combat, game over"));
+				UE_LOG(LogTemp, Log, TEXT("The player loses combat and the is game over"));
 				Cast<UCardLordGameInstance>(GetGameInstance())->PrepareReset();
 
 				UUserWidget* GameOverInstance = CreateWidget<UUserWidget>(GetGameInstance(), this->GameOverClass);
@@ -186,6 +182,8 @@ void ABattleGameMode::Tick(float DeltaTime)
 				GameOverInstance->AddToViewport();
 			}
 
+			//If the player win return the player to the level it came from
+			//Give the player gold and xp and increase the stats accordingly to level
 			else if (this->currentCombatInstance->gameState == CombatState::CSTATE_Win)
 			{
 				UE_LOG(LogTemp, Log, TEXT("Player wins combat"));
@@ -194,10 +192,12 @@ void ABattleGameMode::Tick(float DeltaTime)
 				gameInstance->GameGold += this->currentCombatInstance->TotalGold;
 				GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
 
+				//Increase the stats of all the players in the group
 				for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
 				{
 					gameInstance->GroupMembers[i]->XP += this->currentCombatInstance->XPTotal;
 
+					//If the player levels up, increase the stats 
 					if (gameInstance->GroupMembers[i]->XP >= gameInstance->GroupMembers[i]->MaxXP)
 					{
 						gameInstance->GroupMembers[i]->Lvl++;
@@ -237,20 +237,5 @@ void ABattleGameMode::Tick(float DeltaTime)
 
 
 
-//void ABattleGameMode::ChangeMenu(TSubclassOf<UUserWidget> NewMenuClass)
-//{
-//    if (CurrentMenu != nullptr)
-//    {
-//        CurrentMenu->RemoveFromViewport();
-//        CurrentMenu = nullptr;
-//    }
-//    if (NewMenuClass != nullptr)
-//    {
-//        CurrentMenu = CreateWidget<UUserWidget>(GetWorld(), NewMenuClass);
-//        if (CurrentMenu != nullptr)
-//        {
-//            CurrentMenu->AddToViewport();
-//        }
-//    }
-//}
+
 

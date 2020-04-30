@@ -5,12 +5,13 @@
 
 
 
-
+//GameInstance constructor
 UCardLordGameInstance::UCardLordGameInstance(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	isInit = false;
 }
 
+//Init to check if initialized
 void UCardLordGameInstance::Init()
 {
 	if (this->isInit)
@@ -18,13 +19,13 @@ void UCardLordGameInstance::Init()
 	this->isInit = true;
 
 	//Find the characters Data
-
 	UDataTable* characters = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("DataTable'/Game/DataTable/Character.Character'")));
 
 	/////////////////////////PLAYER1//////////////////////////////////
 	if (characters == NULL)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Characters 'P1' data table not found!:("));
+		//Maybe its something wrong pga return 
 		//return;
 	}
 
@@ -32,9 +33,11 @@ void UCardLordGameInstance::Init()
 	FCharacterData* row = characters->FindRow<FCharacterData>(TEXT("P1"), TEXT("LookupCharcterClass"));
 	//FCharacterData* row1 = characters->FindRow<FCharacterData>(TEXT("P2"), TEXT("LookupCharcterClass"));
 
+	//If not found then return
 	if (row == NULL)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Character ID not found!!!"));
+		//Same problem here
 		//return;
 	}
 	else
@@ -42,6 +45,7 @@ void UCardLordGameInstance::Init()
 		UE_LOG(LogTemp, Warning, TEXT("Player Found"));
 	}
 
+	//Adds the character to the group
 	this->GroupMembers.Add(UGameCharacter::CreateGameCharacter(row, this));
 	
 
