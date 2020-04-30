@@ -13,34 +13,43 @@
 
 		this->character = character;
 
-		//If target is dead, select another target
+		//If the target is dead, select another target
+		//Check if HP is more then 0
 		if (this->target->HP <= 0)
 		{
 			this->target = this->character->SelectTarget();
 		}
 
-		//No target available
+		//If there is no target that is available
 		if (this->target == nullptr)
 		{
 			return;
 		}
 
-			//Attack option
-		if (target->HP <= 50)
-		{
+		 //Attack logic 
+		//if (target->HP <= 50)
+		//{
 			UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
-			target->HP -= 10 * (character->ATK / 5) - (target->DEF / 5) >= 0 ? (character->ATK - target->DEF): 0;
-			this->delayTimer = 1.0f;
-		}
-		else
-			UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
-			target->HP -= 10 * (character->ATK / 5) - (target->DEF / 10) >= 0 ? (character->ATK - target->DEF): 0;
+			//target->HP -= 10 * (character->ATK / 5) - (target->DEF / 5) >= 0 ? (character->ATK - target->DEF): 0;
+			target->HP -= (character->ATK - target->DEF) >= 0 ? (character->ATK - target->DEF) : 0;
+			//this->delayTimer = 1.0f;
+		//}
 
-			target->ATK;
+		//If the targets HP is less then 50,  the attack will become stronger
+		//else
+		//{
+			//UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
+			//target->HP -= 10 * (character->ATK / 5) - (target->DEF / 10) >= 0 ? (character->ATK - target->DEF) : 0;
+			//target->HP -= (character->ATK - target->DEF) >= 0 ? (character->ATK - target->DEF) : 0;
+
+
+			//Check of strong the attack is 
+			/*target->ATK;
 			int32 TotalDamage = 10 * (character->ATK / 5) - (target->DEF / 10);
 			target->HP -= TotalDamage;
-			FString AttackLog = FString::Printf(TEXT("%02d"), TotalDamage);             
-			UE_LOG(LogTemp, Error, TEXT("%s atk %s"), *character->CharacterName, *AttackLog);
+			FString AttackLog = FString::Printf(TEXT("%02d"), TotalDamage);
+			UE_LOG(LogTemp, Error, TEXT("%s atk %s"), *character->CharacterName, *AttackLog);*/
+		/*}*/
 			this->delayTimer = 1.0f;
 	}
 

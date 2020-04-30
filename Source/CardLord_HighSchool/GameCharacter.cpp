@@ -38,10 +38,11 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterDat
 		character->XP = character->ClassData->XP;
 		character->MaxXP = character->ClassData->MaxXP;
 		character->Lvl = character->ClassData->Lvl;
+		//character->LearnedAbilities = character->ClassData->LearnedAbilities;
 
 		//Here can we make an own decision maker for the player ?
-		character->decisionMaker = new TestDecisionMaker();
-	}
+		//character->decisionMaker = new TestDecisionMaker();
+
 
 	/*if (characterClass == NULL)
 	{
@@ -67,7 +68,8 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterDat
 		character->decisionMaker = new TestDecisionMaker();
 	}*/
 
-	character->isPlayer = true;
+		character->isPlayer = true;
+	}
 	return character;
 
 }
@@ -153,7 +155,7 @@ UGameCharacter * UGameCharacter::SelectTarget()
 		}
 	}
 
-	if(target)
+	//if(target)
 	if (target->HP <= 0)
 	{
 		return nullptr;
@@ -162,41 +164,42 @@ UGameCharacter * UGameCharacter::SelectTarget()
 	return target;
 }
 
-//Tried to add the functionallity to make the player choose between actions 
-UGameCharacter* UGameCharacter::SelectAction()
-{
-	UGameCharacter* actions = nullptr;
-
-	TArray<UGameCharacter*> actionList = this->combatInstance->inventory;
-
-	if (this->isPlayer)
-	{
-		actionList = this->combatInstance->inventory;
-	}
-
-	for (int i = 0; i < actionList.Num(); i++)
-	{
-		if (actionList[i]->HP > 0)
-		{
-			actions = actionList[i];
-			break;
-		}
-	}
-
-	if(actions)
-		if (actions->HP <= 0)
-		{
-			return nullptr;
-		}
-
-	return actions;
-}
+////Tried to add the functionallity to make the player choose between actions 
+//UGameCharacter* UGameCharacter::SelectAction()
+//{
+//	UGameCharacter* actions = nullptr;
+//
+//	TArray<UGameCharacter*> actionList = this->combatInstance->inventory;
+//
+//	if (this->isPlayer)
+//	{
+//		actionList = this->combatInstance->inventory;
+//	}
+//
+//	for (int i = 0; i < actionList.Num(); i++)
+//	{
+//		if (actionList[i]->HP > 0)
+//		{
+//			actions = actionList[i];
+//			break;
+//		}
+//	}
+//
+//	if(actions)
+//		if (actions->HP <= 0)
+//		{
+//			return nullptr;
+//		}
+//
+//	return actions;
+//}
 
 
 void UGameCharacter::BeginDestroy()
 {
 	//The decision maker will be the UI for the player 
 	Super::BeginDestroy();
+
 	if (!this->isPlayer)
 	{
 		delete(this->decisionMaker);
@@ -254,7 +257,7 @@ bool UGameCharacter::DoAction(float DeltaSeconds)
 		return true;
 	}
 	else
-		UE_LOG(LogTemp, Log, TEXT("Wainting"), *this->CharacterName);
+	UE_LOG(LogTemp, Log, TEXT("Wainting"), *this->CharacterName);
 
 	return false;
 }

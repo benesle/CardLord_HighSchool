@@ -4,35 +4,32 @@
 #include "TestDecisionMaker.h"
 #include "CardLord_HighSchool.h"
 #include "TestCombatAction.h"
-#include "TestHealingAction.h"
+
 
 
 void TestDecisionMaker::BeginDecision(UGameCharacter * character)
 {
 	UE_LOG(LogTemp, Log, TEXT("%s What to do?"), *character->CharacterName);
 
-	if (character)
+	/*if (character)
 	{
 		AttackChoice(character);
 		
-	}
-	
-	////AttackChoice(character);
+	}*/
+	//AttackChoice(character);
+
 	//if (character)
 	//{
 	//	UGameCharacter* target = character
 	//}
-	//if (character)
-	//{
-
-	//	UGameCharacter* target = character->SelectTarget();
-	//	character->combatAction = new TestCombatAction(target);
-
-
-	//}
-	//else
-	//	UE_LOG(LogTemp, Warning, TEXT("No character in TestDecitionMaker.cpp"));
-
+	
+	if (character)
+	{
+		UGameCharacter* target = character->SelectTarget();
+		character->combatAction = new TestCombatAction(target);
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("No character to select"));
 }
 
 bool TestDecisionMaker::Makedecision(float DeltaSeconds)
@@ -40,29 +37,29 @@ bool TestDecisionMaker::Makedecision(float DeltaSeconds)
 	return true;
 }
 
-void TestDecisionMaker::AttackChoice(UGameCharacter* character)
-{
-	if (character)
-	{
+//void TestDecisionMaker::AttackChoice(UGameCharacter* character)
+//{
+//	if (character)
+//	{
+//
+//		UGameCharacter* target = character->SelectTarget();
+//		character->combatAction = new TestCombatAction(target);
+//
+//
+//	}
+//	else
+//		UE_LOG(LogTemp, Warning, TEXT("No character in TestDecitionMaker.cpp"));
+//}
 
-		UGameCharacter* target = character->SelectTarget();
-		character->combatAction = new TestCombatAction(target);
-
-
-	}
-	else
-		UE_LOG(LogTemp, Warning, TEXT("No character in TestDecitionMaker.cpp"));
-}
-
-void TestDecisionMaker::HealingChoice(UGameCharacter* character)
-{
-	if (character)
-{
-
-		UGameCharacter* target = character->SelectTarget();
-		character->combatAction = new TestCombatAction(target);
-
-	}
-	else
-		UE_LOG(LogTemp, Warning, TEXT("No Healing"));
-}
+//void TestDecisionMaker::HealingChoice(UGameCharacter* character)
+//{
+//	if (character)
+//{
+//
+//		UGameCharacter* target = character->SelectTarget();
+//		character->combatAction = new TestCombatAction(target);
+//
+//	}
+//	else
+//		UE_LOG(LogTemp, Warning, TEXT("No Healing"));
+//}

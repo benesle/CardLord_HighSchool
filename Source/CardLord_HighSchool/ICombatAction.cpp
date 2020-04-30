@@ -4,12 +4,12 @@
 #include "CardLord_HighSchool.h"
 
 
-void ICombatAction::BeginAction(UGameCharacter * character)
-{
+//void ICombatAction::BeginAction(UGameCharacter * character)
+//{
 //
-	UE_LOG(LogTemp, Log, TEXT("%s this does nothing"), *character->CharacterName);
+//	UE_LOG(LogTemp, Log, TEXT("%s this does nothing"), *character->CharacterName);
 //
-}
+//}
 //
 //bool ICombatAction::DoAction(float DeltaSeconds)
 //{
