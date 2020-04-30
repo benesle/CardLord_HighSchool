@@ -69,8 +69,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterData)
         int32 Lvl;
 
+ /*   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterData)
+        TArray<FString> LearnedAbillities;*/
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterData)
-        TArray<FString> LearnedAbillities;
+        TArray<FString> StartingAbillities;
 
 
 public:

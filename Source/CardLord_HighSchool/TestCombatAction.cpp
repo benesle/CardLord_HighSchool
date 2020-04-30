@@ -31,6 +31,7 @@
 		//{
 			UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
 			//target->HP -= 10 * (character->ATK / 5) - (target->DEF / 5) >= 0 ? (character->ATK - target->DEF): 0;
+			//This will take the targets ATK - targets DEF, but only if the result are greater or equal to 0
 			target->HP -= (character->ATK - target->DEF) >= 0 ? (character->ATK - target->DEF) : 0;
 			//this->delayTimer = 1.0f;
 		//}

@@ -187,10 +187,13 @@ void ABattleGameMode::Tick(float DeltaTime)
 			else if (this->currentCombatInstance->gameState == CombatState::CSTATE_Win)
 			{
 				UE_LOG(LogTemp, Log, TEXT("Player wins combat"));
-				UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
 
-				gameInstance->GameGold += this->currentCombatInstance->TotalGold;
 				GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
+
+
+				UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
+				gameInstance->GameGold += this->currentCombatInstance->TotalGold;
+		
 
 				//Increase the stats of all the players in the group
 				for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
