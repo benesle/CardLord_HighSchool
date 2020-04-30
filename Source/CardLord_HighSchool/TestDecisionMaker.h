@@ -3,6 +3,7 @@
 #pragma once
 
 #include "IDecisionMaker.h"
+#include "DT_CharacterActionTypeData.h"
 
 class CARDLORD_HIGHSCHOOL_API TestDecisionMaker : public IDecisionMaker
 {
@@ -13,4 +14,5 @@ public:
 	void AttackChoice(UGameCharacter* character);
 	void HealingChoice(UGameCharacter* character);
 	void Heal(UGameCharacter* character);
+	void Flee(UGameCharacter* character);
 };
