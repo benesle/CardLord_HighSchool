@@ -35,7 +35,6 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterDat
 		character->DEF = character->ClassData->MinDEF;
 		character->Crit = character->ClassData->MinCrit;
 		character->LearnedAbilities = character->ClassData->LearnedAbilities;
-		character->StartingAbillities = character->ClassData->StartingAbilities;
 		character->XP = character->ClassData->XP;
 		character->MaxXP = character->ClassData->MaxXP;
 		character->Lvl = character->ClassData->Lvl;
