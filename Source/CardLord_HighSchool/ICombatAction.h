@@ -10,11 +10,10 @@ class CARDLORD_HIGHSCHOOL_API ICombatAction
 {
 
 protected:
-	//float delayTimer;
+	float delayTimer;
 
 public:
 	virtual void BeginAction(UGameCharacter* character) = 0;
 	virtual bool DoAction(float DeltaSeconds) = 0;
-	/*virtual void AttackChoice(UGameCharacter* character) = 0;
-	virtual void HealingChoice(UGameCharacter* character) = 0;*/
+
 };

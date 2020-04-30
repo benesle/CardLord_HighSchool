@@ -69,16 +69,19 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterData)
         int32 Lvl;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterData)
+        TArray<FString> LearnedAbillities;
+
 
 public:
     
     static UGameCharacter* CreateGameCharacter(FCharacterData* characterData, UObject* outer);
     static UGameCharacter* CreateGameCharacter(FEnemyData* enemyData, UObject* outer);
-    static UGameCharacter* CreateInventory(FItemData* itemData, UObject* outer);
+    //static UGameCharacter* CreateInventory(FItemData* itemData, UObject* outer);
 
 
 	UGameCharacter* SelectTarget();
-    UGameCharacter* SelectAction();
+    //UGameCharacter* SelectAction();
 
 public:
     void BeginDestroy() override;
