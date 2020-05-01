@@ -150,6 +150,7 @@ bool CombatManager::UpdateState(float DeltaSeconds)
 		return false;
 	}
 
+	//Check if player won the battle
 	//Important values to acount for and will later be added to the player after the battle is finnished
 	//Gold and XP will be added to the players Stats and information
 	deathCount = 0;
@@ -160,16 +161,19 @@ bool CombatManager::UpdateState(float DeltaSeconds)
 	for (int i = 0; i < this->enemyGroup.Num(); i++)
 	{
 		//Check if enemies have HP = 0 or less, but less then 0 will not be impossible
-		if (this->enemyGroup[i]->HP <= 0)
+		if (this->enemyGroup[i]->HP <= 0) 
 		{
 			//Set the HP of the enemy to 0
 			//Add death to deathcount
 			//Add gold and XP according to the enemies currently in the party to Gold and XP
-			this->enemyGroup[i]->HP = 0;
 			deathCount++;
+
+
 			Gold += this->enemyGroup[i]->Gold;
 			XP += this->enemyGroup[i]->XP;
+			this->enemyGroup[i]->HP = 0;
 		}
+
 		
 	}
 
@@ -180,6 +184,7 @@ bool CombatManager::UpdateState(float DeltaSeconds)
 		//Switch state to the winning state
 		//Add the gold and XP to the player
 		this->SetState(CombatState::CSTATE_Win);
+
 		TotalGold = Gold;
 		XPTotal = XP;
 		return false;

@@ -4,6 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "BattleGameMode.h"
+#include "GameCharacter.h"
+#include "CombatManager.h"
+#include "CombatUI.h"
 #include "CardLord_HighSchoolGameModeBase.generated.h"
 
 
@@ -14,7 +18,29 @@ class CARDLORD_HIGHSCHOOL_API ACardLord_HighSchoolGameModeBase : public AGameMod
 
 		ACardLord_HighSchoolGameModeBase(const class FObjectInitializer& ObjectInitializer);
 
+	virtual void StartPlay() override;
+	//This because just in case thats why something does not work
+	//virtual void BeginPlay() override;
+	//virtual void Tick(float DeltaTime) override;
+
 public:
-		virtual void StartPlay() override;
+
+	//Just testing something out 
+
+	//Combat manager instance
+	//CombatManager* currentCombatInstance;
+
+	////An array with all the enemy group members 
+	//TArray<UGameCharacter*> enemyGroup;
+
+
+	////UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
+	////	TSubclassOf<class UUserWidget> GameOverClass;
+
+	////UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
+	////	TSubclassOf<class UCombatUI> CombatUIClass;
+
+	//UPROPERTY()
+	//	UCombatUI* CombatUIInstance;
 	
 };

@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "GameCharacter.h"
 #include "CardLordGameInstance.generated.h"
@@ -17,7 +16,9 @@ class CARDLORD_HIGHSCHOOL_API UCardLordGameInstance : public UGameInstance
 
 		UCardLordGameInstance(const class FObjectInitializer& ObjectInitializer);
 
+
 public:
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Game Data")
 	TArray<UGameCharacter*> GroupMembers;
 	//TArray<UGameCharacter*> playerGroup;

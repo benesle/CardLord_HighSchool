@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+#include "Object.h"
 #include "Engine/DataTable.h"
 #include "FEnemyData.generated.h"
 
