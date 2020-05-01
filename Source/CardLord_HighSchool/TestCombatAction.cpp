@@ -26,15 +26,26 @@
 			return;
 		}
 
-		 //Attack logic 
-		//if (target->HP <= 50)
-		//{
-			UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
-			//target->HP -= 10 * (character->ATK / 5) - (target->DEF / 5) >= 0 ? (character->ATK - target->DEF): 0;
-			//This will take the targets ATK - targets DEF, but only if the result are greater or equal to 0
-			target->HP -= (character->ATK - target->DEF) >= 0 ? (character->ATK - target->DEF) : 0;
+		if (target->HP > 0 & character->MP > 10)
+		{
+			AttackDone(character);
+			character->MP -=10;
+
+		}
+		else
+		{
+			UE_LOG(LogTemp, Log, TEXT("%s No more energy"), *character->CharacterName);
+		}
+		/*	if (target->HP > 0)*/
+
+			//	UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
+			////target->HP -= 10 * (character->ATK / 5) - (target->DEF / 5) >= 0 ? (character->ATK - target->DEF): 0;
+			////This will take the targets ATK - targets DEF, but only if the result are greater or equal to 0
+			//target->HP -= (character->ATK - target->DEF) >= 0 ? (character->ATK - target->DEF) : 0;
+
+
 			//this->delayTimer = 1.0f;
-		//}
+		/*}*/
 
 		//If the targets HP is less then 50,  the attack will become stronger
 		//else
@@ -51,7 +62,18 @@
 			FString AttackLog = FString::Printf(TEXT("%02d"), TotalDamage);
 			UE_LOG(LogTemp, Error, TEXT("%s atk %s"), *character->CharacterName, *AttackLog);*/
 		/*}*/
-			this->delayTimer = 1.0f;
+			//this->delayTimer = 1.0f;
+	}
+
+	void TestCombatAction::AttackDone(UGameCharacter* character)
+	{
+
+		//if (target->HP > 0)
+
+		UE_LOG(LogTemp, Log, TEXT("%s attacks %s"), *character->CharacterName, *target->CharacterName);
+		target->HP -= (character->ATK - target->DEF) >= 0 ? (character->ATK - target->DEF) : 0;
+
+		this->delayTimer = 1.0f;
 	}
 
 	bool TestCombatAction::DoAction(float DeltaSeconds)
