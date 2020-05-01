@@ -92,6 +92,7 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FEnemyData* enemyData, UObje
 		character->ATK = enemyData->ATK;
 		character->DEF = enemyData->DEF;
 		character->Crit = enemyData->Crit;
+		character->XP = enemyData->XP;
 		character->Gold = enemyData->Gold;
 
 		//Dont Remove this

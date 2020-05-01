@@ -11,9 +11,15 @@
 void ACardLord_HighSchoolGameModeBase::StartPlay()
 {
 	Super::StartPlay();
+
 	//Cast<UCardLordGameInstance>(GetGameInstance())->Init();
 
 }
+
+//void ACardLord_HighSchoolGameModeBase::Tick(float DeltaTime)
+//{
+//
+//}
 
 
 //void ACardLord_HighSchoolGameModeBase::TestCombat()

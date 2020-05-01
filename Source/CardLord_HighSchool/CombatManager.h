@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "CardLord_HighSchool.h"
 #include "GameCharacter.h"
 
@@ -28,10 +27,11 @@ public:
 
 	CombatState gameState;
 
-	bool Tick(float DeltaSeconds);
-	int32 TotalGold;
 	int32 XPTotal;
+	int32 TotalGold;
 
+
+	bool Tick(float DeltaSeconds);
 protected:
 
 	UGameCharacter* currentTickTarget;

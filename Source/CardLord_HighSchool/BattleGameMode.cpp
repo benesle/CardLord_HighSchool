@@ -3,7 +3,7 @@
 
 #include "BattleGameMode.h"
 #include "MyPlayerBattle.h"
-//#include "MyCharacter.h"
+#include "MyCharacter.h"
 #include "CardLordGameInstance.h"
 #include "MyPlayerController.h"
 #include "CardLord_HighSchool.h"
@@ -15,18 +15,6 @@ ABattleGameMode::ABattleGameMode(const class FObjectInitializer& ObjectInitializ
 	: Super(ObjectInitializer)
 {
 	DefaultPawnClass = AMyCharacter::StaticClass();
-}
-
-void ABattleGameMode::BeginPlay()
-{
-	if (Cast<UCardLordGameInstance>(GetGameInstance()))
-	{
-		Cast<UCardLordGameInstance>(GetGameInstance())->Init();
-		UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
-		TestCombat();
-	}
-	else
-		UE_LOG(LogTemp, Warning, TEXT("No Game Instance in begin play BattleGameMode"));
 }
 
 //Here is where the combat are happening 
@@ -140,6 +128,19 @@ void ABattleGameMode::TestCombat()
 
 }
 
+void ABattleGameMode::BeginPlay()
+{
+	if (Cast<UCardLordGameInstance>(GetGameInstance()))
+	{
+		Cast<UCardLordGameInstance>(GetGameInstance())->Init();
+		UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+		TestCombat();
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("No Game Instance in begin play BattleGameMode"));
+}
+
+
 //void ABattleGameMode::PlayerCombat()
 //{
 //	UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
@@ -188,12 +189,9 @@ void ABattleGameMode::Tick(float DeltaTime)
 			{
 				UE_LOG(LogTemp, Log, TEXT("Player wins combat"));
 
-				GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
-
-
 				UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
 				gameInstance->GameGold += this->currentCombatInstance->TotalGold;
-		
+				UE_LOG(LogTemp, Warning, TEXT("TotalGold, %d"), gameInstance->GameGold);
 
 				//Increase the stats of all the players in the group
 				for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
@@ -212,6 +210,7 @@ void ABattleGameMode::Tick(float DeltaTime)
 
 						gameInstance->GroupMembers[i]->MaxXP += gameInstance->GroupMembers[i]->MaxXP;
 					}
+					GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
 				}
 
 				UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetActorTickEnabled(true);
