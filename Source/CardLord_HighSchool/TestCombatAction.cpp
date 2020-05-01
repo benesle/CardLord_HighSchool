@@ -26,7 +26,7 @@
 			return;
 		}
 
-		if (target->HP > 0 & character->MP > 10)
+		if (target->HP > 0 || character->MP > 10)
 		{
 			AttackDone(character);
 			character->MP -=10;
