@@ -45,7 +45,7 @@ public:
 		int Inventory[50];
 		FString InventoryDescription[50];
 		int InventoryItems;
-		int KeyInventory[10];
+		bool MathDefeated{ false };
 
 	int CameraSwitch = 0;
 
