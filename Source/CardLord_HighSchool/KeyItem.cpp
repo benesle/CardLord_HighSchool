@@ -25,7 +25,7 @@ void AKeyItem::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 		if (Cast<AMyCharacter>(OtherActor))
 		{
 			AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
-			if (MyCharacter->InventoryItems == 5)
+			if (MyCharacter->MathDefeated)
 			{
 				MyCharacter->Inventory[MyCharacter->InventoryItems] = 5;
 
@@ -34,13 +34,11 @@ void AKeyItem::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				MyCharacter->InventoryItems++;
 
 			}
-			if (MyCharacter->InventoryItems < 50)
+			if (!MyCharacter->MathDefeated)
 			{
-				MyCharacter->Inventory[MyCharacter->InventoryItems] = 1;
-
-				MyCharacter->InventoryDescription[MyCharacter->InventoryItems] = "This is a test. You're not supposed to see this message";
-				UE_LOG(LogTemp, Warning, TEXT("Description is %s"), *MyCharacter->InventoryDescription[MyCharacter->InventoryItems]);
-				MyCharacter->InventoryItems++;
+				MyCharacter->MathDefeated = true;
+				UE_LOG(LogTemp, Warning, TEXT("Math Defeated is true"));
+				
 
 
 			}
