@@ -47,6 +47,11 @@ public:
 		int InventoryItems;
 		bool MathDefeated{ false };
 
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LevelSwitch")
+			FVector PositionReset {
+			0, 0, 0
+		};
+
 	int CameraSwitch = 0;
 
 public:
