@@ -25,15 +25,7 @@ void AKeyItem::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 		if (Cast<AMyCharacter>(OtherActor))
 		{
 			AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
-			if (MyCharacter->MathDefeated)
-			{
-				MyCharacter->Inventory[MyCharacter->InventoryItems] = 5;
-
-				MyCharacter->InventoryDescription[MyCharacter->InventoryItems] = "You have 6 items";
-				UE_LOG(LogTemp, Warning, TEXT("Description is %s"), *MyCharacter->InventoryDescription[MyCharacter->InventoryItems]);
-				MyCharacter->InventoryItems++;
-
-			}
+			
 			if (!MyCharacter->MathDefeated)
 			{
 				MyCharacter->MathDefeated = true;

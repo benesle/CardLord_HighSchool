@@ -29,7 +29,7 @@ void ALevelMove::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 		if (Cast<AMyCharacter>(OtherActor))
 		{
 			AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
-			if (MyCharacter->InventoryItems == 5)
+			/*if (MyCharacter->InventoryItems == 5)
 			{
 				MyCharacter->Inventory[MyCharacter->InventoryItems] = 1;
 
@@ -47,7 +47,7 @@ void ALevelMove::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				MyCharacter->InventoryItems++;
 
 
-			}
+			}*/
 			/*AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
 			if (MyCharacter->InBattleMode == true)
 			{

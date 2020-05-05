@@ -163,7 +163,12 @@ void AMyEnemy::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 					//UGameplayStatics::
 
 				//}
-				StartPosition = OtherActor->GetActorLocation();
+				//MyCharacter->PositionReset = OtherActor->GetActorLocation();
+
+				//MyCharacter->PositionReset -= FVector(0, -10, 0);
+				//UGameplayStatics::SaveGameToSlot()
+
+				//StartPosition = OtherActor->GetActorLocation();
 				GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
 
 				MyCharacter->InBattleMode = true;
