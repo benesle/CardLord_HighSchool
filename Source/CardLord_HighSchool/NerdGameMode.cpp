@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BattleGameMode.h"
+#include "NerdGameMode.h"
 #include "MyPlayerBattle.h"
 #include "MyCharacter.h"
 #include "CardLordGameInstance.h"
@@ -11,14 +11,26 @@
 
 
 //The Combat gameMode  constructor 
-ABattleGameMode::ABattleGameMode(const class FObjectInitializer& ObjectInitializer)
+ANerdGameMode::ANerdGameMode(const class FObjectInitializer& ObjectInitializer) 
 	: Super(ObjectInitializer)
 {
 	DefaultPawnClass = AMyCharacter::StaticClass();
 }
 
-//Here is where the combat are happening 
-void ABattleGameMode::TestCombat()
+void ANerdGameMode::BeginPlay()
+{
+	if (Cast<UCardLordGameInstance>(GetGameInstance()))
+	{
+		Cast<UCardLordGameInstance>(GetGameInstance())->Init();
+		UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+
+		TestNerdCombat();
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("No Game Instance in begin play BattleGameMode"));
+}
+
+void ANerdGameMode::TestNerdCombat()
 {
 	//Find enemyData
 	UDataTable* enemyTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("DataTable'/Game/DataTable/Enemy.Enemy'")));
@@ -30,12 +42,12 @@ void ABattleGameMode::TestCombat()
 	}
 
 	//Find enemis
-	FEnemyData* row = enemyTable->FindRow<FEnemyData>(TEXT("P1"), TEXT("LookupEnemyData"));
-	enemyTable->FindRow<FEnemyData>(TEXT("P1"), TEXT("LookupEnemyData"));
+	FEnemyData* row = enemyTable->FindRow<FEnemyData>(TEXT("P5"), TEXT("LookupEnemyData"));
+	enemyTable->FindRow<FEnemyData>(TEXT("P5"), TEXT("LookupEnemyData"));
 
 	if (row == NULL)
 	{
-		UE_LOG(LogTemp, Error, TEXT("Enemy ID 'P1' not found!"));
+		UE_LOG(LogTemp, Error, TEXT("Enemy ID 'P5' not found!"));
 		return;
 	}
 	else
@@ -52,26 +64,22 @@ void ABattleGameMode::TestCombat()
 	else
 		UE_LOG(LogTemp, Warning, TEXT("NO enemy"));
 
-	///////////////////////////////////////////////////
+	//Find second enemy
 
-	//Find enemyData
-	/*UDataTable* enemyTable =*/ //Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("DataTable'/Game/DataTable/Enemy.Enemy'")));
-	//Find enemis
+	FEnemyData* row1 = enemyTable->FindRow<FEnemyData>(TEXT("P4"), TEXT("LookupEnemyData"));
+	enemyTable->FindRow<FEnemyData>(TEXT("P4"), TEXT("LookupEnemyData"));
 
-	FEnemyData* row1 = enemyTable->FindRow<FEnemyData>(TEXT("P2"), TEXT("LookupEnemyData"));
-
-	if (row1 == NULL)
+	if (row == NULL)
 	{
-		UE_LOG(LogTemp, Error, TEXT("Enemy ID 'P2' not found!"));
+		UE_LOG(LogTemp, Error, TEXT("Enemy ID 'P4' not found!"));
 		return;
 	}
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Enemy Found"));
 	}
-	///////////////////////////////////////////////////////////////
 
-		// add character to enemy party
+	// add second character to enemy party
 	UGameCharacter* enemy1 = UGameCharacter::CreateGameCharacter(row1, this);
 	if (enemy1)
 	{
@@ -80,23 +88,35 @@ void ABattleGameMode::TestCombat()
 	else
 		UE_LOG(LogTemp, Warning, TEXT("NO enemy"));
 
-	// disable player actor
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetActorTickEnabled(false);
-
-	// add character to enemy party
-	///*UGameCharacter* */enemy = UGameCharacter::CreateGameCharacter(row, this);
-	//if (enemy)
-	//{
-	//	this->enemyGroup.Add(enemy);
-	//}
-	//else
-	//	UE_LOG(LogTemp, Warning, TEXT("NO enemy"));
-
 	if (enemyTable == NULL)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Enemies data table not found!"));
 		return;
 	}
+
+	//Find third enemy
+
+	FEnemyData* row2 = enemyTable->FindRow<FEnemyData>(TEXT("P3"), TEXT("LookupEnemyData"));
+	enemyTable->FindRow<FEnemyData>(TEXT("P3"), TEXT("LookupEnemyData"));
+
+	if (row == NULL)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Enemy ID 'P3' not found!"));
+		return;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Enemy Found"));
+	}
+
+	// add second character to enemy party
+	UGameCharacter* enemy2 = UGameCharacter::CreateGameCharacter(row2, this);
+	if (enemy2)
+	{
+		this->enemyGroup.Add(enemy2);
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("NO enemy"));
 
 	//Prepearing the combat
 	UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
@@ -125,48 +145,10 @@ void ABattleGameMode::TestCombat()
 		this->CombatUIInstance->AddEnemyCharacterWid(this->enemyGroup[i]);
 	}
 
+
 }
 
-
-
-void ABattleGameMode::BeginPlay()
-{
-	if (Cast<UCardLordGameInstance>(GetGameInstance()))
-	{
-		Cast<UCardLordGameInstance>(GetGameInstance())->Init();
-		UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
-		TestCombat();
-		//TestNerdCombat();
-	}
-	else
-		UE_LOG(LogTemp, Warning, TEXT("No Game Instance in begin play BattleGameMode"));
-}
-
-
-//void ABattleGameMode::PlayerCombat()
-//{
-//	UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
-//	
-//	UE_LOG(LogTemp, Log, TEXT("Combat started"));
-//
-//	this->CombatUIInstance = CreateWidget<UCombatUI>(GetGameInstance(), this->CombatUIClass);
-//	this->CombatUIInstance->AddToViewport();
-//
-//	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
-//
-//
-//	//Player
-//	for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
-//
-//	{
-//		this->CombatUIInstance->AddPlayerCharacterWid(gameInstance->GroupMembers[i]);
-//		gameInstance->GroupMembers[i]->decisionMaker = this->CombatUIInstance;
-//	}
-//
-//}
-
-
-void ABattleGameMode::Tick(float DeltaTime)
+void ANerdGameMode::Tick(float DeltaTime)
 {
 	if (this->currentCombatInstance != nullptr)
 	{
@@ -181,8 +163,8 @@ void ABattleGameMode::Tick(float DeltaTime)
 				Cast<UCardLordGameInstance>(GetGameInstance())->PrepareReset();
 
 				UUserWidget* GameOverInstance = CreateWidget<UUserWidget>(GetGameInstance(), this->GameOverClass);
-				if(GameOverInstance)
-				GameOverInstance->AddToViewport();
+				if (GameOverInstance)
+					GameOverInstance->AddToViewport();
 			}
 
 			//If the player win return the player to the level it came from
@@ -228,8 +210,8 @@ void ABattleGameMode::Tick(float DeltaTime)
 			//Player actor enable
 			UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetActorTickEnabled(true);
 
-			if(CombatUIInstance)
-			this->CombatUIInstance->RemoveFromViewport();
+			if (CombatUIInstance)
+				this->CombatUIInstance->RemoveFromViewport();
 			this->CombatUIInstance = nullptr;
 
 			delete(this->currentCombatInstance);
@@ -238,8 +220,3 @@ void ABattleGameMode::Tick(float DeltaTime)
 		}
 	}
 }
-
-
-
-
-

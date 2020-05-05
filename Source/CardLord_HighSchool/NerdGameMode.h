@@ -2,38 +2,33 @@
 
 #pragma once
 
-#include "GameFramework/GameMode.h"
+#include "BattleGameMode.h"
 #include "GameCharacter.h"
 #include "CombatManager.h"
 #include "GameFramework/PlayerController.h"
 #include "Blueprint/UserWidget.h"
 #include "CombatUI.h"
-#include "BattleGameMode.generated.h"
+#include "NerdGameMode.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class CARDLORD_HIGHSCHOOL_API ABattleGameMode : public AGameMode
+class CARDLORD_HIGHSCHOOL_API ANerdGameMode : public AGameMode//ABattleGameMode
 {
 	GENERATED_BODY()
+	
+        //virtual void StartPlay() override;
+        ANerdGameMode(const class FObjectInitializer& ObjectInitializer);
 
+    virtual void BeginPlay() override;
+    //Overrided tick function
+    virtual void Tick(float DeltaTime) override;
 
-   //virtual void StartPlay() override;
-   ABattleGameMode(const class FObjectInitializer& ObjectInitializer);
+		UFUNCTION(exec)
+		void TestNerdCombat();
 
-   virtual void BeginPlay() override;
-   //Overrided tick function
-   virtual void Tick(float DeltaTime) override;
-
-   //virtual bool UpdateState(float Deltatime) override;
-
-    //To test the combat system
-   UFUNCTION(exec)
-       void TestCombat();
- 
-
-public: 
+public:
 
     //Combat manager instance
     CombatManager* currentCombatInstance;
@@ -41,16 +36,13 @@ public:
     //An array with all the enemy group members 
     TArray<UGameCharacter*> enemyGroup;
 
-
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
         TSubclassOf<class UUserWidget> GameOverClass;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
-		TSubclassOf<class UCombatUI> CombatUIClass;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
+        TSubclassOf<class UCombatUI> CombatUIClass;
 
     UPROPERTY()
         UCombatUI* CombatUIInstance;
-
-
 
 };
