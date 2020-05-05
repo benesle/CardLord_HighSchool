@@ -73,7 +73,7 @@ void AMyEnemyNerd::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalIm
 				UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *OtherActor->GetActorLocation().ToString());
 				// Battle position is -500,-200 no elevation
 				OtherActor->SetActorLocation({ -500,-200,118.150 });
-				GetWorld()->ServerTravel(FString("/Game/Maps/Battle"));
+				GetWorld()->ServerTravel(FString("/Game/Maps/HallwayFights"));
 
 
 				//GetWorld()->SetGameMode(FURL("/Game/Gameplay/Blueprint/BP_BattleGameModeBase"));
@@ -81,7 +81,6 @@ void AMyEnemyNerd::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalIm
 
 				//UE_LOG(LogTemp, Warning, TEXT("%s Actor Vector"), *StartPosition.ToString());
 				UE_LOG(LogTemp, Warning, TEXT(" InBattleMode is %s"), (MyCharacter->InBattleMode ? TEXT("TRUE") : TEXT("FALSE")));
-
 
 
 				MyCharacter->InBattleMode = true;
