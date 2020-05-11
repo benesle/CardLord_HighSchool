@@ -46,6 +46,7 @@ void ACameraTriggerBox::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AAc
 		AMyCharacter* temp = Cast<AMyCharacter>(OtherActor);
 
 		temp->CameraBoom->SetRelativeRotation(CameraRotation);
+		temp->SavedCameraFvector = CameraRotation;
 		temp->CameraSwitch = CameraSwitcher;
 	
 		
