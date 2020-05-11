@@ -2,6 +2,7 @@
 
 using UnrealBuildTool;
 
+
 public class CardLord_HighSchool : ModuleRules
 {
 	public CardLord_HighSchool(ReadOnlyTargetRules Target) : base(Target)
