@@ -31,6 +31,7 @@ class CARDLORD_HIGHSCHOOL_API ABattleGameMode : public AGameMode
     //To test the combat system
    UFUNCTION(exec)
        void TestCombat();
+ 
 
 public: 
 
