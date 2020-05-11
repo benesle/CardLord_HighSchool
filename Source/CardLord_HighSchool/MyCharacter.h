@@ -48,11 +48,13 @@ public:
 		bool MathDefeated{ false };
 
 		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LevelSwitch")
-			FVector PositionReset {
-			0, 0, 0
-		};
+			FVector PositionReset {0, 0, 0};
 
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LevelSwitch")
 	int CameraSwitch = 0;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LevelSwitch")
+			FRotator SavedCameraFvector = FRotator(0, 0, 90);
 
 public:
 	// Sets default values for this character's properties
@@ -77,6 +79,9 @@ public:
 	UFUNCTION()
 		void MoveRight(float Value);
 	
+	UFUNCTION(BlueprintCallable)
+		void SavedCameraRotation();
+
 	UFUNCTION()
 		void OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit);
 

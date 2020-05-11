@@ -31,7 +31,4 @@ struct FItemData : public FTableRowBase
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ItemData")
 		int32 Gold;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ItemData")
-		FString description;
-
 };

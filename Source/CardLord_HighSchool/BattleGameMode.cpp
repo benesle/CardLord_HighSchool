@@ -125,8 +125,9 @@ void ABattleGameMode::TestCombat()
 		this->CombatUIInstance->AddEnemyCharacterWid(this->enemyGroup[i]);
 	}
 
-
 }
+
+
 
 void ABattleGameMode::BeginPlay()
 {
@@ -135,6 +136,7 @@ void ABattleGameMode::BeginPlay()
 		Cast<UCardLordGameInstance>(GetGameInstance())->Init();
 		UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
 		TestCombat();
+		//TestNerdCombat();
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("No Game Instance in begin play BattleGameMode"));

@@ -39,6 +39,9 @@ public:
 	UFUNCTION()
 	void OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Remove enemy")
+		bool isDefeated = false;
+
 
 	FVector StartPosition = { 0,0,0 };
 	FVector CameraPosition = { 0,0,0 };
