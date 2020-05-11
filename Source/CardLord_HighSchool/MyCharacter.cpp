@@ -195,6 +195,11 @@ void AMyCharacter::MoveRight(float Value)
 
 }
 
+void AMyCharacter::SavedCameraRotation()
+{
+	CameraBoom->SetRelativeRotation(SavedCameraFvector);
+}
+
 void AMyCharacter::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
 {
 	
