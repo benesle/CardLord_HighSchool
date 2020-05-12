@@ -12,7 +12,7 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterDat
 {
 	UGameCharacter* character = NewObject<UGameCharacter>(outer);
 
-	// locate character classes asset
+	// locate the character class data
 	UDataTable* characterClass = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("DataTable'/Game/DataTable/CharacterClass.CharacterClass'")));
 	
 	if (characterClass == NULL)
@@ -34,39 +34,11 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterData* characterDat
 		character->ATK = character->ClassData->MinATK;
 		character->DEF = character->ClassData->MinDEF;
 		character->Crit = character->ClassData->MinCrit;
-		character->LearnedAbilities = character->ClassData->LearnedAbilities;
 		character->XP = character->ClassData->XP;
 		character->MaxXP = character->ClassData->MaxXP;
 		character->Lvl = character->ClassData->Lvl;
-		//character->LearnedAbilities = character->ClassData->LearnedAbilities;
-
-		//Here can we make an own decision maker for the player ?
-		//character->decisionMaker = new TestDecisionMaker();
-
-
-	/*if (characterClass == NULL)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Character classes datatable not found!"));
-	}*/
-
-	/*else
-	{
-		character->CharacterName = characterData->Character_Name;
-		FCharacterClassData* row1 = characterClass->FindRow<FCharacterClassData>(*(characterData->Class_ID), TEXT("LookupCharacterClass"));
-		character->ClassData = row1;
-
-
-		character->Health = character->ClassData->MinHealth;
-		character->Stamina = character->ClassData->MinStamina;
-		character->HP = character->Health;
-		character->MP = character->Stamina;
-
-		character->ATK = character->ClassData->MinATK;
-		character->DEF = character->ClassData->MinDEF;
-		character->Crit = character->ClassData->MinCrit;
-
-		character->decisionMaker = new TestDecisionMaker();
-	}*/
+		character->LearnedAbilities = character->ClassData->LearnedAbilities;
+		character->StartingAbillities = character->ClassData->StartingAbilities;
 
 		character->isPlayer = true;
 	}
