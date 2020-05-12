@@ -23,15 +23,14 @@ public:
 	TArray<UGameCharacter*> combatTurn;
 	TArray<UGameCharacter*> playerGroup;
 	TArray<UGameCharacter*> enemyGroup;
-	/*TArray<UGameCharacter*> inventory;*/
 
 	CombatState gameState;
 
 	int32 XPTotal;
 	int32 TotalGold;
 
-
 	bool Tick(float DeltaSeconds);
+
 protected:
 
 	UGameCharacter* currentTickTarget;

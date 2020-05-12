@@ -143,28 +143,6 @@ void ABattleGameMode::BeginPlay()
 }
 
 
-//void ABattleGameMode::PlayerCombat()
-//{
-//	UCardLordGameInstance* gameInstance = Cast<UCardLordGameInstance>(GetGameInstance());
-//	
-//	UE_LOG(LogTemp, Log, TEXT("Combat started"));
-//
-//	this->CombatUIInstance = CreateWidget<UCombatUI>(GetGameInstance(), this->CombatUIClass);
-//	this->CombatUIInstance->AddToViewport();
-//
-//	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
-//
-//
-//	//Player
-//	for (int i = 0; i < gameInstance->GroupMembers.Num(); i++)
-//
-//	{
-//		this->CombatUIInstance->AddPlayerCharacterWid(gameInstance->GroupMembers[i]);
-//		gameInstance->GroupMembers[i]->decisionMaker = this->CombatUIInstance;
-//	}
-//
-//}
-
 
 void ABattleGameMode::Tick(float DeltaTime)
 {
