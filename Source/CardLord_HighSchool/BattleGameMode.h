@@ -16,11 +16,12 @@
 UCLASS()
 class CARDLORD_HIGHSCHOOL_API ABattleGameMode : public AGameMode
 {
+
 	GENERATED_BODY()
 
 
    //virtual void StartPlay() override;
-   ABattleGameMode(const class FObjectInitializer& ObjectInitializer);
+   
 
    virtual void BeginPlay() override;
    //Overrided tick function
@@ -34,7 +35,7 @@ class CARDLORD_HIGHSCHOOL_API ABattleGameMode : public AGameMode
  
 
 public: 
-
+    ABattleGameMode(const class FObjectInitializer& ObjectInitializer);
     //Combat manager instance
     CombatManager* currentCombatInstance;
 
