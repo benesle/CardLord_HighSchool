@@ -8,34 +8,32 @@
 #include "GameFramework/PlayerController.h"
 #include "Blueprint/UserWidget.h"
 #include "CombatUI.h"
-#include "BattleGameMode.generated.h"
+#include "GymTeacherBattle.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class CARDLORD_HIGHSCHOOL_API ABattleGameMode : public AGameMode
+class CARDLORD_HIGHSCHOOL_API AGymTeacherBattle : public AGameMode
 {
-
 	GENERATED_BODY()
+	
+        //virtual void StartPlay() override;
 
 
-   //virtual void StartPlay() override;
-   
+        virtual void BeginPlay() override;
+    //Overrided tick function
+    virtual void Tick(float DeltaTime) override;
 
-   virtual void BeginPlay() override;
-   //Overrided tick function
-   virtual void Tick(float DeltaTime) override;
+    //virtual bool UpdateState(float Deltatime) override;
 
-   //virtual bool UpdateState(float Deltatime) override;
+     //To test the combat system
+    UFUNCTION(exec)
+        void TestCombat();
 
-    //To test the combat system
-   UFUNCTION(exec)
-       void TestCombat();
- 
 
-public: 
-    ABattleGameMode(const class FObjectInitializer& ObjectInitializer);
+public:
+    AGymTeacherBattle(const class FObjectInitializer& ObjectInitializer);
     //Combat manager instance
     CombatManager* currentCombatInstance;
 
@@ -46,8 +44,8 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
         TSubclassOf<class UUserWidget> GameOverClass;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
-		TSubclassOf<class UCombatUI> CombatUIClass;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
+        TSubclassOf<class UCombatUI> CombatUIClass;
 
     UPROPERTY()
         UCombatUI* CombatUIInstance;
