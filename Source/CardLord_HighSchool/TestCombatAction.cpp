@@ -34,6 +34,11 @@
 				character->MP -= 10;
 				UE_LOG(LogTemp, Log, TEXT("%s did the thing"), *character->CharacterName);
 			}
+			else if (character->MP <= 10)
+			{
+				AttackDone(character);
+				character->isPlayer = false;
+			}
 		}
 		else if (target->HP > 0)
 		{
