@@ -42,6 +42,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Remove enemy")
 		bool isDefeated = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Level select")
+		FString LevelPath = "/Game/Maps/Battle";
+
 
 	FVector StartPosition = { 0,0,0 };
 	FVector CameraPosition = { 0,0,0 };
