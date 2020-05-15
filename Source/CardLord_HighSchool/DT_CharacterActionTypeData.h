@@ -25,5 +25,8 @@ struct FCharacterActionTypeData : public FTableRowBase
 
     UPROPERTY(BlueprintReadOnly, Category = "FCharacterActionTypeData")
         int32 CostStamina;
+
+    UPROPERTY(BlueprintReadOnly, Category = "FCharacterActionTypeData")
+        int32 Damage;
 };
 
