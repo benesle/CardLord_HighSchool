@@ -52,6 +52,12 @@ public:
     UPROPERTY()
         UCombatUI* CombatUIInstance;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Level select")
+        FString Enemy1 = "P1";
 
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Level select")
+        FString Enemy2 = "P2";
 
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Level select")
+            FString LevelPath = "/Game/Maps/Floor_1";
 };
