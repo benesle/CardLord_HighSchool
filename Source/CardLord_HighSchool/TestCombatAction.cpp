@@ -28,10 +28,10 @@
 
 		if (character->isPlayer)
 		{
-			if (target->HP > 0 && character->MP > 10)
+			if (target->HP > 0)
 			{
 				AttackDone(character);
-				character->MP -= 10;
+				//character->MP -= 10;
 				UE_LOG(LogTemp, Log, TEXT("%s did the thing"), *character->CharacterName);
 			}
 			else if (character->MP <= 10)

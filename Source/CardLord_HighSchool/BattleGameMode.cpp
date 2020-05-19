@@ -30,8 +30,8 @@ void ABattleGameMode::TestCombat()
 	}
 
 	//Find enemis
-	FEnemyData* row = enemyTable->FindRow<FEnemyData>(TEXT("P1"), TEXT("LookupEnemyData"));
-	enemyTable->FindRow<FEnemyData>(TEXT("P1"), TEXT("LookupEnemyData"));
+	FEnemyData* row = enemyTable->FindRow<FEnemyData>((TEXT("%s"),*Enemy1), TEXT("LookupEnemyData"));
+	enemyTable->FindRow<FEnemyData>((TEXT("%s"), *Enemy1), TEXT("LookupEnemyData"));
 
 	if (row == NULL)
 	{
@@ -58,7 +58,7 @@ void ABattleGameMode::TestCombat()
 	/*UDataTable* enemyTable =*/ //Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("DataTable'/Game/DataTable/Enemy.Enemy'")));
 	//Find enemis
 
-	FEnemyData* row1 = enemyTable->FindRow<FEnemyData>(TEXT("P2"), TEXT("LookupEnemyData"));
+	FEnemyData* row1 = enemyTable->FindRow<FEnemyData>((TEXT("%s"), *Enemy2), TEXT("LookupEnemyData"));
 
 	if (row1 == NULL)
 	{
@@ -190,7 +190,7 @@ void ABattleGameMode::Tick(float DeltaTime)
 
 						gameInstance->GroupMembers[i]->MaxXP += gameInstance->GroupMembers[i]->MaxXP;
 					}
-					GetWorld()->ServerTravel(FString("/Game/Maps/Floor_1"));
+					GetWorld()->ServerTravel(LevelPath);
 				}
 
 				UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetActorTickEnabled(true);
