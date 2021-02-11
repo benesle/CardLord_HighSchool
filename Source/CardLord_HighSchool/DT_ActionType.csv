@@ -1,0 +1,7 @@
+,ActionType,AttackName,AttackDisplayName,Description,CostStamina,Damage
+Attack_Hit,Attack,Attack_Hit,Hit,Hit you in the face,15,30
+Attack_Punch,Attack,Attack_Punch,Punch,Punch you in the nose,20,40
+Attack_Kick,Attack,Attack_Kick,Kick,Kick you in the leg,25,60
+Defend,Defend,Defend,Defend,Curls up into a ball,0,0
+Items,Items,Items,Items,Choose items to heal or do damage,0,0
+Flee,Flee,Flee,Flee,Run you fool,0,0
